@@ -1,6 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\OptionController;
+use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TouristController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,17 +22,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('admins', AdminController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('events', EventController::class);
+    Route::resource('places', PlaceController::class);
+    Route::resource('tourists', TouristController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('faq', QuestionController::class);
+    Route::resource('options', OptionController::class);
+
+    Route::get('generate/', [PlaceController::class, 'generator'])->name('generator');
+    Route::post('showQr/', [PlaceController::class, 'showQr'])->name('showQr');
+    Route::get('pdf/{id}', [PlaceController::class, 'generatePDF']);
+    Route::get('event/register/{id}', [EventController::class, 'register']);
+    Route::post('event/send/message/', [EventController::class, 'sendMessage'])->name('sendMessage');
+
 });
 
 require __DIR__.'/auth.php';

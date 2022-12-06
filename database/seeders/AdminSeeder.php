@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class AdminSeeder extends Seeder
 {
@@ -15,10 +16,21 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = Admin::create([
             'name' => 'Wesam',
-            'email' => 'admin@nova.com',
+            'mobile' => '0599999999',
+            'email' => 'admin@admin.com',
+            'user_name' => 'admin',
+            'address' => 'gaza',
             'password' => bcrypt('password'),
+            'image' => 'main.png',
         ]);
+        $role = Role::create(['name' => 'Admin']);
+
+        $permissions = Permission::pluck('id','id')->all();
+
+        $role->syncPermissions($permissions);
+
+        $user->assignRole([$role->id]);
     }
 }

@@ -16,7 +16,6 @@
               content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme"/>
         <meta property="og:url" content="https://keenthemes.com/metronic"/>
         <meta property="og:site_name" content="Keenthemes | Metronic"/>
-
         @include('layouts.css')
 
     </head>

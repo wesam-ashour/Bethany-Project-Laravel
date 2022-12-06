@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\Admin;
+use App\Models\Visit;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +45,10 @@ class LoginRequest extends FormRequest
      */
     public function authenticate()
     {
+        $admin = Admin::where('email',$this->only('email'))->first();
+        $visit = new Visit();
+        $visit->admin_id = $admin->id;
+        $visit->save();
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
