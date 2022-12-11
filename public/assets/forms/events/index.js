@@ -1,7 +1,5 @@
-
 $(function () {
     const table = $('#kt_ecommerce_forms_table'),
-        language = $('#language').val(),
         app_url = $('#app_url').val(),
         filter_class = $(".filter_data");
     let id = 0, core_name = "";
@@ -10,51 +8,23 @@ $(function () {
         get_forms();
         /*Table Actions*/
         table_function();
-        date_picker();
-        repeater();
     });
 
     function table_function() {
         form_status();
     }
 
-    function repeater() {
-        $('#kt_docs_repeater_advanced').repeater({
-            initEmpty: false,
-
-            defaultValues: {
-                'text-input': 'foo'
-            },
-            show: function () {
-                $(this).slideDown();
-                $(this).find('[data-kt-repeater="select2"]').select2();
-                $(this).find('[data-kt-repeater="datepicker"]').flatpickr();
-                new Tagify(this.querySelector('[data-kt-repeater="tagify"]'));
-            },
-            hide: function (deleteElement) {
-                $(this).slideUp(deleteElement);
-            },
-            ready: function () {
-                $('[data-kt-repeater="select2"]').select2();
-                $('[data-kt-repeater="datepicker"]').flatpickr();
-                new Tagify(document.querySelector('[data-kt-repeater="tagify"]'));
-            }
-        });
-        /*document.querySelectorAll('[data-kt-ecommerce-catalog-add-product="product_option"]').forEach((e => {
-            $(e).hasClass("select2-hidden-accessible") || $(e).select2({minimumResultsForSearch: -1})
-        }))*/
-    }
 
     function date_picker() {
         $(".from_date").daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            minYear: 1901,
-            maxYear: parseInt(moment().format("YYYY"), 10)
-        }, function (start, end, label) {
-            /*var years = moment().diff(start, "years");
-            alert("You are " + years + " years old!");*/
-        }
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                maxYear: parseInt(moment().format("YYYY"), 10)
+            }, function (start, end, label) {
+                /*var years = moment().diff(start, "years");
+                alert("You are " + years + " years old!");*/
+            }
         );
     }
 
@@ -74,7 +44,7 @@ $(function () {
                             icon: "success",
                             buttonsStyling: !1,
                             confirmButtonText: "Ok, got it!",
-                            customClass: { confirmButton: "btn fw-bold btn-primary" }
+                            customClass: {confirmButton: "btn fw-bold btn-primary"}
                         });
                         id = "";
                         table.DataTable().ajax.reload();
@@ -84,7 +54,7 @@ $(function () {
                             icon: "error",
                             buttonsStyling: !1,
                             confirmButtonText: "Ok, got it!",
-                            customClass: { confirmButton: "btn fw-bold btn-primary" }
+                            customClass: {confirmButton: "btn fw-bold btn-primary"}
                         });
                         id = "";
                     }
@@ -118,7 +88,7 @@ $(function () {
                                 icon: "success",
                                 buttonsStyling: !1,
                                 confirmButtonText: "Ok, got it!",
-                                customClass: { confirmButton: "btn fw-bold btn-primary" }
+                                customClass: {confirmButton: "btn fw-bold btn-primary"}
                             }).then((function () {
                                 e.row($(n)).remove().draw()
                             })) : "cancel" === t.dismiss && Swal.fire({
@@ -126,7 +96,7 @@ $(function () {
                                 icon: "error",
                                 buttonsStyling: !1,
                                 confirmButtonText: "Ok, got it!",
-                                customClass: { confirmButton: "btn fw-bold btn-primary" }
+                                customClass: {confirmButton: "btn fw-bold btn-primary"}
                             })
                         }))
                     }))
@@ -136,34 +106,39 @@ $(function () {
                 init: function () {
                     (t = document.querySelector("#kt_ecommerce_forms_table")) && ((e = $(t).DataTable({
                         searchable: true,
+                        serverSide: true,
+                        language: {
+                            url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
+                        },
                         ajax: {
-                            "url": base_path + "events",
+                            "url": base_path + language + "/"+ "events",
                             "type": 'GET',
                             /*"data":{core_name:core_name},*/
                         },
                         columns: [
-                        {
-                            data: 'title',
-                            name: 'title'
-                        },
-                        {
-                            data: 'date',
-                            name: 'date'
-                        },
-                        {
-                            data: 'added_by',
-                            name: 'added_by'
-                        },
-                        {
-                            data: 'status',
-                            name: 'status'
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
+                            {
+                                data: 'title',
+                                name: 'title'
+                            },
+                            {
+                                data: 'date',
+                                name: 'date'
+                            },
+                            {
+                                data: 'added_by',
+                                name: 'added_by'
+                            },
+                            {
+                                data: 'status',
+                                name: 'status'
+                            },
+                            {
+                                data: 'action',
+                                name: 'action',
 
-                        },
-                    ]
+                            },
+                        ],
+
                     })).on("draw", (function () {
                         n()
                     })), document.querySelector('[data-kt-ecommerce-forms-filter="search"]').addEventListener("keyup", (function (t) {

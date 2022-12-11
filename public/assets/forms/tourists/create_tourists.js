@@ -15,6 +15,7 @@ $(function () {
     });
 
 
+
     function create_user() {
         "use strict";
         var KTUsersAddUser = function () {
@@ -27,47 +28,8 @@ $(function () {
                             fields: {
                                 title: {
                                     validators: {
-                                        notEmpty: {message: "The title is required"}, stringLength: {
-                                            min: 3,
-                                            max: 255,
-                                            message: 'The title must be more than 3 and less than 255 characters long'
-                                        }
                                     }
-                                },
-                                location: {
-                                    validators: {
-                                        notEmpty: {message: "The address is required"}, stringLength: {
-                                            min: 3,
-                                            max: 255,
-                                            message: 'The address must be more than 3 and less than 255 characters long'
-                                        }
-                                    }
-                                },
-                                description: {
-                                    validators: {
-                                        notEmpty: {message: "The description is required"}, stringLength: {
-                                            min: 3,
-                                            max: 255,
-                                            message: 'The description must be more than 3 and less than 255 characters long'
-                                        }
-                                    }
-                                },
-                                // image: {
-                                //     validators: {
-                                //         notEmpty: {message: "Please select an image"},
-                                //         file: {
-                                //             extension: 'jpg,jpeg,png',
-                                //             type: 'image/jpeg,image/png',
-                                //             message: 'The selected file is not valid'
-                                //         },
-                                //     }
-                                // },
-                                lat: {
-                                    validators: {
-                                        notEmpty: {message: "Please refresh page and accept permission to get current location"}
-                                    }
-                                },
-                                uniqid: {validators: {notEmpty: {message: "Please click generate code"}}},
+                                }
                             },
                             plugins: {
                                 trigger: new FormValidation.plugins.Trigger,
@@ -93,7 +55,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        "url": base_path + "tourist",
+                                        "url": base_path + language  + "/" + "tourists",
                                         data: formData,
                                         processData: false,  // tell jQuery not to process the data
                                         contentType: false,
@@ -101,10 +63,10 @@ $(function () {
                                             if ($.isEmptyObject(response.error)) {
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {
                                                     i.removeAttribute("data-kt-indicator"), i.disabled = !1, Swal.fire({
-                                                        text: "Form has been successfully submitted!",
+                                                        text: language === "en" ? "Form has been successfully submitted!" : "تم تقديم النموذج بنجاح!",
                                                         icon: "success",
                                                         buttonsStyling: !1,
-                                                        confirmButtonText: "Ok, got it!",
+                                                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                         customClass: {confirmButton: "btn btn-primary"}
                                                     }).then((function (t) {
                                                         t.isConfirmed && n.hide()
@@ -115,10 +77,10 @@ $(function () {
                                                 $('#kt_ecommerce_forms_table').DataTable().ajax.reload();
                                             } else {
                                                 Swal.fire({
-                                                    text: "Sorry, looks like there are some errors detected, please try again.",
+                                                    text: language === "en" ? "Sorry, looks like there are some errors detected, please try again." : "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
                                                     icon: "error",
                                                     buttonsStyling: !1,
-                                                    confirmButtonText: "Ok, got it!",
+                                                    confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
                                                 $(".errors").html("");
@@ -127,46 +89,46 @@ $(function () {
                                         }
                                     })
                                     : Swal.fire({
-                                        text: "Sorry, looks like there are some errors detected, please try again.",
+                                        text: language === "en" ? "Sorry, looks like there are some errors detected, please try again." : "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
                                         icon: "error",
                                         buttonsStyling: !1,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                         customClass: {confirmButton: "btn btn-primary"}
                                     })
                             }))
                         })), t.querySelector('[data-kt-users-modal-action="cancel"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
-                                text: "Are you sure you would like to cancel?",
+                                text: language === "en" ? "Are you sure you would like to cancel?" : "هل أنت متأكد أنك تريد الإلغاء؟",
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
-                                confirmButtonText: "Yes, cancel it!",
-                                cancelButtonText: "No, return",
+                                confirmButtonText: language === "en" ? "Yes, cancel it!" : "نعم ، قم بإلغائها!",
+                                cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
-                                    text: "Your form has not been cancelled!.",
+                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id').remove(),$( ".containerss" ).append( "<div id='image_div'></div>" ), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                    text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                     customClass: {confirmButton: "btn btn-primary"}
                                 })
                             }))
                         })), t.querySelector('[data-kt-users-modal-action="close"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
-                                text: "Are you sure you would like to cancel?",
+                                text: language === "en" ? "Are you sure you would like to cancel?" : "هل أنت متأكد أنك تريد الإلغاء؟",
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
-                                confirmButtonText: "Yes, cancel it!",
-                                cancelButtonText: "No, return",
+                                confirmButtonText: language === "en" ? "Yes, cancel it!" : "نعم ، قم بإلغائها!",
+                                cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
-                                    text: "Your form has not been cancelled!.",
+                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id').remove(),$( ".containerss" ).append( "<div id='image_div'></div>") , n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                    text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                     customClass: {confirmButton: "btn btn-primary"}
                                 })
                             }))

@@ -27,6 +27,7 @@ class RoleController extends Controller
             $data = Role::query()->latest();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($data) {
+                    if ($data->id !== 1){
                     $action = '<div class="text-center">
                             <div class="btn-group dropstart text-center">
                                   <button type="button" class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,20 +37,22 @@ class RoleController extends Controller
 									<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                       fill="black"/>
 									</svg>
-									</span>Actions
+									</span>'.trans("admin.Actions").'
                                   </button>
                                   <div class="dropdown-menu">';
 
                     $action = $action . '<div  class="menu-item px-3">
-                                        <a href="'. route('roles.edit', $data->id ) .'" class="menu-link px-3">edit</a>
+                                        <a href="'. route('roles.edit', $data->id ) .'" class="menu-link px-3">'.trans("admin.edit").'</a>
                                     </div>';
                     $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
-                                           class="menu-link px-3">Delete</a>
+                                           class="menu-link px-3">'.trans("admin.delete").'</a>
                                     </div>';
+
 
                     $action = $action . '</div></div></div>';
                     return $action;
+                    }
                 })
                 ->rawColumns(['action'])
                 ->escapeColumns([])
@@ -70,7 +73,10 @@ class RoleController extends Controller
                 'name' => 'required|unique:roles,name',
                 'permission' => 'required',
             ], [
-//                'name.required' => trans("str.Name is required"),
+                'name.required' => trans("role.required"),
+                'name.max' => trans("role.max"),
+                'name.unique' => trans("role.unique"),
+                'permission.required' => trans("role.required"),
             ]);
             if ($validator->passes()) {
 
@@ -113,18 +119,24 @@ class RoleController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        if ($request->ajax()) {
+            $validator   = Validator::make($request->all(), [
             'name' => 'required',
             'permission' => 'required',
+        ],[
+            'name.required' => trans("role.required"),
+            'permission.required' => trans("role.roleReq"),
         ]);
+            if ($validator->passes()) {
+                $role = Role::find($id);
+                $role->name = $request->input('name');
+                $role->save();
 
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
-
-        $role->syncPermissions($request->input('permission'));
-        toastr()->success('Role updated successfully!');
-        return redirect()->route('roles.index');
+                $role->syncPermissions($request->input('permission'));
+                return response()->json(['success' => $role]);
+            }
+        }
+        return response()->json(['error' => $validator->errors()->toArray()]);
     }
     public function destroy(Request $request, $id)
     {

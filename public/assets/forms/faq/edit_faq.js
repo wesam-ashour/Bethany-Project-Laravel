@@ -20,20 +20,6 @@ $(function () {
                             fields: {
                                 question: {
                                     validators: {
-                                        notEmpty: {message: "The question is required"}, stringLength: {
-                                            min: 5,
-                                            max: 255,
-                                            message: 'The title must be more than 5 and less than 255 characters long'
-                                        }
-                                    }
-                                },
-                                answer: {
-                                    validators: {
-                                        notEmpty: {message: "The answer is required"}, stringLength: {
-                                            min: 5,
-                                            max: 255,
-                                            message: 'The address must be more than 5 and less than 255 characters long'
-                                        }
                                     }
                                 },
                             },
@@ -48,31 +34,32 @@ $(function () {
                         });
                         t.querySelector('[data-kt-permissions-modal-action="close"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
-                                text: "Are you sure you would like to close?",
+                                text: language === "en" ? "Are you sure you would like to close?" : "هل أنت متأكد أنك تريد الإغلاق؟",
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
-                                confirmButtonText: "Yes, close it!",
-                                cancelButtonText: "No, return",
+                                confirmButtonText: language === "en" ? "Yes, close it!" : "نعم ، أغلقه!",
+                                cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
+                                $( ".errors" ).empty(),
                                 t.value && n.hide()
                             }))
                         })), t.querySelector('[data-kt-permissions-modal-action="cancel"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
-                                text: "Are you sure you would like to cancel?",
+                                text: language === "en" ? "Are you sure you would like to cancel?" : "هل أنت متأكد أنك تريد الإلغاء؟",
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
-                                confirmButtonText: "Yes, cancel it!",
-                                cancelButtonText: "No, return",
+                                confirmButtonText: language === "en" ? "Yes, cancel it!" : "نعم ، قم بإلغائها!",
+                                cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
-                                    text: "Your form has not been cancelled!.",
+                                t.value ? (e.reset(),$( ".errors" ).empty(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                    text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                     customClass: {confirmButton: "btn btn-primary"}
                                 })
                             }))
@@ -80,6 +67,7 @@ $(function () {
                         const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
                         i.addEventListener("click", (function (t) {
                             t.preventDefault(), o && o.validate().then((function (t) {
+                                $( ".errors" ).empty();
                                 var formDatas = new FormData(document.getElementById("kt_modal_update_event_form"));
                                 formDatas.append('_method', 'put');
                                 console.log("validated!"), "Valid" == t ?
@@ -88,7 +76,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "post",
-                                        url: base_path + "faq/" + $("#question_id").val(),
+                                        url: base_path + language +"/faq/" + $("#question_id").val(),
                                         data: formDatas,
                                         processData: false,  // tell jQuery not to process the data
                                         contentType: false,
@@ -98,12 +86,13 @@ $(function () {
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {
                                                     i.removeAttribute("data-kt-indicator"), i.disabled = !1,
                                                         Swal.fire({
-                                                            text: "Form has been successfully submitted!",
+                                                            text: language === "en" ? "Form has been successfully submitted!" : "تم تقديم النموذج بنجاح!",
                                                             icon: "success",
                                                             buttonsStyling: !1,
-                                                            confirmButtonText: "Ok, got it!",
+                                                            confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                             customClass: {confirmButton: "btn btn-primary"}
                                                         }).then((function (t) {
+                                                            $( ".errors" ).empty()
                                                             t.isConfirmed && n.hide()
                                                         }))
                                                 }), 2e3));
@@ -121,10 +110,10 @@ $(function () {
                                         }
                                     })
                                     : Swal.fire({
-                                        text: "Sorry, looks like there are some errors detected, please try again.",
+                                        text: language === "en" ? "Sorry, looks like there are some errors detected, please try again." : "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
                                         icon: "error",
                                         buttonsStyling: !1,
-                                        confirmButtonText: "Ok, got it!",
+                                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                         customClass: {confirmButton: "btn btn-primary"}
                                     })
                             }))

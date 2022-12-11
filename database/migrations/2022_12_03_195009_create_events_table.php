@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
+            $table->longText('title');
             $table->longText('description');
             $table->date('date');
             $table->time('time');
             $table->string('lat');
             $table->string('long');
-            $table->string('address');
+            $table->longText('address');
             $table->foreignId('added_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->tinyInteger('updated_by')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1:ACTIVE | 0:INACTIVE');

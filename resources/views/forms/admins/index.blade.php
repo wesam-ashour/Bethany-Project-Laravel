@@ -1,7 +1,5 @@
 @extends('layouts.master')
 @section('content')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -14,12 +12,12 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ __('admin.Dashboard') }}
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class="text-muted fs-7 fw-bold my-1 ms-1">Admins</small>
+                        <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ __('admin.Admins') }}</small>
                         <!--end::Description--></h1>
                     <!--end::Title-->
                 </div>
@@ -55,7 +53,7 @@
 												</span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-ecommerce-forms-filter="search"
-                                       class="form-control form-control-solid w-250px ps-14" placeholder="Search admins"/>
+                                       class="form-control form-control-solid w-250px ps-14" placeholder="{{__("admin.Search")}}"/>
                             </div>
                             <!--end::Search-->
                         </div>
@@ -78,7 +76,7 @@
                                                                                           fill="black"/>
                             													</svg>
                             												</span>
-                                    <!--end::Svg Icon-->Add Admin
+                                    <!--end::Svg Icon-->{{ __('admin.Add') }}
                                 </button>
                                 <!--end::Add user-->
                             </div>
@@ -106,7 +104,7 @@
                                         <!--begin::Modal header-->
                                         <div class="modal-header" id="kt_modal_add_user_header">
                                             <!--begin::Modal title-->
-                                            <h2 class="fw-bolder">Add Admin</h2>
+                                            <h2 class="fw-bolder">{{ __('admin.Add') }}</h2>
                                             <!--end::Modal title-->
                                             <!--begin::Close-->
                                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -143,125 +141,132 @@
                                                      data-kt-scroll-offset="300px">
                                                     <!--begin::Input group-->
 
+
                                                     <div class="row">
-                                                        <div class="fv-row mb-7">
+                                                        <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Name</span>
+                                                                <span class="required">{{ __('admin.Name') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="name is required"></i>
+                                                                   data-bs-content="{{ __('admin.contentName') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
                                                             <input id="name"  class="form-control form-control-solid"
-                                                                   placeholder="Enter a name" name="name"/>
+                                                                   placeholder="{{ __('admin.placeholderName') }}" name="name"/>
                                                             <!--end::Input-->
                                                             <strong id="name_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
-
-                                                        <div class="fv-row mb-7">
+                                                        <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Mobile</span>
+                                                                <span class="required">{{ __('admin.Mobile') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="mobile is required"></i>
+                                                                   data-bs-content="{{ __('admin.contentMobile') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
                                                             <input id="mobile" class="form-control form-control-solid"
-                                                                   placeholder="Enter a mobile" name="mobile"/>
+                                                                   placeholder="{{ __('admin.placeholderMobile') }}" name="mobile"/>
                                                             <!--end::Input-->
                                                             <strong id="mobile_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="fv-row mb-7">
+                                                    <div class="row">
+                                                        <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Email</span>
+                                                                <span class="required">{{ __('admin.Email') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="email is required"></i>
+                                                                   data-bs-content="{{ __('admin.contentEmail') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
                                                             <input id="email" class="form-control form-control-solid"
-                                                                   placeholder="Enter a email" name="email"/>
+                                                                   placeholder="{{ __('admin.placeholderEmail') }}" name="email"/>
                                                             <!--end::Input-->
                                                             <strong id="email_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
-                                                        <div class="fv-row mb-7">
+                                                        <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Username</span>
+                                                                <span class="required">{{ __('admin.Username') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="username is required"></i>
+                                                                   data-bs-content="{{ __('admin.contentUsername') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
                                                             <input id="user_name" class="form-control form-control-solid"
-                                                                   placeholder="Enter a username" name="user_name"/>
+                                                                   placeholder="{{ __('admin.placeholderUsername') }}" name="user_name"/>
                                                             <!--end::Input-->
                                                             <strong id="user_name_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="fv-row mb-7">
+                                                    <div class="row">
+                                                        <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Address</span>
+                                                                <span class="required">{{ __('admin.Address') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="address is required"></i>
+                                                                   data-bs-content="{{ __('admin.contentAddress') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
                                                             <input id="address" class="form-control form-control-solid"
-                                                                   placeholder="Enter a address" name="address"/>
+                                                                   placeholder="{{ __('admin.placeholderAddress') }}" name="address"/>
                                                             <!--end::Input-->
                                                             <strong id="address_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
-                                                        <div class="fv-row mb-7">
+                                                        <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Password</span>
+                                                                <span class="required">{{ __('admin.Password') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="password is required"></i>
+                                                                   data-bs-content="{{ __('admin.contentPassword') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input id="password" class="form-control form-control-solid"
-                                                                   placeholder="Enter a password" name="password"/>
+                                                            <input id="password" class="form-control form-control-solid" type="password"
+                                                                   placeholder="{{ __('admin.placeholderPassword') }}" name="password"/>
                                                             <!--end::Input-->
                                                             <strong id="password_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
+                                                    </div>
 
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Roles</span>
+                                                                <span class="required">{{ __('admin.Roles') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="roles is required"></i>
+                                                                   data-bs-content="{{ __('admin.contentRoles') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <select class="form-select" name="roles[]" id="roles" multiple>
+
+                                                            <select  class="form-select form-select-solid"   data-kt-select2="true" name="roles[]" id="roles" multiple @if(\Illuminate\Support\Facades\App::getLocale() == "ar") dir="rtl" @endif>
                                                                 @foreach($roles as $value)
                                                                     <option value="{{$value}}">{{$value}}</option>
                                                                 @endforeach
                                                             </select>
+
                                                             <!--end::Input-->
                                                             <strong id="roles_error" class="errors text-danger"
                                                                     role="alert"></strong>
@@ -270,18 +275,17 @@
 
 
 
-                                                    </div>
                                                 </div>
                                                 <!--end::Scroll-->
                                                 <!--begin::Actions-->
                                                 <div class="text-center pt-15">
                                                     <button type="reset" class="btn btn-light me-3"
-                                                            data-kt-users-modal-action="cancel">Discard
+                                                            data-kt-users-modal-action="cancel">{{ __('admin.Discard') }}
                                                     </button>
                                                     <button type="submit" class="btn btn-primary"
                                                             data-kt-users-modal-action="submit">
-                                                        <span class="indicator-label">Submit</span>
-                                                        <span class="indicator-progress">Please wait...
+                                                        <span class="indicator-label">{{ __('admin.Submit') }}</span>
+                                                        <span class="indicator-progress">{{ __('admin.Please') }}
 																		<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                     </button>
                                                 </div>
@@ -294,67 +298,6 @@
                                     <!--end::Modal content-->
                                 </div>
                                 <!--end::Modal dialog-->
-                            </div>
-
-                            <div class="modal fade" id="kt_modal_edit_event" tabindex="-1" aria-hidden="true">
-                                <!--begin::Modal dialog-->
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <!--begin::Modal content-->
-                                    <div class="modal-content">
-                                        <!--begin::Modal header-->
-                                        <div class="modal-header" id="kt_modal_edit_event_header">
-                                            <!--begin::Modal title-->
-                                            <h2 class="fw-bolder">Edit admin info</h2>
-                                            <!--end::Modal title-->
-                                            <!--begin::Close-->
-                                            <div class="btn btn-icon btn-sm btn-active-icon-primary"
-                                                 data-kt-permissions-modal-action="close">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                                                <span class="svg-icon svg-icon-1">
-																	<svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                         height="24" viewBox="0 0 24 24" fill="none">
-																		<rect opacity="0.5" x="6" y="17.3137" width="16"
-                                                                              height="2" rx="1"
-                                                                              transform="rotate(-45 6 17.3137)"
-                                                                              fill="black"/>
-																		<rect x="7.41422" y="6" width="16" height="2"
-                                                                              rx="1" transform="rotate(45 7.41422 6)"
-                                                                              fill="black"/>
-																	</svg>
-																</span>
-                                                <!--end::Svg Icon-->
-                                            </div>
-                                            <!--end::Close-->
-                                        </div>
-                                        <!--end::Modal header-->
-
-                                    </div>
-                                    <!--end::Modal content-->
-                                </div>
-                                <!--end::Modal dialog-->
-                            </div>
-
-
-                            <div class="modal fade" id="ajaxModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeSm"
-                                 aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">QrCode</h5>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div data-scroll="true" data-height="300">
-
-                                                <div class="center showQRCode">
-                                                </div>
-
-                                                <div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             <!--end::Modal - Add user-->
@@ -370,14 +313,14 @@
                             <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                <th class="text">Name</th>
-                                <th class="text">Mobile</th>
-                                <th class="text">Email</th>
-                                <th class="text">Username</th>
-                                <th class="text">Roles</th>
-                                <th class="text">Status</th>
-                                <th class="text">Added Date</th>
-                                <th class="text-center">Actions</th>
+                                <th class="text">{{ __('admin.Name') }}</th>
+                                <th class="text">{{ __('admin.Mobile') }}</th>
+                                <th class="text">{{ __('admin.Email') }}</th>
+                                <th class="text">{{ __('admin.Username') }}</th>
+                                <th class="text">{{ __('admin.Roles') }}</th>
+                                <th class="text">{{ __('admin.Status') }}</th>
+                                <th class="text">{{ __('admin.Added') }}</th>
+                                <th class="text-center">{{ __('admin.Actions') }}</th>
                             </tr>
                             <!--end::Table row-->
                             </thead>
@@ -396,8 +339,7 @@
         </div>
         <!--end::Post-->
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+    <script>const language = $('#language').val();</script>
     <script src="{{ asset('assets/forms/admins/index.js') }}" defer></script>
     <script src="{{ asset('assets/forms/admins/admins.js') }}" defer></script>
     <script src="{{ asset('assets/forms/admins/create_admins.js') }}" defer></script>

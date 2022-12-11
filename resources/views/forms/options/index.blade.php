@@ -11,12 +11,12 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ __('options.Dashboard') }}
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class="text-muted fs-7 fw-bold my-1 ms-1">Settings</small>
+                        <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ __('options.Settings') }}</small>
                         <!--end::Description--></h1>
                     <!--end::Title-->
                 </div>
@@ -42,7 +42,7 @@
                         <div class="card-header border-0">
                             <!--begin::Card title-->
                             <div class="card-title">
-                                <h2>Settings</h2>
+                                <h2>{{ __('options.Settings') }}</h2>
                             </div>
                             <!--end::Card title-->
                         </div>
@@ -59,15 +59,11 @@
                                             <div class="col-md-6 mb-7">
                                                 <!--begin::Label-->
                                                 <label
-                                                    class="required fw-bold fs-6 mb-2">Main Image</label>
+                                                    class="required fw-bold fs-6 mb-2">{{ __('options.Image') }}</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input type="file" class="form-control form-control-solid"
                                                        id="fileupload" name="fileupload">
-
-                                                <strong id="foundation_error" class="errors text-danger"
-                                                        role="alert">
-                                                </strong>
 
                                                 <!--end::Input-->
                                             </div>
@@ -77,7 +73,7 @@
                                                 <!--begin::Input-->
                                                 <br>
                                                 <div>
-                                                    <img style="max-width: 154%;height: 80px;"  src="{{ asset('images/main/' . $options->image) }}"/>
+                                                    <img style="max-width: 100%;"  src="{{ asset('images/main/' . $options->image) }}"/>
                                                 </div>
 
                                                 <!--end::Input-->
@@ -91,7 +87,7 @@
                                             <div class="col-md-12 mb-7">
                                                 <!--begin::Label-->
                                                 <label
-                                                    class="required fw-bold fs-6 mb-2">Foundation</label>
+                                                    class="required fw-bold fs-6 mb-2">{{ __('options.Foundation') }}</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <textarea id="foundation" type="text" name="foundation"
@@ -107,7 +103,7 @@
                                         <div class="row">
                                             <div class="col-md-12 mb-7">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">History</label>
+                                                <label class="required fw-bold fs-6 mb-2">{{ __('options.History') }}</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <textarea id="history" type="text" name="history"
@@ -130,8 +126,8 @@
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <button id="kt_modal_update_user_submit" class="btn btn-primary">
-                                    <span class="indicator-label">Save Changes</span>
-                                    <span class="indicator-progress">Please wait...
+                                    <span class="indicator-label">{{ __('options.Save') }}</span>
+                                    <span class="indicator-progress">{{ __('options.Please') }}
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                 </button>
                             </div>
@@ -143,34 +139,10 @@
                         <!--end::Container-->
                     </div>
                     <!--end::Post-->
-                    <div class="modal fade" tabindex="-1" id="kt_modal_scrollable_2">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Modal title</h5>
-
-                                    <!--begin::Close-->
-                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                                         data-bs-dismiss="modal" aria-label="Close">
-                                        <span class="svg-icon svg-icon-2x"></span>
-                                    </div>
-                                    <!--end::Close-->
-                                </div>
-
-                                <div class="modal-body">
-                                    <p>Long modal body text goes here.</p>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!--end::Content-->
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script>const language = $('#language').val();</script>
                 <script src="{{ asset('assets/forms/settings/edit_settings.js') }}" defer></script>
 
 @endsection

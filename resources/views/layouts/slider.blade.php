@@ -33,7 +33,7 @@
 											</span>
                                             <!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Dashboards</span>
+										<span class="menu-title">{{ __('home.Dashboard') }}</span>
 										<span class="menu-arrow"></span>
 									</span>
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -42,14 +42,14 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">Home</span>
+                            <span class="menu-title">{{ __('home.Home') }}</span>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="menu-item">
                 <div class="menu-content pt-8 pb-2">
-                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Forms</span>
+                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ __('home.Forms') }}</span>
                 </div>
             </div>
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{str_contains($url,"admins") | str_contains($url,"roles") ? "hover show":""}}">
@@ -68,7 +68,7 @@
 											</span>
                                             <!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Admin Preferences</span>
+										<span class="menu-title">{{ __('home.Admin') }}</span>
 										<span class="menu-arrow"></span>
 									</span>
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -77,7 +77,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">Admins</span>
+                            <span class="menu-title">{{ __('home.Admins') }}</span>
                         </a>
                     </div>
                     <div class="menu-item">
@@ -85,7 +85,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">Roles</span>
+                            <span class="menu-title">{{ __('home.Roles') }}</span>
                         </a>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
 											</span>
                                             <!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Pages</span>
+										<span class="menu-title">{{ __('home.Pages') }}</span>
 										<span class="menu-arrow"></span>
 									</span>
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -120,7 +120,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">Users</span>
+                            <span class="menu-title">{{ __('home.Users') }}</span>
                         </a>
                     </div>
                     <div class="menu-item">
@@ -128,7 +128,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">Events</span>
+                            <span class="menu-title">{{ __('home.Events') }}</span>
                         </a>
                     </div>
                     <div class="menu-item">
@@ -136,7 +136,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">Places</span>
+                            <span class="menu-title">{{ __('home.Places') }}</span>
                         </a>
                     </div>
                     <div class="menu-item">
@@ -144,7 +144,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">Tourist</span>
+                            <span class="menu-title">{{ __('home.Tourist') }}</span>
                         </a>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
 											</span>
                                             <!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Options</span>
+										<span class="menu-title">{{ __('home.Options') }}</span>
 										<span class="menu-arrow"></span>
 									</span>
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -176,13 +176,13 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">FAQ</span>
+                            <span class="menu-title">{{ __('home.faq') }}</span>
                         </a>
                         <a class="menu-link {{str_contains($url,"options") ? "active":""}}" href="{{route('options.index')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">Settings</span>
+                            <span class="menu-title">{{ __('home.Settings') }}</span>
                         </a>
                     </div>
                 </div>

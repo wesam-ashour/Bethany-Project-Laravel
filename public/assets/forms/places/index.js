@@ -1,7 +1,6 @@
 
 $(function () {
     const table = $('#kt_ecommerce_forms_table'),
-        language = $('#language').val(),
         app_url = $('#app_url').val(),
         filter_class = $(".filter_data");
     let id = 0, core_name = "";
@@ -10,8 +9,6 @@ $(function () {
         get_forms();
         /*Table Actions*/
         table_function();
-        date_picker();
-        repeater();
     });
 
     function table_function() {
@@ -136,8 +133,13 @@ $(function () {
                 init: function () {
                     (t = document.querySelector("#kt_ecommerce_forms_table")) && ((e = $(t).DataTable({
                         searchable: true,
+                        serverSide: true,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+
                         ajax: {
-                            "url": base_path + "places",
+                            "url": base_path + language + "/places",
                             "type": 'GET',
                             /*"data":{core_name:core_name},*/
                         },
@@ -168,7 +170,10 @@ $(function () {
                                 name: 'action',
 
                             },
-                    ]
+                    ],
+                        language: {
+                            url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
+                        },
                     })).on("draw", (function () {
                         n()
                     })), document.querySelector('[data-kt-ecommerce-forms-filter="search"]').addEventListener("keyup", (function (t) {

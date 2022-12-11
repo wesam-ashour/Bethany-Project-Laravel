@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -14,12 +13,12 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ __('role.Dashboard') }}
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class="text-muted fs-7 fw-bold my-1 ms-1">Roles</small>
+                        <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ __('role.Roles') }}</small>
                         <!--end::Description--></h1>
                     <!--end::Title-->
                 </div>
@@ -55,7 +54,7 @@
 												</span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-ecommerce-forms-filter="search"
-                                       class="form-control form-control-solid w-250px ps-14" placeholder="Search role"/>
+                                       class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('role.Search') }}"/>
                             </div>
                             <!--end::Search-->
                         </div>
@@ -78,7 +77,7 @@
                                                                                           fill="black"/>
                             													</svg>
                             												</span>
-                                    <!--end::Svg Icon-->Add Role
+                                    <!--end::Svg Icon-->{{ __('role.Add') }}
                                 </button>
                                 <!--end::Add user-->
                             </div>
@@ -106,7 +105,7 @@
                                         <!--begin::Modal header-->
                                         <div class="modal-header" id="kt_modal_add_user_header">
                                             <!--begin::Modal title-->
-                                            <h2 class="fw-bolder">Add Role</h2>
+                                            <h2 class="fw-bolder">{{ __('role.Add') }}</h2>
                                             <!--end::Modal title-->
                                             <!--begin::Close-->
                                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -147,15 +146,15 @@
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Name</span>
+                                                                <span class="required">{{ __('role.Name') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="Name is required"></i>
+                                                                   data-bs-content="{{ __('role.contentName') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
                                                             <input id="name"  class="form-control form-control-solid"
-                                                                   placeholder="Enter a name" name="name"/>
+                                                                   placeholder="{{ __('role.placeholderName') }}" name="name"/>
                                                             <!--end::Input-->
                                                             <strong id="name_error" class="errors text-danger"
                                                                     role="alert"></strong>
@@ -165,20 +164,20 @@
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Permissions</span>
+                                                                <span class="required">{{ __('role.Permissions') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="Permissions is required"></i>
+                                                                   data-bs-content="{{ __('role.contentPermissions') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <select class="form-select" name="permission[]" id="permission" multiple>
+                                                            <select  class="form-select form-select-solid" name="permission[]"   data-kt-select2="true" id="permission" multiple @if(\Illuminate\Support\Facades\App::getLocale() == "ar") dir="rtl" @endif>
                                                                 @foreach($permission as $value)
-                                                                <option value="{{$value->id}}">{{$value->name}}</option>
+                                                                    <option value="{{$value->id}}">{{$value->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                             <!--end::Input-->
-                                                            <strong id="name_error" class="errors text-danger"
+                                                            <strong id="permission_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -188,12 +187,12 @@
                                                 <!--begin::Actions-->
                                                 <div class="text-center pt-15">
                                                     <button type="reset" class="btn btn-light me-3"
-                                                            data-kt-users-modal-action="cancel">Discard
+                                                            data-kt-users-modal-action="cancel">{{ __('role.Discard') }}
                                                     </button>
                                                     <button type="submit" class="btn btn-primary"
                                                             data-kt-users-modal-action="submit">
-                                                        <span class="indicator-label">Submit</span>
-                                                        <span class="indicator-progress">Please wait...
+                                                        <span class="indicator-label">{{ __('role.Submit') }}</span>
+                                                        <span class="indicator-progress">{{ __('role.Please') }}
 																		<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                     </button>
                                                 </div>
@@ -222,8 +221,8 @@
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                 <th class="text">ID</th>
-                                <th class="text">Name</th>
-                                <th class="text-center">Actions</th>
+                                <th class="text">{{ __('role.Name') }}</th>
+                                <th class="text-center">{{ __('role.Actions') }}</th>
                             </tr>
                             <!--end::Table row-->
                             </thead>
@@ -243,6 +242,7 @@
         <!--end::Post-->
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>const language = $('#language').val();</script>
 
     <script src="{{ asset('assets/forms/roles/index.js') }}" defer></script>
     <script src="{{ asset('assets/forms/roles/roles.js') }}" defer></script>

@@ -11,12 +11,12 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ __('admin.Dashboard') }}
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class="text-muted fs-7 fw-bold my-1 ms-1">Admins - {{$user->name}}</small>
+                        <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ __('admin.Admins') }} - {{$user->name}}</small>
                         <!--end::Description--></h1>
                     <!--end::Title-->
                 </div>
@@ -43,7 +43,7 @@
                             <div class="card-header">
                                 <!--begin::Card title-->
                                 <div class="card-title">
-                                    <h2>Admin Image</h2>
+                                    <h2>{{ __('admin.Image') }}</h2>
                                 </div>
                                 <!--end::Card title-->
                             </div>
@@ -95,7 +95,7 @@
                                         </div>
                                         <!--end::Image input-->
                                         <!--begin::Hint-->
-                                        <div class="text-muted fs-7">Allowed file types: png, jpg, jpeg.</div>
+                                        <div class="text-muted fs-7">{{ __('admin.Allowed') }} </div>
                                         <!--end::Hint-->
                                     </div>
 
@@ -127,16 +127,16 @@
                                     <div id="kt_user_view_details" class="collapse show">
                                         <div class="pb-5 fs-6">
                                             <!--begin::Details item-->
-                                            <div class="fw-bolder mt-5">Account ID</div>
+                                            <div class="fw-bolder mt-5">{{ __('admin.Account') }}</div>
                                             <div class="text-gray-600">ID-{{$user->id}}</div>
                                             <!--begin::Details item-->
                                             <!--begin::Details item-->
-                                            <div class="fw-bolder mt-5">Email</div>
+                                            <div class="fw-bolder mt-5">{{ __('admin.Email') }}</div>
                                             <div class="text-gray-600">
                                                 <a href="#"
                                                    class="text-gray-600 text-hover-primary">{{$user->email}}</a>
                                             </div>
-                                            <div class="fw-bolder mt-5">Mobile</div>
+                                            <div class="fw-bolder mt-5">{{ __('admin.Mobile') }}</div>
                                             <div class="text-gray-600">
                                                 <a href="#"
                                                    class="text-gray-600 text-hover-primary">{{$user->mobile}}</a>
@@ -160,7 +160,7 @@
                             <div class="card-header border-0">
                                 <!--begin::Card title-->
                                 <div class="card-title">
-                                    <h2>Profile</h2>
+                                    <h2>{{ __('admin.Profile') }}</h2>
                                 </div>
                                 <!--end::Card title-->
                             </div>
@@ -180,12 +180,12 @@
                                                 <div class="col-md-6 mb-7">
                                                     <!--begin::Label-->
                                                     <label
-                                                        class="required fw-bold fs-6 mb-2">Full Name</label>
+                                                        class="required fw-bold fs-6 mb-2">{{ __('admin.Name') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <input id="name" type="text" name="name"
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
-                                                           placeholder="Full name" value="{{$user->name}}"/>
+                                                           placeholder="{{ __('admin.placeholderName') }}" value="{{$user->name}}"/>
                                                     <strong id="name_error" class="errors text-danger"
                                                             role="alert">
                                                     </strong>
@@ -195,12 +195,12 @@
                                                 <!--begin::Input group-->
                                                 <div class="col-md-6 mb-7">
                                                     <!--begin::Label-->
-                                                    <label class="required fw-bold fs-6 mb-2">Email</label>
+                                                    <label class="required fw-bold fs-6 mb-2">{{ __('admin.Email') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <input id="email" type="email" name="email"
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
-                                                           placeholder="example@domain.com" value="{{$user->email}}"/>
+                                                           placeholder="{{ __('admin.contentEmail') }}" value="{{$user->email}}"/>
                                                     <strong id="email_error" class="errors text-danger"
                                                             role="alert">
                                                     </strong>
@@ -209,12 +209,12 @@
                                                 <div class="col-md-6 mb-7">
                                                     <!--begin::Label-->
                                                     <label
-                                                        class="required fw-bold fs-6 mb-2">Username</label>
+                                                        class="required fw-bold fs-6 mb-2">{{ __('admin.Username') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <input id="user_name" type="text" name="user_name"
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
-                                                           placeholder="example@domain.com"
+                                                           placeholder="{{ __('admin.contentUsername') }}"
                                                            value="{{$user->user_name}}"/>
                                                     <strong id="user_name_error" class="errors text-danger"
                                                             role="alert">
@@ -225,12 +225,12 @@
                                                 <!--begin::Input group-->
                                                 <div class="col-md-6 mb-7">
                                                     <!--begin::Label-->
-                                                    <label class="required fw-bold fs-6 mb-2">Mobile</label>
+                                                    <label class="required fw-bold fs-6 mb-2">{{ __('admin.Mobile') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input id="mobile" type="tel" name="mobile"
+                                                    <input id="mobile" name="mobile"
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
-                                                           placeholder="97846123"
+                                                           placeholder="{{ __('admin.placeholderMobile') }}"
                                                            value="{{$user->mobile}}"/>
                                                     <strong id="mobile_error" class="errors text-danger"
                                                             role="alert">
@@ -240,28 +240,51 @@
 
                                                 <div class="col-md-6 mb-7">
                                                     <!--begin::Label-->
-                                                    <label class="required fw-bold fs-6 mb-2">Address</label>
+                                                    <label class="required fw-bold fs-6 mb-2">{{ __('admin.Address') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <input id="address" type="text" name="address"
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
-                                                           placeholder="97846123"
+                                                           placeholder="{{ __('admin.placeholderAddress') }}"
                                                            value="{{$user->address}}"/>
                                                     <strong id="address_error" class="errors text-danger"
                                                             role="alert">
                                                     </strong>
                                                     <!--end::Input-->
                                                 </div>
+                                                @if($user->id !== 1)
+                                                <div class="col-md-6 mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-bold fs-6 mb-2">Status</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <select class="form-select form-select-solid" name="status" id="status" data-placeholder="{{ __('event.content_Status_data') }}">
+                                                        @foreach(\App\Models\Event::Status as $i)
+                                                            <option value="{{$i}}" @if($user->status == $i) selected @endif>
+                                                                @if($i == 1)
+                                                                    {{ __('event.Active') }}
+                                                                @else
+                                                                    {{ __('event.Inactive') }}
+                                                                @endif
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <strong id="status_error" class="errors text-danger"
+                                                            role="alert">
+                                                    </strong>
+                                                    <!--end::Input-->
+                                                </div>
+                                                @endif
                                                 <!--end::Input group-->
                                                 <!--begin::Input group-->
                                                 <div class="col-md-6 mb-7">
                                                     <!--begin::Label-->
-                                                    <label class="required fw-bold fs-6 mb-2">Password</label>
+                                                    <label class="required fw-bold fs-6 mb-2">{{ __('admin.Password') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <input id="password" type="password" name="password"
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
-                                                           placeholder="********" value=""/>
+                                                           placeholder="{{ __('admin.placeholderPassword') }}" value=""/>
                                                     <strong id="password_error" class="errors text-danger"
                                                             role="alert">
                                                     </strong>
@@ -273,11 +296,14 @@
                                                 <!--begin::Input group-->
                                                 <div class="mb-7">
                                                     <!--begin::Label-->
-                                                    <label class="required fw-bold fs-6 mb-5">Roles</label>
+                                                    <label class="required fw-bold fs-6 mb-5">{{ __('admin.Roles') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Roles-->
-                                                    {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-select','multiple', 'id' => 'roles')) !!}
-
+                                                    @if(\Illuminate\Support\Facades\App::getLocale() == "ar")
+                                                    {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-select form-select-solid','multiple', 'id' => 'roles','data-kt-select2'=>'true','dir'=>'rtl')) !!}
+                                                    @else
+                                                        {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-select form-select-solid','multiple', 'id' => 'roles','data-kt-select2'=>'true')) !!}
+                                                    @endif
                                                 </div>
                                                 <strong id="roles_error"
                                                         class="errors text-danger"
@@ -303,17 +329,14 @@
                 <!--begin::Actions-->
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('admins.index') }}"
-                       id="kt_ecommerce_edit_user_cancel" class="btn btn-light me-5">Cancel</a>
+                       id="kt_ecommerce_edit_user_cancel" class="btn btn-light me-5">{{ __('admin.Cancel') }}</a>
                     <button id="kt_modal_update_user_submit" class="btn btn-primary">
-                        <span class="indicator-label">Save Changes</span>
-                        <span class="indicator-progress">Please wait...
+                        <span class="indicator-label">{{ __('admin.Save') }}</span>
+                        <span class="indicator-progress">{{ __('admin.Please') }}
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
                 </div>
                 <!--end::Actions-->
-                <!--end::Layout-->
-                <!--begin::Modals-->
-                <!--begin::Modal - Update user details-->
 
             </div>
             <!--end::Container-->
@@ -321,7 +344,7 @@
         <!--end::Post-->
     </div>
     <!--end::Content-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>const language = $('#language').val();</script>
 
     <script src="{{ asset('assets/forms/admins/edit_admins.js') }}" defer></script>
 

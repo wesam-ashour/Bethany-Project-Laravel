@@ -9,6 +9,7 @@ use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -36,13 +37,13 @@ class AdminController extends Controller
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('roles', function ($data) {
                     if (count($data->getRoleNames()) > 0)
-                        return '<div class="badge badge-light-primary">' . implode(', ', $data->roles->pluck('name')->toArray()) . '</div>';
+                        return '<div class="badge badge-light-primary">' . $data->getRoleNames()->implode(', '). '</div>';
                     else
                         return '<div class="text-center text-gray-600"><div>no roles</div></div>';
 
                 })
                 ->addColumn('status', function ($data) {
-                    return ($data->status == 1) ? '<div class="badge badge-light-success">Active</div>' : '<div class="badge badge-light-danger">Not Active</div>';
+                    return ($data->status == 1) ? '<div class="badge badge-light-success">'.trans("admin.Active").'</div>' : '<div class="badge badge-light-danger">'.trans("admin.Inactive").'</div>';
                 })
                 ->addColumn('created_at', function ($data) {
                     return $data->created_at->diffForHumans();
@@ -57,18 +58,20 @@ class AdminController extends Controller
 									<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                       fill="black"/>
 									</svg>
-									</span>Actions
+									</span>'.trans("admin.Actions").'
                                   </button>
                                   <div class="dropdown-menu">';
 
                     $action = $action . '<div  class="menu-item px-3">
                                         <a href="' . route('admins.edit', $data->id) . '"
-                                           class="menu-link px-3">edit</a>
+                                           class="menu-link px-3">'.trans("admin.edit").'</a>
                                     </div>';
+                    if ($data->id !== 1){
                     $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
-                                           class="menu-link px-3">Delete</a>
+                                           class="menu-link px-3">'.trans("admin.delete").'</a>
                                     </div>';
+                    }
 
                     $action = $action . '</div></div></div>';
                     return $action;
@@ -90,13 +93,41 @@ class AdminController extends Controller
         if ($request->ajax()) {
 
             $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'email' => 'required|email|unique:admins,email',
-                'user_name' => 'required|unique:admins,user_name',
-                'password' => 'required',
+                'name' => 'required|string|max:255',
+                'mobile' => 'required|numeric',
+                'address' => 'required|string|max:255',
+                'email' => 'required|email|unique:admins,email|max:255',
+                'user_name' => 'required|string|unique:admins,user_name|max:255',
+                'password' => 'required|string|min:8|max:255',
                 'roles' => 'required'
             ], [
-//                'name.required' => trans("str.Name is required"),
+                'name.required' => trans("admin.required"),
+                'name.string' => trans("admin.string"),
+                'name.max' => trans("admin.max"),
+
+                'mobile.required' => trans("admin.required"),
+                'mobile.numeric' => trans("admin.numeric"),
+
+                'address.required' => trans("admin.required"),
+                'address.string' => trans("admin.string"),
+                'address.max' => trans("admin.max"),
+
+                'email.required' => trans("admin.required"),
+                'email.email' => trans("admin.email"),
+                'email.unique' => trans("admin.unique"),
+
+                'user_name.required' => trans("admin.required"),
+                'user_name.string' => trans("admin.email"),
+                'user_name.unique' => trans("admin.unique"),
+                'user_name.max' => trans("admin.max"),
+
+                'password.required' => trans("admin.required"),
+                'password.string' => trans("admin.string"),
+                'password.min' => trans("admin.min"),
+                'password.max' => trans("admin.max"),
+
+                'roles.required' => trans("admin.required"),
+
             ]);
             if ($validator->passes()) {
                 $data = new Admin();
@@ -134,17 +165,42 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->ajax()) {
-//            dd($request->input());
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|string|min:3|max:255',
-                'mobile' => 'required|string|min:8|max:20',
-                'user_name' => 'required|string|min:4|max:100',
-                'address' => 'required|string|min:3|max:255',
+            $validator   = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'mobile' => 'required|numeric',
+                'user_name' => 'required|string|max:255|unique:admins,user_name,'. $request->id,
+                'address' => 'required|string|max:255',
+                'status' => 'sometimes|string|max:255',
                 'email' => 'required|email|unique:admins,email,' . $request->id,
-                'password' => $request->password != null ? 'sometimes|required|min:8' : '',
+                'password' => $request->password != null ? 'sometimes|string|min:8|max:255' : '',
                 'roles' => 'required'
             ], [
-//                'name.required' => trans("str.Name is required"),
+                'name.required' => trans("admin.required"),
+                'name.string' => trans("admin.string"),
+                'name.max' => trans("admin.max"),
+
+                'mobile.required' => trans("admin.required"),
+                'mobile.numeric' => trans("admin.numeric"),
+
+                'address.required' => trans("admin.required"),
+                'address.string' => trans("admin.string"),
+                'address.max' => trans("admin.max"),
+
+                'email.required' => trans("admin.required"),
+                'email.email' => trans("admin.email"),
+                'email.unique' => trans("admin.unique"),
+
+                'user_name.required' => trans("admin.required"),
+                'user_name.string' => trans("admin.email"),
+                'user_name.unique' => trans("admin.unique"),
+                'user_name.max' => trans("admin.max"),
+
+                'password.required' => trans("admin.required"),
+                'password.string' => trans("admin.string"),
+                'password.min' => trans("admin.min"),
+                'password.max' => trans("admin.max"),
+
+                'roles.required' => trans("admin.required"),
             ]);
             if ($validator->passes()) {
                 $data = Admin::query()->find($request->id);
@@ -159,7 +215,8 @@ class AdminController extends Controller
                 } else {
                     $input = Arr::except($request, array('password'));
                 }
-                $data->status = 1;
+
+                $data->status = $request->status != null ? $request->status : '1';
 
                 if (!str_contains($request->image, env("APP_URL"))) {
                     $file = base64_decode($request['image']);
@@ -184,8 +241,14 @@ class AdminController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($request->ajax()) {
-            $data = Admin::query()->find($id)->delete();
-            return response()->json(['success' => "success"]);
+            $validate = Admin::find($id)->id;
+            if ($validate == 1){
+                return response()->json(['error' => "error"]);
+
+            }else {
+                $data = Admin::query()->find($id)->delete();
+                return response()->json(['success' => "success"]);
+            }
         }
         return response()->json(['error' => "error"]);
     }
@@ -337,5 +400,90 @@ class AdminController extends Controller
 
             }
         }
+    }
+
+    public function lan($locale)
+    {
+        App::setLocale($locale);
+        session()->put('locale', $locale);
+        return redirect()->back();
+    }
+
+    public  function  userEdit(Request $request){
+        $userId = \auth()->user()->id;
+        $user = Admin::find($userId);
+
+        return view('forms.admins.profile',compact('user'));
+    }
+
+    public  function  userUpdate(Request $request,$id){
+        $user = Admin::find($id);
+        request()->validate([
+            'name' => 'required|string|max:255',
+            'mobile' => 'required|numeric',
+            'user_name' => 'required|string|max:255|unique:admins,user_name,'. $request->id,
+            'address' => 'required|string|max:255',
+            'status' => 'sometimes|string|max:255',
+            'email' => 'required|email|unique:admins,email,' . $request->id,
+            'password' => $request->password != null ? 'sometimes|string|min:8|max:255' : '',
+            'image' => $request->image != null ? 'image|mimes:jpeg,png,jpg|max:1024' : '',
+            ],
+            [
+                'name.required' => trans("admin.required"),
+                'name.string' => trans("admin.string"),
+                'name.max' => trans("admin.max"),
+
+                'mobile.required' => trans("admin.required"),
+                'mobile.numeric' => trans("admin.numeric"),
+
+                'address.required' => trans("admin.required"),
+                'address.string' => trans("admin.string"),
+                'address.max' => trans("admin.max"),
+
+                'email.required' => trans("admin.required"),
+                'email.email' => trans("admin.email"),
+                'email.unique' => trans("admin.unique"),
+
+                'user_name.required' => trans("admin.required"),
+                'user_name.string' => trans("admin.email"),
+                'user_name.unique' => trans("admin.unique"),
+                'user_name.max' => trans("admin.max"),
+
+                'password.required' => trans("admin.required"),
+                'password.string' => trans("admin.string"),
+                'password.min' => trans("admin.min"),
+                'password.max' => trans("admin.max"),
+
+                'roles.required' => trans("admin.required"),
+            ]);
+                $data = Admin::query()->find($id);
+
+                $data->name = $request->name;
+                $data->mobile = $request->mobile;
+                $data->email = $request->email;
+                $data->user_name = $request->user_name;
+                $data->address = $request->address;
+                if (!empty($request->password)) {
+                    $data->password = Hash::make($request->password);;
+                } else {
+                    $input = Arr::except($request, array('password'));
+                }
+
+                $data->status = $request->status != null ? $request->status : '1';
+
+                if ($request->hasFile('image') != null){
+                    $imageuploaded = request()->file('image');
+                    $imagename = time() . '.' . $imageuploaded->getClientOriginalExtension();
+                    $imagepath = public_path('/images/admins');
+                    $imageuploaded->move($imagepath, $imagename);
+                    $data->image = $imagename;
+                }
+
+                $data->save();
+                return redirect()->back()->with('success', trans("admin.updated"));;
+
+
+        return redirect()->back()->with('error', 'error');;
+
     }
 }

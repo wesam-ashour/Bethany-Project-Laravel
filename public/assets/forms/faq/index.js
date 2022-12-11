@@ -135,7 +135,7 @@ $(function () {
                     (t = document.querySelector("#kt_ecommerce_forms_table")) && ((e = $(t).DataTable({
                         searchable: true,
                         ajax: {
-                            "url": base_path + "faq",
+                            "url": base_path + language + "/faq",
                             "type": 'GET',
                             /*"data":{core_name:core_name},*/
                         },

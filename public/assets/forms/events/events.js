@@ -24,14 +24,17 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "GET",
-            url: base_path + "events/" + id + "/edit",
+            url: base_path + language + "/events/" + id + "/edit",
             success: function (response) {
                 $("#event_id").val(response.event.id);
-                $("#title_u").val(response.event.title);
+                $("#title_en_edit").val(response.event.title['en']);
+                $("#title_ar_edit").val(response.event.title['ar']);
+                $("#address_en_edit").val(response.event.address['en']);
+                $("#address_ar_edit").val(response.event.address['ar']);
+                $("#description_en_edit").val(response.event.description['en']);
+                $("#description_ar_edit").val(response.event.description['ar']);
                 $("#kt_datepicker_7").val(response.event.date);
-                $("#time_u").val(response.event.time);
-                $("#address_u").val(response.event.address);
-                $("#description_u").val(response.event.description);
+                $("#time_edit").val(response.event.time);
                 $("#status").val(response.event.status);
                 $("#default_latitude_u").val(response.event.lat);
                 $("#default_longitude_u").val(response.event.long);
@@ -120,12 +123,12 @@ $(function () {
     function confirm_delete(id) {
         const o = "sads";
         Swal.fire({
-            text: "Are you sure you want to delete this item?",
+            text: language === "en" ? "Are you sure you want to delete this item?" : "هل أنت متأكد أنك تريد حذف هذا البند؟",
             icon: "warning",
             showCancelButton: !0,
             buttonsStyling: !1,
-            confirmButtonText: "Yes, delete!",
-            cancelButtonText: "No, cancel",
+            confirmButtonText: language === "en" ? "Yes, delete!" : "نعم ، احذف!",
+            cancelButtonText: language === "en" ? "No, cancel" : "لا ، إلغاء",
             customClass: {
                 confirmButton: "btn fw-bold btn-danger",
                 cancelButton: "btn fw-bold btn-active-light-primary"
@@ -143,23 +146,23 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "DELETE",
-            url: base_path + "events/" + id,
+            url: base_path + language +  "/events/" + id,
             success: function (response) {
                 if (response['success']) {
                     Swal.fire({
-                        text: "You have deleted the item!.",
+                        text: language === "en" ? "You have deleted the item!." : "لقد قمت بحذف العنصر !.",
                         icon: "success",
                         buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
                     });
                     $('#kt_ecommerce_forms_table').DataTable().ajax.reload();
                 } else if (response['error']) {
                     Swal.fire({
-                        text: "The item was not deleted.",
+                        text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
                         icon: "error",
                         buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
                     });
                 }

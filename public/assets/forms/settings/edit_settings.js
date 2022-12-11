@@ -34,7 +34,7 @@ $(function () {
                 type: "POST",
                 processData: false,  // tell jQuery not to process the data
                 contentType: false,
-                url: base_path + "options",
+                url: base_path + language + "/options",
                 data: formDatas,
                 success: function (response) {
                     if ($.isEmptyObject(response.error)) {
@@ -77,10 +77,10 @@ $(function () {
         add_user_form.attr("data-kt-redirect", base_path + "admins");
         (submit_button.setAttribute("data-kt-indicator", "on"), submit_button.disabled = !0, setTimeout((function () {
             submit_button.removeAttribute("data-kt-indicator"), Swal.fire({
-                text: "Form has been successfully submitted!",
+                text: language === "en" ? "Form has been successfully submitted!" : "تم تقديم النموذج بنجاح!",
                 icon: "success",
                 buttonsStyling: !1,
-                confirmButtonText: "Ok, got it!",
+                confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                 customClass: {confirmButton: "btn btn-primary"}
             }).then((function (e) {
                 e.isConfirmed
@@ -95,10 +95,10 @@ $(function () {
         $(".errors").html("");
         (submit_button.setAttribute("data-kt-indicator", "on"), submit_button.disabled = !0, setTimeout((function () {
             submit_button.removeAttribute("data-kt-indicator"), Swal.fire({
-                text: "Sorry, looks like there are some errors detected, please try again.",
+                text: language === "en" ? "Sorry, looks like there are some errors detected, please try again." : "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
                 icon: "error",
                 buttonsStyling: !1,
-                confirmButtonText: "Ok, got it!",
+                confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                 customClass: {confirmButton: "btn btn-primary"}
             })
             submit_button.disabled = !1

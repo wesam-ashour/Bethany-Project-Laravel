@@ -37,7 +37,7 @@ $(function () {
                 $("#default_longitude_u").val(response.event.long);
 
                 let map, activeInfoWindow, markers = [];
-                window.onload = initMap();
+                // window.onload = initMap();
                 /* ----------------------------- Initialize Map ----------------------------- */
                 function initMap() {
                     var lat = parseFloat(document.getElementById('default_latitude_u').value);

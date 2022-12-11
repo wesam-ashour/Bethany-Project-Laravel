@@ -12,12 +12,12 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ __('home.Dashboard') }}
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class="text-muted fs-7 fw-bold my-1 ms-1">Home</small>
+                        <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ __('home.Home') }}</small>
                         <!--end::Description--></h1>
                     <!--end::Title-->
                 </div>
@@ -56,8 +56,8 @@
 													</svg>
 												</span>
                                 <!--end::Svg Icon-->
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">Events</div>
-                                <div class="fw-bold text-white">Registers users in an Event</div>
+                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ __('home.Events') }}</div>
+                                <div class="fw-bold text-white">{{ __('home.EventsDes') }}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -84,8 +84,8 @@
 													</svg>
 												</span>
                                 <!--end::Svg Icon-->
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">Visits</div>
-                                <div class="fw-bold text-white">System visit in specific period</div>
+                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ __('home.Visits') }}</div>
+                                <div class="fw-bold text-white">{{ __('home.VisitsDes') }}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -109,8 +109,8 @@
 													</svg>
 												</span>
                                 <!--end::Svg Icon-->
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">Scanned QR</div>
-                                <div class="fw-bold text-white">Scanned QR code for places</div>
+                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ __('home.Scanned') }}</div>
+                                <div class="fw-bold text-white">{{ __('home.ScannedDes') }}</div>
                             </div>
                             <!--end::Body-->
                         </a>
@@ -129,7 +129,7 @@
                                 <div class="card-header border-0 pt-5">
                                     <!--begin::Title-->
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold fs-3 mb-1">Recent Statistics</span>
+                                        <span class="card-label fw-bold fs-3 mb-1">{{ __('home.Recent') }}</span>
                                         {{-- <span class="text-muted fw-semibold fs-7">More than 400 new members</span> --}}
                                     </h3>
                                     <!--end::Title-->
@@ -166,7 +166,7 @@
                                              data-kt-menu="true" id="kt_menu_637e9afa6155d">
                                             <!--begin::Header-->
                                             <div class="px-7 py-5">
-                                                <div class="fs-5 text-dark fw-bold">Filter Options</div>
+                                                <div class="fs-5 text-dark fw-bold">{{ __('home.Filter') }}</div>
                                             </div>
                                             <!--end::Header-->
                                             <!--begin::Menu separator-->
@@ -178,16 +178,16 @@
                                                 <form action="{{ route('dashboard') }}">
                                                     <div class="mb-10">
                                                         <!--begin::Label-->
-                                                        <label class="form-label fw-semibold">Select Event:</label>
+                                                        <label class="form-label fw-semibold">{{ __('home.Select') }}</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <div>
                                                             <select name="select[]"
                                                                     class="form-select form-select-solid" multiple
                                                                     data-kt-select2="true"
-                                                                    data-placeholder="Select option"
+                                                                    data-placeholder="{{ __('home.SelectOption') }}"
                                                                     data-dropdown-parent="#kt_menu_637e9afa6155d"
-                                                                    data-allow-clear="true">
+                                                                    data-allow-clear="true" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") dir="rtl" @endif>
                                                                 {{-- <option></option> --}}
                                                                 @forelse ($events as $event)
                                                                     <option value="{{ $event->id }}">
@@ -205,12 +205,12 @@
 
 
                                                     <div class="d-flex justify-content-end">
-                                                        <button type="reset"
-                                                                class="btn btn-sm btn-light btn-active-light-primary me-2"
-                                                                data-kt-menu-dismiss="true">Reset
-                                                        </button>
+{{--                                                        <button type="reset"--}}
+{{--                                                                class="btn btn-sm btn-light btn-active-light-primary me-2"--}}
+{{--                                                                data-kt-menu-dismiss="true">Reset--}}
+{{--                                                        </button>--}}
                                                         <button type="submit" class="btn btn-sm btn-primary"
-                                                                data-kt-menu-dismiss="true">Apply
+                                                                data-kt-menu-dismiss="true">{{ __('home.Apply') }}
                                                         </button>
                                                     </div>
                                                 </form>
@@ -246,7 +246,7 @@
                                 <div class="card-header border-0 pt-5">
                                     <!--begin::Title-->
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold fs-3 mb-1">visits in specific period</span>
+                                        <span class="card-label fw-bold fs-3 mb-1">{{ __('home.visits') }}</span>
                                         {{-- <span class="text-muted fw-semibold fs-7">More than 400 new members</span> --}}
                                     </h3>
                                     <!--end::Title-->
@@ -282,7 +282,7 @@
                                 <div class="card-header border-0 pt-5">
                                     <!--begin::Title-->
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold fs-3 mb-1">Scanned QR code for places</span>
+                                        <span class="card-label fw-bold fs-3 mb-1">{{ __('home.ScannedQR') }}</span>
                                         {{-- <span class="text-muted fw-semibold fs-7">More than 400 new members</span> --}}
                                     </h3>
                                     <!--end::Title-->

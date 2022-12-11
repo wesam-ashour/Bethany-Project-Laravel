@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-    @include('sweetalert::alert')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -16,12 +15,12 @@
                          data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                          class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                         <!--begin::Title-->
-                        <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+                        <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ __('event.Dashboard') }}
                             <!--begin::Separator-->
                             <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                             <!--end::Separator-->
                             <!--begin::Description-->
-                            <small class="text-muted fs-7 fw-bold my-1 ms-1">Events - register users - {{ $event->title }}</small>
+                            <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ __('event.Events') }} - {{ __('event.register') }} - {{ $event->title }}</small>
                             <!--end::Description--></h1>
                         <!--end::Title-->
                     </div>
@@ -73,23 +72,20 @@
                             </a> --}}
                             <!--end::Card toolbar-->
                             <button class="btn btn-success" id="btn-add">
-                                Send Meesage
+                                {{ __('event.Send') }}
                             </button>
-                            <form  action="{{route('events.index')}}">
-                                @csrf
-                                <input type="hidden" name="download" value="{{ $event->id }}">
+                                <input type="hidden" name="download" id="download" value="{{ $event->id }}">
 
-                                <button type="submit" type="submit" id="btn-pdf" class="btn btn-light-danger font-weight-bolder "
+                                <button type="submit" type="submit" id="btn-pdf" class="btn btn-light-danger font-weight-bolder download-pdf "
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                 <a  class="navi-link">
                                     <span class="navi-icon">
                                         <i class="la la-file-pdf-o"></i>
                                     </span>
-                                    <span class="navi-text">Export PDF</span>
+                                    <span class="navi-text">{{ __('event.Export') }}</span>
                                 </a>
                             </button>
-                            </form>
 
                             <!--end::Add forms-->
                         </div>
@@ -104,10 +100,10 @@
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="text">Full name</th>
-                                    <th class="text">Email</th>
-                                    <th class="text">Username</th>
-                                    <th class="text">Added at</th>
+                                    <th class="text">{{ __('event.Full') }}</th>
+                                    <th class="text">{{ __('event.Email') }}</th>
+                                    <th class="text">{{ __('event.Username') }}</th>
+                                    <th class="text">{{ __('event.Added') }}</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -133,15 +129,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Send Message to register users</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ __('event.SendMessage') }}</h5>
                 </div>
                 <div class="modal-body">
                     <form id="myForm" name="myForm" class="form-horizontal" novalidate="">
                         <div class="form-group">
                             <div class="form-group row">
-                                <label class="col-form-label text-right col-lg-3 col-sm-12">Message *</label>
+                                <label class="col-form-label text-right col-lg-3 col-sm-12">{{ __('event.Message') }}</label>
                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                    <textarea class="form-control" id="message" name="message" required placeholder="Enter a Message" rows="3"></textarea>
+                                    <textarea class="form-control" id="message" name="message" required placeholder="{{ __('event.EnterMessage') }}" rows="3"></textarea>
                                     <span id='Logo' class="text-danger" style="display:none">Please write
                                         message!</span>
                                 </div>
@@ -151,8 +147,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="close-modal" class="btn btn-light-primary font-weight-bold"
-                        data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary font-weight-bold" id="btn-save">Send</button>
+                        data-dismiss="modal">{{ __('event.Close') }}</button>
+                    <button type="button" class="btn btn-primary font-weight-bold" id="btn-save">{{ __('event.SendM') }}</button>
                     <input type="hidden" id="todo_id" name="todo_id" value="{{ $event->id }}">
                 </div>
             </div>
@@ -164,14 +160,14 @@
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Sending Message</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ __('event.Sending') }}</h5>
                 </div>
                 <div class="modal-body">
                     <div data-scroll="true" data-height="300">
                         <div class="d-flex justify-content-center">
-                            <h4 style="padding-right: 7px;">Please Wait</h4>
+                            <h4 style="padding-right: 7px;">{{ __('event.Please') }}</h4>
                             <div class="spinner-border" role="status">
-                                <span class="visually-hidden">Loading...</span>
+                                <span class="visually-hidden">{{ __('event.Loading') }}</span>
                             </div>
                         </div>
                     </div>
@@ -179,6 +175,39 @@
             </div>
         </div>
     </div>
+    <script>const language = $('#language').val();</script>
+    <script>const id = $('#download').val();</script>
+
+    <script type="text/javascript">
+        $(".download-pdf").click(function(){
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '{{ route('pdf') }}',
+                data: {id: id},
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(response){
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "Users.pdf";
+                    link.click();
+                },
+                error: function(blob){
+                    console.log(blob);
+                }
+            });
+        });
+
+    </script>
 
 
     <!--end::Content-->
@@ -258,6 +287,7 @@
             });
         });
     </script>
+
     <script src="{{ asset('assets/forms/events/register.js') }}" defer></script>
 
 @endsection

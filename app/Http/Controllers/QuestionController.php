@@ -23,6 +23,12 @@ class QuestionController extends Controller
         if ($request->ajax()) {
             $data = Faq::query()->latest();
             return DataTables::of($data)->addIndexColumn()
+                ->addColumn('question', function ($data) {
+                    return $data->question;
+                })
+                ->addColumn('answer', function ($data) {
+                    return $data->question;
+                })
                 ->addColumn('action', function ($data) {
                     $action = '<div class="text-center">
                             <div class="btn-group dropstart text-center">
@@ -33,22 +39,22 @@ class QuestionController extends Controller
 									<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                       fill="black"/>
 									</svg>
-									</span>Actions
+									</span>'.trans("admin.Actions").'
                                   </button>
                                   <div class="dropdown-menu">';
 
 
                     $action = $action . '<div class="menu-item px-3">
                                             <a id="show" data-id="' . $data->id . '" data-name="' . $data->title . '" data-bs-toggle="modal" data-bs-target="#kt_modal_show_event"
-                                               class="menu-link px-3">show</a>
+                                               class="menu-link px-3">'.trans("place.Show").'</a>
                                         </div>';
                     $action = $action . '<div  class="menu-item px-3">
                                         <a id="edit" data-id="' . $data->id . '" data-name="' . $data->title . '" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_event"
-                                           class="menu-link px-3">edit</a>
+                                           class="menu-link px-3">'.trans("admin.edit").'</a>
                                     </div>';
                     $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
-                                           class="menu-link px-3">Delete</a>
+                                           class="menu-link px-3">'.trans("admin.delete").'</a>
                                     </div>';
 
                     $action = $action . '</div></div></div>';
@@ -69,16 +75,33 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
+//            dd($request->input());
             $validator = Validator::make($request->all(), [
-                'question' => 'required|string|min:5|max:255',
-                'answer' => 'required|string|min:5|max:500',
+                'question_en' => 'required|string|max:500',
+                'question_ar' => 'required|string|max:500',
+                'answer_en' => 'required|string|max:500',
+                'answer_ar' => 'required|string|max:500',
             ], [
-//                'name.required' => trans("str.Name is required"),
+                'question_en.required' => trans("faq.required"),
+                'question_en.string' => trans("faq.string"),
+                'question_en.max' => trans("faq.max"),
+
+                'question_ar.required' => trans("faq.required"),
+                'question_ar.string' => trans("faq.string"),
+                'question_ar.max' => trans("faq.max"),
+
+                'answer_en.required' => trans("faq.required"),
+                'answer_en.string' => trans("faq.string"),
+                'answer_en.max' => trans("faq.max"),
+
+                'answer_ar.required' => trans("faq.required"),
+                'answer_ar.string' => trans("faq.string"),
+                'answer_ar.max' => trans("faq.max"),
             ]);
             if ($validator->passes()) {
                 $data = new Faq();
-                $data->question = $request->question;
-                $data->answer = $request->answer;
+                $data->question = ['en' => $request->question_en, 'ar' => $request->question_ar];
+                $data->answer =  ['en' => $request->answer_en, 'ar' => $request->answer_ar];
 
                 $data->save();
                 return response()->json(['success' => $data]);
@@ -106,18 +129,34 @@ class QuestionController extends Controller
 
     public function update(Request $request)
     {
-        $data = Faq::query()->find($request->question_id);
+
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'question_u' => 'required|string|min:5|max:255',
-                'answer_u' => 'required|string|min:5|max:500',
+                'question_u_en' => 'required|string|max:500',
+                'question_u_ar' => 'required|string|max:500',
+                'answer_u_en' => 'required|string|max:500',
+                'answer_u_ar' => 'required|string|max:500',
             ], [
-//                'name.required' => trans("str.Name is required"),
+                'question_u_en.required' => trans("faq.required"),
+                'question_u_en.string' => trans("faq.string"),
+                'question_u_en.max' => trans("faq.max"),
+
+                'question_u_ar.required' => trans("faq.required"),
+                'question_u_ar.string' => trans("faq.string"),
+                'question_u_ar.max' => trans("faq.max"),
+
+                'answer_u_en.required' => trans("faq.required"),
+                'answer_u_en.string' => trans("faq.string"),
+                'answer_u_en.max' => trans("faq.max"),
+
+                'answer_u_ar.required' => trans("faq.required"),
+                'answer_u_ar.string' => trans("faq.string"),
+                'answer_u_ar.max' => trans("faq.max"),
             ]);
             if ($validator->passes()) {
                 $data = Faq::query()->find($request->question_id);
-                $data->question = $request->question_u;
-                $data->answer = $request->answer_u;
+                $data->question = ['en' => $request->question_u_en, 'ar' => $request->question_u_ar];
+                $data->answer =  ['en' => $request->answer_u_en, 'ar' => $request->answer_u_ar];
 
                 $data->save();
                 return response()->json(['success' => $data]);

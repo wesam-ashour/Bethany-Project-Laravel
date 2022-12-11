@@ -10,8 +10,7 @@ $(function () {
         get_forms();
         /*Table Actions*/
         table_function();
-        date_picker();
-        repeater();
+
     });
 
     function table_function() {
@@ -137,7 +136,7 @@ $(function () {
                     (t = document.querySelector("#kt_ecommerce_forms_table")) && ((e = $(t).DataTable({
                         searchable: true,
                         ajax: {
-                            "url": base_path + "roles",
+                            "url": base_path + language + "/roles",
                             "type": 'GET',
                             /*"data":{core_name:core_name},*/
                         },

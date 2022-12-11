@@ -26,6 +26,12 @@ class EventController extends Controller
         $this->middleware('permission:event-delete', ['only' => ['destroy']]);
     }
 
+    public function pdf(Request $request){
+        $pd = DB::table('event_user')->where('event_id', '=', $request->id)->get();
+        $pdf = Pdf::loadView('forms.events.pdf', compact('pd'));
+        return $pdf->download('users.pdf');
+    }
+
     public function index(Request $request)
     {
         if ($request->has('download')) {
@@ -33,7 +39,7 @@ class EventController extends Controller
             $pd = DB::table('event_user')->where('event_id', '=', $request->download)->get();
 
             if ($pd->isEmpty()) {
-                toastr()->error('Oops! No users found!');
+                toastr()->error(trans("event.Oops"));
                 return redirect()->back();
             } else {
                 $pdf = Pdf::loadView('forms.events.pdf', compact('pd'));
@@ -45,12 +51,14 @@ class EventController extends Controller
         if ($request->ajax()) {
             $data = Event::select('id', 'title', 'date', 'added_by', 'status')->get();
             return DataTables::of($data)->addIndexColumn()
-
+                ->addColumn('title', function ($data) {
+                    return $data->title;
+                })
                 ->addColumn('added_by', function ($data) {
                     return Admin::find($data->added_by)->name;
                 })
                 ->addColumn('status', function ($data) {
-                    return ($data->status == 1) ? '<div class="badge badge-light-success">Active</div>' : '<div class="badge badge-light-danger">Not Active</div>';
+                    return ($data->status == 1) ? '<div class="badge badge-light-success">'.trans("event.Active").'</div>' : '<div class="badge badge-light-danger">'.trans("event.Inactive").'</div>';
                 })
                 ->addColumn('action', function ($data) {
                     $action = '<div class="text-center">
@@ -62,25 +70,25 @@ class EventController extends Controller
 									<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                       fill="black"/>
 									</svg>
-									</span>Actions
+									</span>'.trans("event.Actions").'
                                   </button>
                                   <div class="dropdown-menu">';
 
                     $action = $action . '<div class="menu-item px-3">
                                   <a href="' . url('event/register/' . $data->id) . '"
-                                     class="menu-link px-3">Register User</a>
+                                     class="menu-link px-3">'.trans("event.Register").'</a>
                               </div>';
                     $action = $action . '<div class="menu-item px-3">
                                             <a href="' . route('events.show', $data->id) . '"
-                                               class="menu-link px-3">show</a>
+                                               class="menu-link px-3">'.trans("event.Show").'</a>
                                         </div>';
                     $action = $action . '<div  class="menu-item px-3">
                                         <a id="edit" data-id="' . $data->id . '" data-name="' . $data->title . '" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_event"
-                                           class="menu-link px-3">edit</a>
+                                           class="menu-link px-3">'.trans("event.Edit_table").'</a>
                                     </div>';
                     $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
-                                           class="menu-link px-3">Delete</a>
+                                           class="menu-link px-3">'.trans("event.Delete").'</a>
                                     </div>';
 
                     $action = $action . '</div></div></div>';
@@ -102,23 +110,59 @@ class EventController extends Controller
     {
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'title' => 'required|string|max:255',
-                'description' => 'required|string|max:500',
+                'title_en' => 'required|string|max:255',
+                'title_ar' => 'required|string|max:255',
+                'description_en' => 'required|string|max:255',
+                'description_ar' => 'required|string|max:255',
+                'address_en' => 'required|string|max:255',
+                'address_ar' => 'required|string|max:255',
                 'date' => 'required|date_format:Y-m-d',
+                'time' => 'required',
+                'fileupload' => 'mimes:jpeg,jpg,png|required|max:300',
                 'default_latitude' => 'required|numeric|max:255',
                 'default_longitude' => 'required|numeric|max:255',
-                'address' => 'required|string|max:255',
+
             ], [
-//                'name.required' => trans("str.Name is required"),
+                'title_en.required' => trans("event.required"),
+                'title_en.string' => trans("event.string"),
+                'title_en.max' => trans("event.max"),
+                'title_ar.required' => trans("event.required"),
+                'title_ar.string' => trans("event.string"),
+                'title_ar.max' => trans("event.max"),
+
+                'description_en.required' => trans("event.required"),
+                'description_en.string' => trans("event.string"),
+                'description_en.max' => trans("event.max"),
+                'description_ar.required' => trans("event.required"),
+                'description_ar.string' => trans("event.string"),
+                'description_ar.max' => trans("event.max"),
+
+                'address_en.required' => trans("event.required"),
+                'address_en.string' => trans("event.string"),
+                'address_en.max' => trans("event.max"),
+                'address_ar.required' => trans("event.required"),
+                'address_ar.string' => trans("event.string"),
+                'address_ar.max' => trans("event.max"),
+
+                'date.required' => trans("event.required"),
+                'date.date_format' => trans("event.string"),
+
+                'time.required' => trans("event.required"),
+
+                'default_latitude.required' => trans("event.required"),
+
+                'fileupload.required' => trans("event.required"),
+                'fileupload.mimes' => trans("event.mimes"),
+
             ]);
             if ($validator->passes()) {
                 $data = new Event();
-                $data->title = $request->title;
-                $data->description = $request->description;
+                $data->title = ['en' => $request->title_en, 'ar' => $request->title_ar];
+                $data->description = ['en' => $request->description_en, 'ar' => $request->description_ar];
                 $data->date = $request->date;
                 $data->lat = $request->default_latitude;
                 $data->long = $request->default_longitude;
-                $data->address = $request->address;
+                $data->address = ['en' => $request->address_en, 'ar' => $request->address_ar];
                 $data->added_by = Auth::user()->id;
                 $data->status = '1';
                 $data->time = $request->time;
@@ -176,26 +220,64 @@ class EventController extends Controller
         $data = Event::query()->find($request->event_id);
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'title_u' => 'required|string|max:255',
-                'description_u' => 'required|string|max:500',
+                'title_en_edit' => 'required|string|max:255',
+                'title_ar_edit' => 'required|string|max:255',
+                'description_en_edit' => 'required|string|max:255',
+                'description_ar_edit' => 'required|string|max:255',
+                'address_en_edit' => 'required|string|max:255',
+                'address_ar_edit' => 'required|string|max:255',
                 'date_u' => 'required|date_format:Y-m-d',
+                'time_edit' => 'required',
+                'status' => 'required',
+                'fileuploads' => 'mimes:jpeg,jpg,png|sometimes|max:300',
                 'default_latitude_u' => 'required|numeric|max:255',
                 'default_longitude_u' => 'required|numeric|max:255',
-                'address_u' => 'required|string|max:255',
+
             ], [
-//                'name.required' => trans("str.Name is required"),
+                'title_en_edit.required' => trans("event.required"),
+                'title_en_edit.string' => trans("event.string"),
+                'title_en_edit.max' => trans("event.max"),
+                'title_ar_edit.required' => trans("event.required"),
+                'title_ar_edit.string' => trans("event.string"),
+                'title_ar_edit.max' => trans("event.max"),
+
+                'description_en_edit.required' => trans("event.required"),
+                'description_en_edit.string' => trans("event.string"),
+                'description_en_edit.max' => trans("event.max"),
+                'description_ar_edit.required' => trans("event.required"),
+                'description_ar_edit.string' => trans("event.string"),
+                'description_ar_edit.max' => trans("event.max"),
+
+                'address_en_edit.required' => trans("event.required"),
+                'address_en_edit.string' => trans("event.string"),
+                'address_en_edit.max' => trans("event.max"),
+                'address_ar_edit.required' => trans("event.required"),
+                'address_ar_edit.string' => trans("event.string"),
+                'address_ar_edit.max' => trans("event.max"),
+
+                'date_u.required' => trans("event.required"),
+                'date_u.date_format' => trans("event.string"),
+
+                'time_edit.required' => trans("event.required"),
+
+                'status.required' => trans("event.required"),
+
+                'default_latitude_u.required' => trans("event.required"),
+
+                'fileuploads.mimes' => trans("event.mimes"),
+
             ]);
             if ($validator->passes()) {
                 $data = Event::query()->find($request->event_id);
-                $data->title = $request->title_u;
-                $data->description = $request->description_u;
+                $data->title = ['en' => $request->title_en_edit, 'ar' => $request->title_ar_edit];
+                $data->description = ['en' => $request->description_en_edit, 'ar' => $request->description_ar_edit];
                 $data->date = $request->date_u;
                 $data->lat = $request->default_latitude_u;
                 $data->long = $request->default_longitude_u;
-                $data->address = $request->address_u;
+                $data->address = ['en' => $request->address_en_edit, 'ar' => $request->address_ar_edit];
                 $data->updated_by = Auth::user()->id;
                 $data->status = $request->status;
-                $data->time = $request->time_u;
+                $data->time = $request->time_edit;
 
                 if ($request->input('image') != 'undefined'){
                 $imageuploaded = request()->file('image');

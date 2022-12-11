@@ -23,7 +23,7 @@ class AdminSeeder extends Seeder
             'user_name' => 'admin',
             'address' => 'gaza',
             'password' => bcrypt('password'),
-            'image' => 'main.png',
+            'image' => 'main.jpg',
         ]);
         $role = Role::create(['name' => 'Admin']);
 

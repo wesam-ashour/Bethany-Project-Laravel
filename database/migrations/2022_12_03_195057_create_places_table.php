@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
+            $table->longText('title');
             $table->longText('description');
             $table->string('lat');
             $table->string('long');
-            $table->text('location');
+            $table->longText('location');
             $table->tinyInteger('type')->default(1)->comment('1:PLACES | 0:TOURIST-SITE');
             $table->foreignId('added_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->tinyInteger('updated_by')->nullable();

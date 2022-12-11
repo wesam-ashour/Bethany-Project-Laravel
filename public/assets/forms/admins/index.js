@@ -10,8 +10,6 @@ $(function () {
         get_forms();
         /*Table Actions*/
         table_function();
-        date_picker();
-        repeater();
     });
 
     function table_function() {
@@ -137,7 +135,7 @@ $(function () {
                     (t = document.querySelector("#kt_ecommerce_forms_table")) && ((e = $(t).DataTable({
                         searchable: true,
                         ajax: {
-                            "url": base_path + "admins",
+                            "url": base_path + language + "/admins",
                             "type": 'GET',
                             /*"data":{core_name:core_name},*/
                         },
@@ -175,7 +173,9 @@ $(function () {
                                 name: 'action',
 
                             },
-                    ]
+                    ],language: {
+                            url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
+                        },
                     })).on("draw", (function () {
                         n()
                     })), document.querySelector('[data-kt-ecommerce-forms-filter="search"]').addEventListener("keyup", (function (t) {

@@ -26,10 +26,10 @@ $(function () {
             url: base_path + "faq/" + id + "/edit",
             success: function (response) {
                 $("#question_id").val(response.event.id);
-                $("#question_u").val(response.event.question);
-                $("#answer_u").val(response.event.answer);
-
-
+                $("#question_u_en").val(response.event.question['en']);
+                $("#question_u_ar").val(response.event.question['ar']);
+                $("#answer_u_en").val(response.event.answer['en']);
+                $("#answer_u_ar").val(response.event.answer['ar']);
             }
         });
     }
@@ -37,12 +37,12 @@ $(function () {
     function confirm_delete(id) {
         const o = "sads";
         Swal.fire({
-            text: "Are you sure you want to delete this item?",
+            text: language === "en" ? "Are you sure you want to delete this item?" : "هل أنت متأكد أنك تريد حذف هذا البند؟",
             icon: "warning",
             showCancelButton: !0,
             buttonsStyling: !1,
-            confirmButtonText: "Yes, delete!",
-            cancelButtonText: "No, cancel",
+            confirmButtonText: language === "en" ? "Yes, delete!" : "نعم ، احذف!",
+            cancelButtonText: language === "en" ? "No, cancel" : "لا ، إلغاء",
             customClass: {
                 confirmButton: "btn fw-bold btn-danger",
                 cancelButton: "btn fw-bold btn-active-light-primary"
@@ -64,19 +64,19 @@ $(function () {
             success: function (response) {
                 if (response['success']) {
                     Swal.fire({
-                        text: "You have deleted the item!.",
+                        text: language === "en" ? "You have deleted the item!." : "لقد قمت بحذف العنصر !.",
                         icon: "success",
                         buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
                     });
                     $('#kt_ecommerce_forms_table').DataTable().ajax.reload();
                 } else if (response['error']) {
                     Swal.fire({
-                        text: "The item was not deleted.",
+                        text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
                         icon: "error",
                         buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
                     });
                 }

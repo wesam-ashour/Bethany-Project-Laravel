@@ -137,6 +137,9 @@ $(function () {
                     (t = document.querySelector("#kt_ecommerce_forms_table")) && ((e = $(t).DataTable({
                         ordering: false,
                         searchable: true,
+                        language: {
+                            url: language === "en" ? "//cdn.datatables.net/plug-ins/1.10.16/i18n/English.json" : "//cdn.datatables.net/plug-ins/1.10.16/i18n/Arabic.json",
+                        },
                         ajax: {
                             "url": base_path + "users",
                             "type": 'GET',

@@ -9,8 +9,6 @@ $(function () {
         get_forms();
         /*Table Actions*/
         table_function();
-        date_picker();
-        repeater();
     });
 
     function table_function() {
@@ -136,8 +134,12 @@ $(function () {
                     var id = $("input[name=editId]").val();
                     (t = document.querySelector("#kt_ecommerce_forms_table")) && ((e = $(t).DataTable({
                         searchable: true,
+                        serverSide: true,
+                        language: {
+                            url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
+                        },
                         ajax: {
-                            "url": base_path + "event/register" + '/' + id,
+                            "url": base_path + language + "/event/register" + '/' + id,
                             "type": 'GET',
                             "data": {id: id},
                         },

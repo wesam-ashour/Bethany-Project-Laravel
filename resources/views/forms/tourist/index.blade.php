@@ -14,12 +14,12 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ __('place.Dashboard') }}
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class="text-muted fs-7 fw-bold my-1 ms-1">Tourists</small>
+                        <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ __('place.Tourists') }}</small>
                         <!--end::Description--></h1>
                     <!--end::Title-->
                 </div>
@@ -55,7 +55,7 @@
 												</span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-ecommerce-forms-filter="search"
-                                       class="form-control form-control-solid w-250px ps-14" placeholder="Search tourist"/>
+                                       class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('place.Search') }}"/>
                             </div>
                             <!--end::Search-->
                         </div>
@@ -65,7 +65,7 @@
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-primary addNew" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                     <span class="svg-icon svg-icon-2">
@@ -78,7 +78,7 @@
                                                                                           fill="black"/>
                             													</svg>
                             												</span>
-                                    <!--end::Svg Icon-->Add Tourist
+                                    <!--end::Svg Icon-->{{ __('place.AddTourist') }}
                                 </button>
                                 <!--end::Add user-->
                             </div>
@@ -106,7 +106,7 @@
                                         <!--begin::Modal header-->
                                         <div class="modal-header" id="kt_modal_add_user_header">
                                             <!--begin::Modal title-->
-                                            <h2 class="fw-bolder">Add Tourist</h2>
+                                            <h2 class="fw-bolder">{{ __('place.AddTourist') }}</h2>
                                             <!--end::Modal title-->
                                             <!--begin::Close-->
                                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -142,100 +142,170 @@
                                                      data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
                                                      data-kt-scroll-offset="300px">
                                                     <!--begin::Input group-->
+                                                    <input type="hidden" id="lan" name="lan" value="{{\Illuminate\Support\Facades\App::getLocale()}}">
+
 
                                                     <div class="row">
-                                                        <div class="fv-row mb-7">
+                                                        <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Title</span>
-                                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                                                <span class="required">{{ __('place.TitleTourists') }} ({{ __('place.English') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="Title is required"></i>
+                                                                   data-bs-content="{{ __('place.content_TitleTourists') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input id="title"  class="form-control form-control-solid"
-                                                                   placeholder="Enter a title" name="title"/>
+                                                            <input id="title_en"
+                                                                   class="form-control form-control-solid"
+                                                                   placeholder="{{ __('place.placeholderTitleTourists') }}" name="title_en"/>
                                                             <!--end::Input-->
-                                                            <strong id="name_error" class="errors text-danger"
+                                                            <strong id="title_en_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.TitleTourists') }} ({{ __('place.Arabic') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_TitleTourists') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input id="title_ar"
+                                                                   class="form-control form-control-solid"
+                                                                   placeholder="{{ __('place.placeholderTitleTourists') }}" name="title_ar"/>
+                                                            <!--end::Input-->
+                                                            <strong id="title_ar_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
 
-                                                        <div class="fv-row mb-7">
+
+                                                        <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Address</span>
-                                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                                                <span class="required">{{ __('place.AddressTourists') }} ({{ __('place.English') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="Address is required"></i>
+                                                                   data-bs-content="{{ __('place.content_AddressTourists') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input id="location" class="form-control form-control-solid"
-                                                                   placeholder="Enter a address" name="location"/>
+                                                            <input id="location_en"
+                                                                   class="form-control form-control-solid"
+                                                                   placeholder="{{ __('place.placeholderAddressTourists') }}" name="location_en"/>
                                                             <!--end::Input-->
-                                                            <strong id="name_error" class="errors text-danger"
+                                                            <strong id="location_en_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.AddressTourists') }} ({{ __('place.Arabic') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_AddressTourists') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input id="location_ar"
+                                                                   class="form-control form-control-solid"
+                                                                   placeholder="{{ __('place.placeholderAddressTourists') }}" name="location_ar"/>
+                                                            <!--end::Input-->
+                                                            <strong id="location_ar_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.DescriptionTourists') }} ({{ __('place.English') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_DescriptionTourists') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <textarea id="description_en"
+                                                                      class="form-control form-control-solid"
+                                                                      placeholder="{{ __('place.placeholderDescriptionTourists') }}"
+                                                                      name="description_en"></textarea>
+                                                            <!--end::Input-->
+                                                            <strong id="description_en_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.DescriptionTourists') }} ({{ __('place.Arabic') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_DescriptionTourists') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <textarea id="description_ar"
+                                                                      class="form-control form-control-solid"
+                                                                      placeholder="{{ __('place.placeholderDescriptionTourists') }}"
+                                                                      name="description_ar"></textarea>
+                                                            <!--end::Input-->
+                                                            <strong id="description_ar_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.Image') }}</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_Image') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="file"
+                                                                   class="form-control form-control-solid"
+                                                                   id="fileupload" name="fileupload">
+
+                                                            <!--end::Input-->
+                                                            <strong id="fileupload_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Description</span>
+                                                                <span class="required">{{ __('place.Generate') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="description is required"></i>
-                                                            </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <textarea id="description" class="form-control form-control-solid"
-                                                                      placeholder="Enter a description" name="description"></textarea>
-                                                            <!--end::Input-->
-                                                            <strong id="name_error" class="errors text-danger"
-                                                                    role="alert"></strong>
-                                                        </div>
-
-                                                        <div class="fv-row mb-7">
-                                                            <!--begin::Label-->
-                                                            <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Image</span>
-                                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="Please select an image, type: jpg,jpeg,png."></i>
-                                                            </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="file" class="form-control form-control-solid" id="fileupload" name="fileupload">
-
-                                                            <!--end::Input-->
-                                                            <strong id="name_error" class="errors text-danger"
-                                                                    role="alert"></strong>
-                                                        </div>
-
-                                                        <div class="fv-row mb-7">
-                                                            <!--begin::Label-->
-                                                            <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Generate QR Code</span>
-                                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="QR Code is required to be unique."></i>
+                                                                   data-bs-content="{{ __('place.GenerateTourists') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
                                                             <input type="hidden" id="uniqid" name="uniqid" value="">
                                                             <div>
-                                                                <button type="button" class="btn btn-primary gen classroomLike">Generate!
+                                                                <button type="button" class="btn btn-primary gen classroomLikes">{{ __('place.Generate') }}
                                                                 </button>
 
                                                             </div>
-                                                            <strong id="name_error" class="errors text-danger"
+                                                            <strong id="uniqid_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                             <br><br>
-                                                            <div>
-                                                                <div id="image_div">
+                                                            <div class="containerss">
 
-                                                                </div>
                                                             </div>
 
                                                             <!--end::Input-->
@@ -244,16 +314,24 @@
 
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
-
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.Location') }}</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_Location') }}"></i>
+                                                            </label>
+                                                            <strong id="lat_error" class="errors text-danger"
+                                                                    role="alert"></strong>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <div id="map1" style="width: 600px; height:400px;"></div>
+                                                            <div id="map1" style="width: 100%; height:400px;"></div>
                                                             <input type="hidden" id="lat" name="lat">
                                                             <input type="hidden" id="long" name="long">
                                                             <!--end::Input-->
-                                                            <strong id="name_error" class="errors text-danger"
-                                                                    role="alert"></strong>
+
                                                         </div>
+
 
 
                                                     </div>
@@ -262,12 +340,12 @@
                                                 <!--begin::Actions-->
                                                 <div class="text-center pt-15">
                                                     <button type="reset" class="btn btn-light me-3"
-                                                            data-kt-users-modal-action="cancel">Discard
+                                                            data-kt-users-modal-action="cancel">{{ __('event.Discard') }}
                                                     </button>
                                                     <button type="submit" class="btn btn-primary"
                                                             data-kt-users-modal-action="submit">
-                                                        <span class="indicator-label">Submit</span>
-                                                        <span class="indicator-progress">Please wait...
+                                                        <span class="indicator-label">{{ __('event.Submit') }}</span>
+                                                        <span class="indicator-progress">{{ __('event.Please') }}
 																		<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                     </button>
                                                 </div>
@@ -290,7 +368,7 @@
                                         <!--begin::Modal header-->
                                         <div class="modal-header" id="kt_modal_edit_event_header">
                                             <!--begin::Modal title-->
-                                            <h2 class="fw-bolder">Edit tourist info</h2>
+                                            <h2 class="fw-bolder">{{ __('place.EditTourist') }}</h2>
                                             <!--end::Modal title-->
                                             <!--begin::Close-->
                                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -329,88 +407,196 @@
 
                                                     <div class="row">
                                                         <input type="hidden" id="tourist_id" name="tourist_id">
-                                                        <div class="fv-row mb-7">
+                                                        <input type="hidden" id="lan" name="lan" value="{{\Illuminate\Support\Facades\App::getLocale()}}">
+
+                                                        <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Title</span>
-                                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                                                <span class="required">{{ __('place.TitleTourists') }} ({{ __('place.English') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="Title is required"></i>
+                                                                   data-bs-content="{{ __('place.content_TitleTourists') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input id="title_u"  class="form-control form-control-solid"
-                                                                   placeholder="Enter a title" name="title_u"/>
+                                                            <input id="title_en_edit"
+                                                                   class="form-control form-control-solid"
+                                                                   placeholder="{{ __('place.placeholderTitleTourists') }}" name="title_en_edit"/>
                                                             <!--end::Input-->
-                                                            <strong id="title_u_update_error" class="errors text-danger"
+                                                            <strong id="title_en_edit_update_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.TitleTourists') }} ({{ __('place.Arabic') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_TitleTourists') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input id="title_ar_edit"
+                                                                   class="form-control form-control-solid"
+                                                                   placeholder="{{ __('place.placeholderTitleTourists') }}" name="title_ar_edit"/>
+                                                            <!--end::Input-->
+                                                            <strong id="title_ar_edit_update_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.AddressTourists') }} ({{ __('place.English') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_AddressTourists') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input id="location_en_edit"
+                                                                   class="form-control form-control-solid"
+                                                                   placeholder="{{ __('place.placeholderAddressTourists') }}" name="location_en_edit"/>
+                                                            <!--end::Input-->
+                                                            <strong id="location_en_edit_update_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.AddressTourists') }} ({{ __('place.Arabic') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_AddressTourists') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input id="location_ar_edit"
+                                                                   class="form-control form-control-solid"
+                                                                   placeholder="{{ __('place.placeholderAddressTourists') }}" name="location_ar_edit"/>
+                                                            <!--end::Input-->
+                                                            <strong id="location_ar_edit_update_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.DescriptionTourists') }} ({{ __('place.English') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_DescriptionTourists') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <textarea id="description_en_edit"
+                                                                      class="form-control form-control-solid"
+                                                                      placeholder="{{ __('place.placeholderDescriptionTourists') }}"
+                                                                      name="description_en_edit"></textarea>
+                                                            <!--end::Input-->
+                                                            <strong id="description_en_edit_update_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.DescriptionTourists') }} ({{ __('place.Arabic') }})</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_DescriptionTourists') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <textarea id="description_ar_edit"
+                                                                      class="form-control form-control-solid"
+                                                                      placeholder="{{ __('place.placeholderDescriptionTourists') }}"
+                                                                      name="description_ar_edit"></textarea>
+                                                            <!--end::Input-->
+                                                            <strong id="description_ar_edit_update_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-md-6 mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">{{ __('place.Image') }}</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
+                                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                                   data-bs-content="{{ __('place.content_Image') }}"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="file"
+                                                                   class="form-control form-control-solid"
+                                                                   id="fileuploads" name="fileuploads">
+
+                                                            <!--end::Input-->
+                                                            <strong id="image_update_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Address</span>
+                                                                <span class="required">{{ __('place.Generate') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="Address is required"></i>
+                                                                   data-bs-content="QR Code is required to be unique."></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input id="location_u" class="form-control form-control-solid"
-                                                                   placeholder="Enter a address" name="location_u"/>
-                                                            <!--end::Input-->
-                                                            <strong id="location_u_update_error" class="errors text-danger"
-                                                                    role="alert"></strong>
-                                                        </div>
+                                                            <input type="hidden" id="uniqid_edit" name="uniqid_edit" >
+                                                            <div>
+                                                                <button type="button" class="btn btn-primary gen classroomLike">{{ __('place.Generate') }}
+                                                                </button>
 
-                                                        <div class="fv-row mb-7">
-                                                            <!--begin::Label-->
-                                                            <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Description</span>
-                                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="Description is required"></i>
-                                                            </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <textarea id="description_u" class="form-control form-control-solid"
-                                                                      placeholder="Enter a description" name="description_u"></textarea>
-                                                            <!--end::Input-->
-                                                            <strong id="description_u_update_error" class="errors text-danger"
+                                                            </div>
+                                                            <strong id="uniqid_edit_error" class="errors text-danger"
                                                                     role="alert"></strong>
+                                                            <br><br>
+                                                            <div class="containers">
+                                                                {{--                                                                <div id="image_div_u">--}}
+
+                                                                {{--                                                                </div>--}}
+                                                            </div>
+
+                                                            <!--end::Input-->
                                                         </div>
 
 
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Image</span>
-                                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                                                <span class="required">{{ __('place.Location') }}</span>
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
-                                                                   data-bs-content="Please select an image, type: jpg,jpeg,png."></i>
+                                                                   data-bs-content="{{ __('place.content_Location') }}"></i>
                                                             </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="file"  class="form-control form-control-solid" id="fileuploads" name="fileuploads">
-
-                                                            <!--end::Input-->
-                                                            <strong id="fileuploads_update_error" class="errors text-danger"
+                                                            <strong id="default_latitude_u_update_error" class="errors text-danger"
                                                                     role="alert"></strong>
-                                                        </div>
-
-
-                                                        <div class="fv-row mb-7">
-                                                            <!--begin::Label-->
-
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <div id="map" style="width: 600px; height:400px;"></div>
+                                                            <div id="map" style="width: 100%; height:400px;"></div>
                                                             <input type="hidden" id="default_latitude_u" name="default_latitude_u">
                                                             <input type="hidden" id="default_longitude_u" name="default_longitude_u">
                                                             <!--end::Input-->
-                                                            <strong id="default_latitude_u_update_error" class="errors text-danger"
-                                                                    role="alert"></strong>
+
                                                         </div>
+
 
 
                                                     </div>
@@ -419,12 +605,12 @@
                                                 <!--begin::Actions-->
                                                 <div class="text-center pt-15">
                                                     <button type="reset" class="btn btn-light me-3"
-                                                            data-kt-permissions-modal-action="cancel">Discard
+                                                            data-kt-permissions-modal-action="cancel">{{ __('event.Discard') }}
                                                     </button>
                                                     <button type="submit" class="btn btn-primary"
                                                             data-kt-permissions-modal-action="submit">
-                                                        <span class="indicator-label">Submit</span>
-                                                        <span class="indicator-progress">Please wait...
+                                                        <span class="indicator-label">{{ __('event.Submit') }}</span>
+                                                        <span class="indicator-progress">{{ __('event.Please') }}
 																		<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                     </button>
                                                 </div>
@@ -475,14 +661,14 @@
                             <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                <th class="text">Title</th>
-                                <th class="text">description</th>
+                                <th class="text-start">{{ __('place.TitleTourists') }}</th>
+                                <th class="text-start">{{ __('place.Description') }}</th>
 
-                                <th class="text">Address</th>
-                                <th class="text">Location</th>
+                                <th class="text-start">{{ __('place.Address') }}</th>
+                                <th class="text">{{ __('place.Location') }}</th>
 
-                                <th class="text">QRCode</th>
-                                <th class="text-center">Actions</th>
+                                <th class="text">{{ __('place.QRCode') }}</th>
+                                <th class="text-center">{{ __('place.Actions') }}</th>
                             </tr>
                             <!--end::Table row-->
                             </thead>
@@ -505,18 +691,13 @@
 
     <script type="text/javascript">
         $(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
             $('body').on('click', '.editProduct', function () {
 
                 var qrcode = $(this).data('id');
                 $.ajax({
                     url: '{{ route('showQr') }}',
                     data: {
+                        "_token": "{{ csrf_token() }}",
                         qr: qrcode
                     },
                     type: 'post',
@@ -526,7 +707,27 @@
                         $(".showQRCode").html(response);
                     },
                 });
+            });
+        });
+    </script>
 
+    <script>
+        jQuery(document).ready(function ($) {
+            $('.classroomLikes').click(function () {
+                $.ajax({
+                    url: '{{ route('generator') }}',
+                    type: 'get',
+                    success: function (respons) {
+                        $('#image_id').remove();
+                        $( ".containerss" ).append( "<div id='image_div'></div>" );
+                        var result = respons;
+                        var img = $('<img id="image_id">');
+                        jQuery('#uniqid').val(result.id);
+                        img.attr('src', result.qr);
+                        img.appendTo('#image_div');
+                        $('div#image_div').removeAttr('id');
+                    },
+                });
             });
         });
     </script>
@@ -538,13 +739,15 @@
                     url: '{{ route('generator') }}',
                     type: 'get',
                     success: function (respons) {
+                        $('#image_id_u').remove();
+                        $( ".containers" ).append( "<div id='image_div_u'></div>" );
                         var result = respons;
-                        var img = $('<img id="image_id">');
-                        jQuery('#uniqid').val(result.id);
-                        // $('input#uniqid').removeAttr('id');
+                        var img = $('<img id="image_id_u">');
+                        jQuery('#uniqid_edit').val(result.id);
                         img.attr('src', result.qr);
-                        img.appendTo('#image_div');
-                        $('div#image_div').removeAttr('id');
+                        img.appendTo('#image_div_u');
+
+                        $('div#image_div_u').removeAttr('id');
                         // $(".gen").remove()
                     },
                 });
@@ -553,7 +756,12 @@
     </script>
 
     <script>
-        window.onload = showlocation();
+        $(function () {
+            $('body').on('click', '.addNew', function () {
+                window.onload = showlocation();
+            });
+        });
+
         let map, activeInfoWindow, markers = [];
         var marker;
 
@@ -561,6 +769,7 @@
         function showlocation() {
             navigator.geolocation.getCurrentPosition(initMap);
         }
+
 
         function initMap(position) {
             var lat = parseFloat(position.coords.latitude);
@@ -588,7 +797,7 @@
             });
         }
     </script>
-
+    <script>const language = $('#language').val();</script>
     <script src="{{ asset('assets/forms/tourists/index.js') }}" defer></script>
     <script src="{{ asset('assets/forms/tourists/tourists.js') }}" defer></script>
     <script src="{{ asset('assets/forms/tourists/create_tourists.js') }}" defer></script>

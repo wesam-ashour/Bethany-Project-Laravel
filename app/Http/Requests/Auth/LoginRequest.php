@@ -46,9 +46,12 @@ class LoginRequest extends FormRequest
     public function authenticate()
     {
         $admin = Admin::where('email',$this->only('email'))->first();
-        $visit = new Visit();
-        $visit->admin_id = $admin->id;
-        $visit->save();
+        if ($admin){
+            $visit = new Visit();
+            $visit->admin_id = $admin->id;
+            $visit->save();
+        }
+
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {

@@ -9,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TouristController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth','localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],'prefix' => LaravelLocalization::setLocale()], function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
     Route::resource('admins', AdminController::class);
     Route::resource('users', UserController::class);
     Route::resource('events', EventController::class);
@@ -36,6 +38,15 @@ Route::middleware('auth')->group(function () {
     Route::resource('faq', QuestionController::class);
     Route::resource('options', OptionController::class);
 
+    Route::get('language/{locale}', function ($locale) {
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
+        return redirect()->back();
+    });
+    Route::get('profile', [AdminController::class, 'userEdit'])->name('userEdit');
+    Route::put('profile/{id}', [AdminController::class, 'userUpdate'])->name('userUpdate');
+
+    Route::get('pdf/register/', [EventController::class, 'pdf'])->name('pdf');
     Route::get('generate/', [PlaceController::class, 'generator'])->name('generator');
     Route::post('showQr/', [PlaceController::class, 'showQr'])->name('showQr');
     Route::get('pdf/{id}', [PlaceController::class, 'generatePDF']);
