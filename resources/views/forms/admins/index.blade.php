@@ -62,7 +62,7 @@
                         <div class="card-toolbar">
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-
+                                @can('admin-create')
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
@@ -78,6 +78,7 @@
                             												</span>
                                     <!--end::Svg Icon-->{{ __('admin.Add') }}
                                 </button>
+                                @endcan
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
@@ -170,7 +171,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input id="mobile" class="form-control form-control-solid"
+                                                            <input id="mobile" class="form-control form-control-solid" type="number" @if(App::getLocale() == 'ar') style="direction: rtl;" @endif
                                                                    placeholder="{{ __('admin.placeholderMobile') }}" name="mobile"/>
                                                             <!--end::Input-->
                                                             <strong id="mobile_error" class="errors text-danger"

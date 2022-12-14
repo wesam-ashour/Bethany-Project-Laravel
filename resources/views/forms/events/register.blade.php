@@ -102,7 +102,7 @@
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th class="text">{{ __('event.Full') }}</th>
                                     <th class="text">{{ __('event.Email') }}</th>
-                                    <th class="text">{{ __('event.Username') }}</th>
+                                    <th class="text">{{ __('user.email_verified') }}</th>
                                     <th class="text">{{ __('event.Added') }}</th>
                                 </tr>
                                 <!--end::Table row-->

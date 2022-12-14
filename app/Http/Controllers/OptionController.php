@@ -33,16 +33,28 @@ class OptionController extends Controller
     {
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'foundation' => 'required|string|max:500',
-                'history' => 'required|string|max:500',
-                'fileupload' => 'sometimes',
+                'foundation_en' => 'required|string',
+                'foundation_ar' => 'required|string',
+                'history_en' => 'required|string',
+                'history_ar' => 'required|string',
+                'fileupload' => $request->fileupload != 'undefined' ? 'sometimes|mimes:jpeg,jpg,png' : '',
             ], [
-//                'name.required' => trans("str.Name is required"),
+                'foundation_en.required' => trans("event.required"),
+                'foundation_en.string' => trans("event.string"),
+                'foundation_ar.required' => trans("event.required"),
+                'foundation_ar.string' => trans("event.string"),
+
+                'history_en.required' => trans("event.required"),
+                'history_en.string' => trans("event.string"),
+                'history_ar.required' => trans("event.required"),
+                'history_ar.string' => trans("event.string"),
+
+                'fileupload.mimes' => trans("event.mimes"),
             ]);
             if ($validator->passes()) {
                 $data = Option::query()->find(1);
-                $data->foundation = $request->foundation;
-                $data->history = $request->history;
+                $data->foundation = ['en' => $request->foundation_en, 'ar' => $request->foundation_ar];
+                $data->history = ['en' => $request->history_en, 'ar' => $request->history_ar];
 
                 if ($request->input('fileupload') != 'undefined') {
                     $imageuploaded = request()->file('fileupload');

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Place;
 use App\Models\Scanned;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -65,21 +64,26 @@ class PlaceController extends Controller
                                             <a href="' . route('places.show', $data->id) . '"
                                                class="menu-link px-3">' . trans("place.Show") . '</a>
                                         </div>';
-                    $action = $action . '<div  class="menu-item px-3">
+                    if (\auth()->user()->can('place-edit')) {
+                        $action = $action . '<div  class="menu-item px-3">
                                         <a id="edit" data-id="' . $data->id . '" data-name="' . $data->title . '" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_event"
                                            class="menu-link px-3">' . trans("place.Edit_table") . '</a>
                                     </div>';
+                    }
                     $action = $action . '<div class="menu-item px-3">
                                         <a href="' . url('pdf/' . $data->id) . '"
                                            class="menu-link px-3">' . trans("place.export") . '</a>
                                     </div>';
-                    $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
+                    if (\auth()->user()->can('place-delete')) {
+                        $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
                                            class="menu-link px-3">' . trans("place.Delete") . '</a>
                                     </div>';
+                    }
 
                     $action = $action . '</div></div></div>';
-                    return $action;
+                        return $action;
+
                 })
                 ->rawColumns(['action'])
                 ->escapeColumns([])
@@ -97,12 +101,12 @@ class PlaceController extends Controller
     {
         if ($request->ajax()) {
                 $validator = Validator::make($request->all(), [
-                    'title_en' => 'required|string|max:255',
-                    'title_ar' => 'required|string|max:255',
-                    'description_en' => 'required|string|max:255',
-                    'description_ar' => 'required|string|max:255',
-                    'location_en' => 'required|string|max:255',
-                    'location_ar' => 'required|string|max:255',
+                    'title_en' => 'required|string',
+                    'title_ar' => 'required|string',
+                    'description_en' => 'required|string',
+                    'description_ar' => 'required|string',
+                    'location_en' => 'required|string',
+                    'location_ar' => 'required|string',
                     'lat' => 'required|numeric|max:255',
                     'long' => 'required|numeric|max:255',
                     'uniqid' => 'required|max:255',
@@ -203,12 +207,12 @@ class PlaceController extends Controller
     {
         if ($request->ajax()) {
                 $validator = Validator::make($request->all(), [
-                    'title_en_edit' => 'required|string|max:255',
-                    'title_ar_edit' => 'required|string|max:255',
-                    'description_en_edit' => 'required|string|max:255',
-                    'description_ar_edit' => 'required|string|max:255',
-                    'location_en_edit' => 'required|string|max:255',
-                    'location_ar_edit' => 'required|string|max:255',
+                    'title_en_edit' => 'required|string',
+                    'title_ar_edit' => 'required|string',
+                    'description_en_edit' => 'required|string',
+                    'description_ar_edit' => 'required|string',
+                    'location_en_edit' => 'required|string',
+                    'location_ar_edit' => 'required|string',
                     'default_latitude_u' => 'required|numeric|max:255',
                     'uniqid_edit' => 'sometimes|max:255',
                     'image' => $request->image != 'undefined' ? 'mimes:jpeg,png,jpg' : '',
@@ -271,6 +275,7 @@ class PlaceController extends Controller
     {
         if ($request->ajax()) {
             $data = Place::query()->find($id)->delete();
+            $data2 = Scanned::where('place_id',$id)->delete();
             return response()->json(['success' => "success"]);
         }
         return response()->json(['error' => "error"]);
@@ -307,7 +312,8 @@ class PlaceController extends Controller
     public function generatePDF($id)
     {
         $pd = Place::find($id)->QRCode;
-        $pdf = Pdf::loadView('forms.places.qrcode', compact('pd'));
+        $pdf = \niklasravnsborg\LaravelPdf\Facades\Pdf::loadView('forms.places.qrcode', compact('pd'));
         return $pdf->download('qrcode.pdf');
+
     }
 }

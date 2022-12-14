@@ -144,7 +144,7 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "DELETE",
-            url: base_path + $("#lan").val()  + "/" + "tourists/" + id,
+            url: base_path + language  + "/" + "tourists/" + id,
             success: function (response) {
                 if (response['success']) {
                     Swal.fire({

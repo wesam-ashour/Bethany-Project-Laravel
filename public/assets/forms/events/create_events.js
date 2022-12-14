@@ -72,6 +72,7 @@
                                                             confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                             customClass: {confirmButton: "btn btn-primary"}
                                                         }).then((function (t) {
+                                                            e.reset();
                                                             t.isConfirmed && n.hide()
                                                         }))
                                                     }), 2e3));

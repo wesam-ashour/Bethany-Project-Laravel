@@ -22,11 +22,13 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+
 
 Route::group(['middleware' => ['auth','localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],'prefix' => LaravelLocalization::setLocale()], function () {
+    Route::get('/', function () {
+        return redirect(route('login'));
+    });
+
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::resource('admins', AdminController::class);

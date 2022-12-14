@@ -153,8 +153,8 @@ $(function () {
                                 name: 'email'
                             },
                             {
-                                data: 'user_name',
-                                name: 'user_name'
+                                data: 'email_verified',
+                                name: 'email_verified'
                             },
                             {
                                 data: 'created_at',

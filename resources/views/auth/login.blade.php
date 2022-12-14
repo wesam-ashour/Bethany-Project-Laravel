@@ -1,144 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<!--begin::Head-->
+<!doctype html>
+<html @if(App::getLocale() == 'en') lang="en" dir="ltr" @else lang="ar" dir="rtl" @endif>
 <head>
-    <base href="../../../">
-    <title>Login</title>
-    <meta charset="utf-8"/>
-    <meta name="description"
-          content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free."/>
-    <meta name="keywords"
-          content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta property="og:locale" content="en_US"/>
-    <meta property="og:type" content="article"/>
-    <meta property="og:title"
-          content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme"/>
-    <meta property="og:url" content="https://keenthemes.com/metronic"/>
-    <meta property="og:site_name" content="Keenthemes | Metronic"/>
-    <link rel="canonical" href="https://preview.keenthemes.com/metronic8"/>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('assets/login/fonts/icomoon/style.css')}}">
+
+    <link rel="stylesheet" href="{{asset('assets/login/css/owl.carousel.min.css')}}">
     <link rel="shortcut icon" href="{{asset('assets/media/logos/logomain.jpeg')}}"/>
-    <!--begin::Fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
-    <!--end::Fonts-->
-    <!--begin::Global Stylesheets Bundle(used by all pages)-->
-    <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
-    <!--end::Global Stylesheets Bundle-->
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Style -->
+    <link rel="stylesheet" href="{{asset('assets/login/css/style.css')}}">
+
+    <title>Bethany</title>
 </head>
-<!--end::Head-->
-<!--begin::Body-->
-<body id="kt_body" class="bg-body">
-<!--begin::Main-->
-<!--begin::Root-->
-<div class="d-flex flex-column flex-root">
-    <!--begin::Authentication - Sign-in -->
-    <div class="d-flex flex-column flex-lg-row flex-column-fluid">
-        <!--begin::Aside-->
-        <!--end::Aside-->
-        <!--begin::Body-->
-        <div class="d-flex flex-column flex-lg-row-fluid py-10">
-            <!--begin::Content-->
-            <div class="d-flex flex-center flex-column flex-column-fluid">
+<body>
 
-                <!--begin::Wrapper-->
-                <div class="w-lg-500px p-10 p-lg-15 mx-auto">
-                    <!--begin::Form-->
-                    <form method="POST" action="{{ route('login') }}" class="form w-100" novalidate="novalidate"
-                          id="kt_sign_in_form" action="#">
+
+<div class="d-lg-flex half">
+    <div class="bg order-1 order-md-2" style="background-image:url({{url('assets/login/images/bg_1.jpg')}}) "></div>
+    <div class="contents order-2 order-md-1">
+
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-7">
+                    <h3><strong>{{ __('login.Welcome') }}</strong></h3>
+                    <p class="mb-4">{{ __('login.please') }}</p>
+                    <form method="POST" action="{{ route('login') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form" >
                         @csrf
-                        <!--begin::Heading-->
-                        <div class="text-center mb-10">
-                            <!--begin::Title-->
-                            <h1 class="text-dark mb-3">Sign In to Bethany</h1>
-                            <p>Welcome Back</p>
-                            <!--end::Title-->
-                            <!--begin::Link-->
-                            <!--end::Link-->
-                            @if ($errors->any())
-                                <!--begin::Alert-->
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Error!</strong><br>@foreach ($errors->all() as $error) {{ $error }}<br> @endforeach
-                                </div>
-
-                            @endif
-                            @if (session('error'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{ session('error') }}
-                                </div>
-                            @endif
-                        </div>
-                        <!--begin::Heading-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-10">
-                            <!--begin::Label-->
-                            <label class="form-label fs-6 fw-bolder text-dark">Email</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input class="form-control form-control-lg form-control-solid" placeholder="Enter email" type="email" name="email"
-                                   :value="old('email')" required autofocus/>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-10">
-                            <!--begin::Wrapper-->
-                            <div class="d-flex flex-stack mb-2">
-                                <!--begin::Label-->
-                                <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
-                                <!--end::Label-->
+                        @if ($errors->any())
+                            <!--begin::Alert-->
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ __('login.Error') }}</strong><br>@foreach ($errors->all() as $error) {{ $error }}<br> @endforeach
                             </div>
-                            <!--end::Wrapper-->
-                            <!--begin::Input-->
-                            <input class="form-control form-control-lg form-control-solid" placeholder="Enter password" type="password"
-                                   name="password" required autocomplete="current-password"/>
-                            <!--end::Input-->
+
+                        @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        <div class="form-group first">
+                            <label for="email">{{ __('login.Email') }}</label>
+                            <input class="form-control" type="email" name="email" required>
+
                         </div>
-                        <!--end::Input group-->
-                        <!--begin::Actions-->
-                        <div class="text-center">
-                            <!--begin::Submit button-->
-                            <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
-                                <span class="indicator-label">Continue</span>
-                                <span class="indicator-progress">Please wait...
-										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
-                            <!--end::Submit button-->
+                        <br>
+                        <div class="form-group last mb-3">
+                            <label for="password">{{ __('login.Password') }}</label>
+                            <input type="password" class="form-control" name="password" required autocomplete="current-password">
+
                         </div>
-                        <!--end::Actions-->
+                        <br>
+                        <div class="d-grid gap-2 col-12.1 mx-auto">
+
+                        <button type="submit" class="btn btn-primary" style="background-color:deepskyblue">{{ __('login.Login') }}</button>
+                        </div>
                     </form>
-                    <!--end::Form-->
+                    <br>
+                    <br>
+                    <div align="center">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" hreflang="{{ $localeCode }}" class="text-muted text-hover-primary px-2" >{{ $properties['native'] }}</a>
+                        @endforeach
+
+                    </div>
                 </div>
-                <!--end::Wrapper-->
             </div>
-            <!--end::Content-->
         </div>
-
-        <div class="d-flex flex-column flex-lg-row-auto w-xl-700px positon-xl-relative"
-             style="background-color: #F2C98A">
-            <!--begin::Wrapper-->
-            <div class="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-700px">
-                <img src="{{asset('assets/media/logos/login.jpg')}}">
-            </div>
-            <!--end::Wrapper-->
-        </div>
-
-        <!--end::Body-->
     </div>
-    <!--end::Authentication - Sign-in-->
+
+
 </div>
-<!--end::Root-->
-<!--end::Main-->
-<!--begin::Javascript-->
-<script>var hostUrl = "assets/";</script>
-<!--begin::Global Javascript Bundle(used by all pages)-->
-<script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
-<script src="{{asset('assets/js/scripts.bundle.js')}}"></script>
-<!--end::Global Javascript Bundle-->
-<!--begin::Page Custom Javascript(used by this page)-->
-<script src="{{asset('assets/js/custom/authentication/sign-in/general.js')}}"></script>
-<!--end::Page Custom Javascript-->
-<!--end::Javascript-->
+
+
+
+<script src="{{asset('assets/login/js/jquery-3.3.1.min.js')}}"></script>
+<script src="{{asset('assets/login/js/popper.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="{{asset('assets/login/js/main.js')}}"></script>
 </body>
-<!--end::Body-->
 </html>

@@ -48,14 +48,18 @@ class QuestionController extends Controller
                                             <a id="show" data-id="' . $data->id . '" data-name="' . $data->title . '" data-bs-toggle="modal" data-bs-target="#kt_modal_show_event"
                                                class="menu-link px-3">'.trans("place.Show").'</a>
                                         </div>';
-                    $action = $action . '<div  class="menu-item px-3">
+                    if (\auth()->user()->can('question-edit')) {
+                        $action = $action . '<div  class="menu-item px-3">
                                         <a id="edit" data-id="' . $data->id . '" data-name="' . $data->title . '" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_event"
-                                           class="menu-link px-3">'.trans("admin.edit").'</a>
+                                           class="menu-link px-3">' . trans("admin.edit") . '</a>
                                     </div>';
-                    $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
+                    }
+                    if (\auth()->user()->can('question-delete')) {
+                        $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
-                                           class="menu-link px-3">'.trans("admin.delete").'</a>
+                                           class="menu-link px-3">' . trans("admin.delete") . '</a>
                                     </div>';
+                    }
 
                     $action = $action . '</div></div></div>';
                     return $action;
@@ -77,10 +81,10 @@ class QuestionController extends Controller
         if ($request->ajax()) {
 //            dd($request->input());
             $validator = Validator::make($request->all(), [
-                'question_en' => 'required|string|max:500',
-                'question_ar' => 'required|string|max:500',
-                'answer_en' => 'required|string|max:500',
-                'answer_ar' => 'required|string|max:500',
+                'question_en' => 'required|string',
+                'question_ar' => 'required|string',
+                'answer_en' => 'required|string',
+                'answer_ar' => 'required|string',
             ], [
                 'question_en.required' => trans("faq.required"),
                 'question_en.string' => trans("faq.string"),
@@ -132,10 +136,10 @@ class QuestionController extends Controller
 
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'question_u_en' => 'required|string|max:500',
-                'question_u_ar' => 'required|string|max:500',
-                'answer_u_en' => 'required|string|max:500',
-                'answer_u_ar' => 'required|string|max:500',
+                'question_u_en' => 'required|string',
+                'question_u_ar' => 'required|string',
+                'answer_u_en' => 'required|string',
+                'answer_u_ar' => 'required|string',
             ], [
                 'question_u_en.required' => trans("faq.required"),
                 'question_u_en.string' => trans("faq.string"),

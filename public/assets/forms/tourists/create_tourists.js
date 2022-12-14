@@ -69,6 +69,9 @@ $(function () {
                                                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                         customClass: {confirmButton: "btn btn-primary"}
                                                     }).then((function (t) {
+                                                        e.reset();
+                                                        $('#image_id').remove();
+                                                        $( ".containerss" ).append( "<div id='image_div'></div>" );
                                                         t.isConfirmed && n.hide()
                                                     }))
                                                 }), 2e3));

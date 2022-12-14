@@ -53,6 +53,75 @@
                                 <!--begin::Scroll-->
                                 <div id="kt_modal_edit_user_scroll">
                                     <form id="kt_modal_edit_user_only">
+                                        <!--begin::Input group-->
+                                        <div class="row">
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-7">
+                                                <!--begin::Label-->
+                                                <label
+                                                    class="required fw-bold fs-6 mb-2">{{ __('options.Foundation') }}
+                                                    ({{ __('event.English') }})</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <textarea id="foundation_en" type="text" name="foundation_en"
+                                                          class="form-control form-control-solid mb-3 mb-lg-0"
+                                                          placeholder="{{ __('options.FoundationPlace') }}"
+                                                >{{$options->getTranslation('foundation', 'en')}}</textarea>
+                                                <strong id="foundation_en_error" class="errors text-danger"
+                                                        role="alert">
+                                                </strong>
+                                                <!--end::Input-->
+                                            </div>
+                                            <div class="col-md-6 mb-7">
+                                                <!--begin::Label-->
+                                                <label
+                                                    class="required fw-bold fs-6 mb-2">{{ __('options.Foundation') }}
+                                                    ({{ __('event.Arabic') }})</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <textarea id="foundation_ar" type="text" name="foundation_ar"
+                                                          class="form-control form-control-solid mb-3 mb-lg-0"
+                                                          placeholder="{{ __('options.FoundationPlace') }}"
+                                                >{{$options->getTranslation('foundation', 'ar')}}</textarea>
+                                                <strong id="foundation_ar_error" class="errors text-danger"
+                                                        role="alert">
+                                                </strong>
+                                                <!--end::Input-->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2">{{ __('options.History') }}
+                                                    ({{ __('event.English') }})</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <textarea id="history_en" type="text" name="history_en"
+                                                          class="form-control form-control-solid mb-3 mb-lg-0"
+                                                          placeholder="{{ __('options.HistoryPlace') }}"
+                                                >{{$options->getTranslation('history', 'en')}}</textarea>
+                                                <strong id="history_en_error" class="errors text-danger"
+                                                        role="alert">
+                                                </strong>
+                                                <!--end::Input-->
+                                            </div>
+                                            <div class="col-md-6 mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2">{{ __('options.History') }}
+                                                    ({{ __('event.Arabic') }})</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <textarea id="history_ar" type="text" name="history_ar"
+                                                          class="form-control form-control-solid mb-3 mb-lg-0"
+                                                          placeholder="{{ __('options.HistoryPlace') }}"
+                                                >{{$options->getTranslation('history', 'ar')}}</textarea>
+                                                <strong id="history_ar_error" class="errors text-danger"
+                                                        role="alert">
+                                                </strong>
+                                                <!--end::Input-->
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <!--end::Input group-->
                                             <!--begin::Input group-->
@@ -68,53 +137,18 @@
                                                 <!--end::Input-->
                                             </div>
                                             @if($options->image != null)
-                                            <div class="col-md-4 mb-7">
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <br>
-                                                <div>
-                                                    <img style="max-width: 100%;"  src="{{ asset('images/main/' . $options->image) }}"/>
-                                                </div>
+                                                <div class="col-md-6 mb-7">
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <br>
+                                                    <div>
+                                                        <img style="max-width: 100%;"
+                                                             src="{{ asset('images/main/' . $options->image) }}"/>
+                                                    </div>
 
-                                                <!--end::Input-->
-                                            </div>
-                                                @endif
-                                        </div>
-                                        <!--begin::Input group-->
-                                        <div class="row">
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="col-md-12 mb-7">
-                                                <!--begin::Label-->
-                                                <label
-                                                    class="required fw-bold fs-6 mb-2">{{ __('options.Foundation') }}</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <textarea id="foundation" type="text" name="foundation"
-                                                          class="form-control form-control-solid mb-3 mb-lg-0"
-                                                          placeholder="Write Foundation"
-                                                >{{$options->foundation}}</textarea>
-                                                <strong id="foundation_error" class="errors text-danger"
-                                                        role="alert">
-                                                </strong>
-                                                <!--end::Input-->
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 mb-7">
-                                                <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">{{ __('options.History') }}</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <textarea id="history" type="text" name="history"
-                                                          class="form-control form-control-solid mb-3 mb-lg-0"
-                                                          placeholder="Write History"
-                                                >{{$options->history}}</textarea>
-                                                <strong id="history_error" class="errors text-danger"
-                                                        role="alert">
-                                                </strong>
-                                                <!--end::Input-->
-                                            </div>
+                                                    <!--end::Input-->
+                                                </div>
+                                            @endif
                                         </div>
                                         <!--end::Scroll-->
                                     </form>
@@ -124,13 +158,15 @@
                                 <!--end::Content-->
                             </div>
                             <!--begin::Actions-->
-                            <div class="d-flex justify-content-end">
-                                <button id="kt_modal_update_user_submit" class="btn btn-primary">
-                                    <span class="indicator-label">{{ __('options.Save') }}</span>
-                                    <span class="indicator-progress">{{ __('options.Please') }}
+                            @can('option-edit')
+                                <div class="d-flex justify-content-end">
+                                    <button id="kt_modal_update_user_submit" class="btn btn-primary">
+                                        <span class="indicator-label">{{ __('options.Save') }}</span>
+                                        <span class="indicator-progress">{{ __('options.Please') }}
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                </button>
-                            </div>
+                                    </button>
+                                </div>
+                            @endcan
                             <!--end::Actions-->
                             <!--end::Layout-->
                             <!--begin::Modals-->

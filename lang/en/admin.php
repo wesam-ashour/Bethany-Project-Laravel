@@ -39,7 +39,8 @@ return [
     'max' => 'This field must not be greater than 255 characters.',
     'min' => 'This field must not be lower than 8 characters.',
     'numeric' => 'This field must be a number',
-
+    'unique' => 'The username has already been taken.',
+    'digits' => 'The mobile must be 10 digits',
     'placeholderName' => 'Enter a name',
     'placeholderMobile' => 'Enter a mobile',
     'placeholderEmail' => 'Enter a email',

@@ -2537,7 +2537,7 @@ progress {
   margin-inline-end: 1rem;
   color: #181C32;
   background-color: #F5F8FA;
-  pointer-events: none;
+  pointer-events: none;z
   border-color: inherit;
   border-style: solid;
   border-width: 0;

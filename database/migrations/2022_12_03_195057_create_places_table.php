@@ -23,7 +23,7 @@ return new class extends Migration
             $table->tinyInteger('type')->default(1)->comment('1:PLACES | 0:TOURIST-SITE');
             $table->foreignId('added_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->tinyInteger('updated_by')->nullable();
-            $table->string('QRCode')->nullable();
+            $table->string('QRCode')->default(0);
             $table->bigInteger('scanned')->nullable();
             $table->string('image');
             $table->softDeletes();

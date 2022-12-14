@@ -10,9 +10,11 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
+    Route::group(['middleware' => ['guest','localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],'prefix' => LaravelLocalization::setLocale()], function () {
+
+        Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
@@ -35,7 +37,7 @@ Route::middleware('guest')->group(function () {
                 ->name('password.store');
 });
 
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth','localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],'prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 

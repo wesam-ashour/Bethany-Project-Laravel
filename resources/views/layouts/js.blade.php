@@ -17,12 +17,6 @@
 <script src="{{asset('assets/js/custom/utilities/modals/upgrade-plan.js')}}"></script>
 <script src="{{asset('assets/js/custom/utilities/modals/create-app.js')}}"></script>
 <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}"></script>
-<script>
-    $("#kt_datepicker_6").flatpickr();
-</script>
-<script>
-    $("#kt_datepicker_7").flatpickr();
-</script>
 
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSNQLhR2yEuFkYAoU_q4sXlvsd_8lOMBA&callback=initMap"

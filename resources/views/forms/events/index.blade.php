@@ -1,5 +1,11 @@
 @extends('layouts.master')
 @section('content')
+<style>
+    #file-chosen{
+        margin-left: 0.3rem;
+        font-family: sans-serif;
+    }
+</style>
 
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -63,7 +69,7 @@
                         <div class="card-toolbar">
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-
+                                @can('event-create')
                                 <button type="button" class="btn btn-primary addNew" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
@@ -79,6 +85,7 @@
                             												</span>
                                     <!--end::Svg Icon-->{{ __('event.Add') }}
                                 </button>
+                                @endcan
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
@@ -265,9 +272,9 @@
                                                             <!--begin::Input-->
 
                                                             <input class="form-control form-control-solid"
-                                                                   name="date"
+                                                                   name="date" type="date"
                                                                    placeholder="{{ __('event.placeholderDate') }}"
-                                                                   id="kt_datepicker_6"/>
+                                                                   id="kt_datepicker_6" />
 
 
                                                             <!--end::Input-->
@@ -308,9 +315,12 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="file"
-                                                                   class="form-control form-control-solid"
-                                                                   id="fileupload" name="fileupload">
+
+                                                            <input type="file" id="fileupload" name="fileupload" hidden/>
+
+                                                            <label for="fileupload" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
+
+{{--                                                            <label  for="fileupload" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف بعد     </span></label>--}}
 
                                                             <!--end::Input-->
                                                             <strong id="fileupload_error" class="errors text-danger"
@@ -509,7 +519,7 @@
                                                             <!--begin::Input-->
                                                             <textarea id="description_en_edit"
                                                                       class="form-control form-control-solid"
-                                                                      placeholder="{{ __('event.placeholderDescription') }}Enter a description"
+                                                                      placeholder="{{ __('event.placeholderDescription') }}"
                                                                       name="description_en_edit"></textarea>
                                                             <!--end::Input-->
                                                             <strong id="description_en_edit_update_error" class="errors text-danger"
@@ -529,7 +539,7 @@
                                                             <!--begin::Input-->
                                                             <textarea id="description_ar_edit"
                                                                       class="form-control form-control-solid"
-                                                                      placeholder="{{ __('event.placeholderDescription') }}Enter a description"
+                                                                      placeholder="{{ __('event.placeholderDescription') }}"
                                                                       name="description_ar_edit"></textarea>
                                                             <!--end::Input-->
                                                             <strong id="description_ar_edit_update_error" class="errors text-danger"
@@ -548,13 +558,13 @@
                                                             <!--begin::Input-->
 
                                                             <input class="form-control form-control-solid"
-                                                                   name="date_u"
+                                                                   name="date_u" type="date"
                                                                    placeholder="{{ __('event.placeholderDate') }}Pick a date"
                                                                    id="kt_datepicker_7"/>
 
 
                                                             <!--end::Input-->
-                                                            <strong id="kt_datepicker_6_update_error" class="errors text-danger"
+                                                            <strong id="date_u_update_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -710,7 +720,15 @@
         <!--end::Post-->
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+    const actualBtn = document.getElementById('fileupload');
 
+    const fileChosen = document.getElementById('file-chosen');
+
+    actualBtn.addEventListener('change', function(){
+        fileChosen.textContent = this.files[0].name
+    })
+</script>
     <script>
         jQuery(document).ready(function ($) {
             $('.classroomLike').click(function () {

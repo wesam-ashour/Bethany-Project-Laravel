@@ -93,7 +93,7 @@
                                 <th class="text">{{ __('user.Email') }}</th>
 
                                 <th class="text">{{ __('user.Mobile') }}</th>
-                                <th class="text">{{ __('user.Username') }}</th>
+                                <th class="text">{{ __('user.email_verified') }}</th>
 
                                 <th class="text">{{ __('user.Address') }}</th>
                             </tr>

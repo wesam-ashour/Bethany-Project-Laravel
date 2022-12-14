@@ -19,6 +19,11 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         @include('layouts.css')
+        <style>
+            body {
+                font-family: Inter;
+            }
+        </style>
 
     </head>
 <body id="kt_body"

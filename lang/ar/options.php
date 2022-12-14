@@ -16,10 +16,12 @@ return [
     'Dashboard' => 'لوحه التحكم',
     'Settings' => 'الاعدادات',
     'Image' => 'الصورة الرئيسيه',
-    'Foundation' => 'مؤسسة',
+    'Foundation' => 'التأسيس',
     'History' => 'التاريخ',
     'Save' => 'حفظ التغيرات',
     'Please' => 'الرجاء الانتظار',
+    'FoundationPlace' => 'ادخل وصف التأسيس',
+    'HistoryPlace' => 'ادخل وصف التاريخ',
 
 
 ];

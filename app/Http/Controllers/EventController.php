@@ -6,14 +6,12 @@ use App\Mail\MessageMail;
 use App\Models\Admin;
 use App\Models\Event;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use RealRashid\SweetAlert\Facades\Alert;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 use Yajra\DataTables\Facades\DataTables;
 
 class EventController extends Controller
@@ -28,8 +26,8 @@ class EventController extends Controller
 
     public function pdf(Request $request){
         $pd = DB::table('event_user')->where('event_id', '=', $request->id)->get();
-        $pdf = Pdf::loadView('forms.events.pdf', compact('pd'));
-        return $pdf->download('users.pdf');
+        $pdf = PDF::loadView('forms.events.pdf', compact('pd'));
+        return $pdf->download('Users.pdf');
     }
 
     public function index(Request $request)
@@ -82,17 +80,22 @@ class EventController extends Controller
                                             <a href="' . route('events.show', $data->id) . '"
                                                class="menu-link px-3">'.trans("event.Show").'</a>
                                         </div>';
-                    $action = $action . '<div  class="menu-item px-3">
+                    if (\auth()->user()->can('event-edit')) {
+                        $action = $action . '<div  class="menu-item px-3">
                                         <a id="edit" data-id="' . $data->id . '" data-name="' . $data->title . '" data-bs-toggle="modal" data-bs-target="#kt_modal_edit_event"
-                                           class="menu-link px-3">'.trans("event.Edit_table").'</a>
+                                           class="menu-link px-3">' . trans("event.Edit_table") . '</a>
                                     </div>';
-                    $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
+                    }
+                    if (\auth()->user()->can('event-delete')) {
+                        $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
-                                           class="menu-link px-3">'.trans("event.Delete").'</a>
+                                           class="menu-link px-3">' . trans("event.Delete") . '</a>
                                     </div>';
+                    }
 
                     $action = $action . '</div></div></div>';
-                    return $action;
+                        return $action;
+
                 })
                 ->rawColumns(['action'])
                 ->escapeColumns([])
@@ -110,15 +113,15 @@ class EventController extends Controller
     {
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'title_en' => 'required|string|max:255',
-                'title_ar' => 'required|string|max:255',
-                'description_en' => 'required|string|max:255',
-                'description_ar' => 'required|string|max:255',
-                'address_en' => 'required|string|max:255',
-                'address_ar' => 'required|string|max:255',
-                'date' => 'required|date_format:Y-m-d',
+                'title_en' => 'required|string',
+                'title_ar' => 'required|string',
+                'description_en' => 'required|string',
+                'description_ar' => 'required|string',
+                'address_en' => 'required|string',
+                'address_ar' => 'required|string',
+                'date' => 'required',
                 'time' => 'required',
-                'fileupload' => 'mimes:jpeg,jpg,png|required|max:300',
+                'fileupload' => 'mimes:jpeg,jpg,png|required',
                 'default_latitude' => 'required|numeric|max:255',
                 'default_longitude' => 'required|numeric|max:255',
 
@@ -220,16 +223,16 @@ class EventController extends Controller
         $data = Event::query()->find($request->event_id);
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'title_en_edit' => 'required|string|max:255',
-                'title_ar_edit' => 'required|string|max:255',
-                'description_en_edit' => 'required|string|max:255',
-                'description_ar_edit' => 'required|string|max:255',
-                'address_en_edit' => 'required|string|max:255',
-                'address_ar_edit' => 'required|string|max:255',
+                'title_en_edit' => 'required|string',
+                'title_ar_edit' => 'required|string',
+                'description_en_edit' => 'required|string',
+                'description_ar_edit' => 'required|string',
+                'address_en_edit' => 'required|string',
+                'address_ar_edit' => 'required|string',
                 'date_u' => 'required|date_format:Y-m-d',
                 'time_edit' => 'required',
                 'status' => 'required',
-                'fileuploads' => 'mimes:jpeg,jpg,png|sometimes|max:300',
+                'fileuploads' => 'mimes:jpeg,jpg,png|sometimes',
                 'default_latitude_u' => 'required|numeric|max:255',
                 'default_longitude_u' => 'required|numeric|max:255',
 
@@ -316,8 +319,10 @@ class EventController extends Controller
                 })
                 ->addColumn('email', function ($data) {
                     return User::find($data->user_id)->email;
-                })->addColumn('user_name', function ($data) {
-                    return User::find($data->user_id)->user_name;
+                })->addColumn('email_verified', function ($data) {
+                    $user =  User::find($data->user_id)->email_verified;
+                    return ($user == 'true') ? '<div class="badge badge-light-success">'.trans("user.true").'</div>' : '<div class="badge badge-light-danger">'.trans("user.false").'</div>';
+
                 })
                 ->escapeColumns([])
                 ->make(true);

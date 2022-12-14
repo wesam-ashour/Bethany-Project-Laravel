@@ -1,50 +1,70 @@
 <!DOCTYPE html>
-
-<html>
-
+<html @if(App::getLocale() == 'en') lang="en" dir="ltr" @else lang="ar" dir="rtl" @endif>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ __('event.register') }}</title>
+    <style>
+        body {
+            font-family: arial, sans-serif;
+            letter-spacing: -0.3px;
+        }
 
-    <title>PDF</title>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        td, th {
+            border: 1px solid black;
+            padding: 4px;
+        }
 
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
 </head>
-
 <body>
-
-
-<p>Register Users in event<span>({{count($pd)}})</span></p>
-
-
-<table class="table table-hover">
+<strong>{{ __('event.register') }}<span> ({{count($pd)}})</span></strong>
+<br>
+<br>
+<table class="table">
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">Full Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Username</th>
+        <th scope="col">{{ __('user.Full') }}</th>
+        <th scope="col">{{ __('user.Email') }}</th>
+        <th scope="col">{{ __('user.email_verified') }}</th>
+        <th scope="col">{{ __('user.created_at') }}</th>
+
     </tr>
     </thead>
     <tbody>
+
     @foreach ($pd as $p)
         <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ \App\Models\User::find($p->user_id)->full_name }}</td>
             <td>{{ \App\Models\User::find($p->user_id)->email }}</td>
-            <td>{{ \App\Models\User::find($p->user_id)->user_name }}</td>
+            <td>
+                @if(\App\Models\User::find($p->user_id)->email_verified == 'true')
+                    <div class="badge badge-light-success">{{trans("user.true")}}</div>
+                @else
+                    <div class="badge badge-light-danger">{{trans("user.false")}}</div>
+                @endif
+            </td>
+            <td>{{ \App\Models\User::find($p->user_id)->created_at }}</td>
+
         </tr>
     @endforeach
+
     </tbody>
-
 </table>
-
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-</script>
 
 </html>
+
+

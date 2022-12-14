@@ -27,7 +27,7 @@ return [
     'Description' => 'الوصف',
     'Image' => 'الصورة',
     'Generate' => 'إنشاء QR السريع',
-    'Location' => 'الوقع',
+    'Location' => 'الموقع',
     'Discard' => 'تجاهل',
     'Submit' => 'ارسل',
     'Please' => 'أرجو الإنتظار...',

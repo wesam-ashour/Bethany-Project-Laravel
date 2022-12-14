@@ -65,7 +65,7 @@
                         <div class="card-toolbar">
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-
+                                @can('question-create')
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
@@ -86,6 +86,7 @@
                             												</span>
                                     <!--end::Svg Icon-->{{ __('faq.Add') }}
                                 </button>
+                                @endcan
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->

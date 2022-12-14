@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Couchbase\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -40,14 +41,19 @@ class RoleController extends Controller
 									</span>'.trans("admin.Actions").'
                                   </button>
                                   <div class="dropdown-menu">';
+                        if (\auth()->user()->can('role-edit')) {
 
-                    $action = $action . '<div  class="menu-item px-3">
-                                        <a href="'. route('roles.edit', $data->id ) .'" class="menu-link px-3">'.trans("admin.edit").'</a>
+                            $action = $action . '<div  class="menu-item px-3">
+                                        <a href="' . route('roles.edit', $data->id) . '" class="menu-link px-3">' . trans("admin.edit") . '</a>
                                     </div>';
-                    $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
+                        }
+                        if (\auth()->user()->can('role-delete')) {
+
+                            $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
-                                           class="menu-link px-3">'.trans("admin.delete").'</a>
+                                           class="menu-link px-3">' . trans("admin.delete") . '</a>
                                     </div>';
+                        }
 
 
                     $action = $action . '</div></div></div>';
@@ -141,14 +147,20 @@ class RoleController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($request->ajax()) {
-            $validate = Role::find($id)->id;
-            if ($validate == 1){
-                return response()->json(['error' => "error"]);
 
-            }else {
-                DB::table("roles")->where('id', $id)->delete();
-                return response()->json(['success' => "success"]);
+            $item = Role::withCount('users')->findOrFail($id);
+            if ($item->users_count !== 0){
+                return response()->json(['error' => "error"]);
+            }else{
+                $validate = Role::find($id)->id;
+                if ($validate == 1){
+                    return response()->json(['error' => "error"]);
+                }else {
+                    DB::table("roles")->where('id', $id)->delete();
+                    return response()->json(['success' => "success"]);
+                }
             }
+
         }
 
     }

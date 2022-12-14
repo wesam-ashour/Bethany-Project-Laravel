@@ -18,8 +18,12 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::all();
+            $data = User::select('full_name','email','mobile','email_verified','address','user_name')->get();
             return DataTables::of($data)->addIndexColumn()
+                ->addColumn('user_name', function ($data) {
+                    return ($data->email_verified == 'true') ? '<div class="badge badge-light-success">'.trans("user.true").'</div>' : '<div class="badge badge-light-danger">'.trans("user.false").'</div>';
+                })
+
                 ->escapeColumns([])
                 ->make(true);
         }

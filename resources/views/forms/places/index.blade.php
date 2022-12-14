@@ -63,7 +63,7 @@
                         <div class="card-toolbar">
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-
+                                @can('place-create')
                                 <button type="button" class="btn btn-primary addNew" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_add_user">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
@@ -79,6 +79,7 @@
                             												</span>
                                     <!--end::Svg Icon-->{{ __('place.Add') }}
                                 </button>
+                                @endcan
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->

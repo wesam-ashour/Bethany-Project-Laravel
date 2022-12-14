@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('scanneds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('place_id')->constrained('places');
+            $table->foreignId('place_id')->constrained('places')->cascadeOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

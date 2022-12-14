@@ -18,8 +18,11 @@ return [
     'Full' => 'Full name',
     'Email' => 'Email',
     'Mobile' => 'Mobile',
-    'Username' => 'Username',
+    'email_verified' => 'Email verified',
     'Address' => 'Address',
     'Search' => 'Search user',
+    'false' => 'false',
+    'true' => 'true',
+    'created_at' => 'Added at',
 
 ];

@@ -10,8 +10,6 @@ $(function () {
         get_forms();
         /*Table Actions*/
         table_function();
-        date_picker();
-        repeater();
     });
 
     function table_function() {
@@ -141,7 +139,7 @@ $(function () {
                             url: language === "en" ? "//cdn.datatables.net/plug-ins/1.10.16/i18n/English.json" : "//cdn.datatables.net/plug-ins/1.10.16/i18n/Arabic.json",
                         },
                         ajax: {
-                            "url": base_path + "users",
+                            "url": base_path + language + "/users",
                             "type": 'GET',
                             /*"data":{core_name:core_name},*/
                         },
@@ -159,8 +157,8 @@ $(function () {
                                 name: 'mobile'
                             },
                             {
-                                data: 'user_name',
-                                name: 'user_name'
+                                data: 'email_verified',
+                                name: 'email_verified'
                             },
 
                             {

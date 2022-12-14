@@ -61,20 +61,25 @@ class AdminController extends Controller
 									</span>'.trans("admin.Actions").'
                                   </button>
                                   <div class="dropdown-menu">';
-
+                    if (\auth()->user()->can('admin-edit')){
                     $action = $action . '<div  class="menu-item px-3">
                                         <a href="' . route('admins.edit', $data->id) . '"
                                            class="menu-link px-3">'.trans("admin.edit").'</a>
                                     </div>';
+                    }
+                    if (\auth()->user()->can('admin-delete')){
                     if ($data->id !== 1){
                     $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
                                            class="menu-link px-3">'.trans("admin.delete").'</a>
                                     </div>';
                     }
+                    }
 
                     $action = $action . '</div></div></div>';
-                    return $action;
+                    if (\auth()->user()->can('admin-edit') || \auth()->user()->can('admin-delete')) {
+                        return $action;
+                    }
                 })
                 ->rawColumns(['action'])
                 ->escapeColumns([])
@@ -94,7 +99,7 @@ class AdminController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
-                'mobile' => 'required|numeric',
+                'mobile' => 'required|numeric|digits:10',
                 'address' => 'required|string|max:255',
                 'email' => 'required|email|unique:admins,email|max:255',
                 'user_name' => 'required|string|unique:admins,user_name|max:255',
@@ -107,6 +112,7 @@ class AdminController extends Controller
 
                 'mobile.required' => trans("admin.required"),
                 'mobile.numeric' => trans("admin.numeric"),
+                'mobile.digits' => trans("admin.digits"),
 
                 'address.required' => trans("admin.required"),
                 'address.string' => trans("admin.string"),
@@ -138,6 +144,7 @@ class AdminController extends Controller
                 $data->address = $request->address;
                 $data->password = Hash::make($request->password);;
                 $data->status = 1;
+                $data->image = 'main.jpg';
                 $data->save();
                 $data->assignRole($request->roles);
 
@@ -167,7 +174,7 @@ class AdminController extends Controller
         if ($request->ajax()) {
             $validator   = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
-                'mobile' => 'required|numeric',
+                'mobile' => 'required|numeric|digits:10',
                 'user_name' => 'required|string|max:255|unique:admins,user_name,'. $request->id,
                 'address' => 'required|string|max:255',
                 'status' => 'sometimes|string|max:255',
@@ -181,6 +188,7 @@ class AdminController extends Controller
 
                 'mobile.required' => trans("admin.required"),
                 'mobile.numeric' => trans("admin.numeric"),
+                'mobile.digits' => trans("admin.digits"),
 
                 'address.required' => trans("admin.required"),
                 'address.string' => trans("admin.string"),
@@ -255,6 +263,7 @@ class AdminController extends Controller
 
     public function dashboard(Request $request)
     {
+
         $events = Event::all();
         $d = [];
         $visit = Visit::orderBy('id', 'DESC')->get();
@@ -346,7 +355,7 @@ class AdminController extends Controller
                         $monthCount2[] = count($values);
                     }
 
-                    $data3 = DB::table('scanneds')->select('id', 'place_id')->get()->groupBy(function ($data3) {
+                    $data3 = DB::table('scanneds')->select('id', 'place_id')->where('deleted_at','=',null)->get()->groupBy(function ($data3) {
                         return Place::find($data3->place_id)->title;
                     });
                     $months3 = [];
@@ -387,7 +396,7 @@ class AdminController extends Controller
                     $monthCount2[] = count($values);
                 }
 
-                $data3 = DB::table('scanneds')->select('id', 'place_id')->get()->groupBy(function ($data3) {
+                $data3 = DB::table('scanneds')->select('id', 'place_id')->where('deleted_at','=',null)->get()->groupBy(function ($data3) {
                     return Place::find($data3->place_id)->title;
                 });
                 $months3 = [];

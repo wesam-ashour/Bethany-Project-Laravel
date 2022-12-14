@@ -20,6 +20,8 @@ return [
     'History' => 'History',
     'Save' => 'Save Changes',
     'Please' => 'Please wait...',
+    'FoundationPlace' => 'Write foundation description',
+    'HistoryPlace' => 'Write History description',
 
 
 ];

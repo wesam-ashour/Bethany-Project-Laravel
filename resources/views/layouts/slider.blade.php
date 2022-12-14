@@ -52,6 +52,7 @@
                     <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ __('home.Forms') }}</span>
                 </div>
             </div>
+            @if(auth()->user()->can('admin-list') || auth()->user()->can('role-list'))
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{str_contains($url,"admins") | str_contains($url,"roles") ? "hover show":""}}">
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -72,6 +73,7 @@
 										<span class="menu-arrow"></span>
 									</span>
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
+                    @can('admin-list')
                     <div class="menu-item">
                         <a class="menu-link  {{str_contains($url,"admins") ? "active":""}}" href="{{route('admins.index')}}">
 												<span class="menu-bullet">
@@ -80,6 +82,8 @@
                             <span class="menu-title">{{ __('home.Admins') }}</span>
                         </a>
                     </div>
+                    @endcan
+                        @can('role-list')
                     <div class="menu-item">
                         <a class="menu-link  {{str_contains($url,"roles") ? "active":""}}" href="{{route('roles.index')}}">
 												<span class="menu-bullet">
@@ -88,9 +92,11 @@
                             <span class="menu-title">{{ __('home.Roles') }}</span>
                         </a>
                     </div>
+                        @endcan
                 </div>
             </div>
-
+            @endif
+            @if(auth()->user()->can('user-list') || auth()->user()->can('event-list') || auth()->user()->can('place-list') || auth()->user()->can('tourist-list'))
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{str_contains($url,"users") || str_contains($url,"events") || str_contains($url,"places") || str_contains($url,"tourists") ? "hover show":""}}">
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -115,6 +121,7 @@
 										<span class="menu-arrow"></span>
 									</span>
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
+                    @can('user-list')
                     <div class="menu-item">
                         <a class="menu-link {{str_contains($url,"users") ? "active":""}}" href="{{route('users.index')}}">
 												<span class="menu-bullet">
@@ -123,6 +130,8 @@
                             <span class="menu-title">{{ __('home.Users') }}</span>
                         </a>
                     </div>
+                    @endcan
+                        @can('event-list')
                     <div class="menu-item">
                         <a class="menu-link {{str_contains($url,"events") ? "active":""}}" href="{{route('events.index')}}">
 												<span class="menu-bullet">
@@ -131,6 +140,8 @@
                             <span class="menu-title">{{ __('home.Events') }}</span>
                         </a>
                     </div>
+                        @endcan
+                        @can('place-list')
                     <div class="menu-item">
                         <a class="menu-link {{str_contains($url,"places") ? "active":""}}" href="{{route('places.index')}}">
 												<span class="menu-bullet">
@@ -139,6 +150,8 @@
                             <span class="menu-title">{{ __('home.Places') }}</span>
                         </a>
                     </div>
+                        @endcan
+                        @can('tourist-list')
                     <div class="menu-item">
                         <a class="menu-link {{str_contains($url,"tourists") ? "active":""}}" href="{{route('tourists.index')}}">
 												<span class="menu-bullet">
@@ -147,8 +160,11 @@
                             <span class="menu-title">{{ __('home.Tourist') }}</span>
                         </a>
                     </div>
+                        @endcan
                 </div>
             </div>
+            @endcan
+            @if(auth()->user()->can('question-list') || auth()->user()->can('option-list'))
 
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{str_contains($url,"faq") || str_contains($url,"options") ? "hover show":""}}">
 									<span class="menu-link">
@@ -172,21 +188,26 @@
 									</span>
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
                     <div class="menu-item">
+                        @can('question-list')
                         <a class="menu-link {{str_contains($url,"faq") ? "active":""}}" href="{{route('faq.index')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
                             <span class="menu-title">{{ __('home.faq') }}</span>
                         </a>
+                        @endcan
+                            @can('option-list')
                         <a class="menu-link {{str_contains($url,"options") ? "active":""}}" href="{{route('options.index')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
                             <span class="menu-title">{{ __('home.Settings') }}</span>
                         </a>
+                            @endcan
                     </div>
                 </div>
             </div>
+            @endif
 
             <div class="menu-item">
                 <div class="menu-content">
