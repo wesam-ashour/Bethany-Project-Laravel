@@ -138,8 +138,7 @@
                                 <label class="col-form-label text-right col-lg-3 col-sm-12">{{ __('event.Message') }}</label>
                                 <div class="col-lg-9 col-md-9 col-sm-12">
                                     <textarea class="form-control" id="message" name="message" required placeholder="{{ __('event.EnterMessage') }}" rows="3"></textarea>
-                                    <span id='Logo' class="text-danger" style="display:none">Please write
-                                        message!</span>
+                                    <span id='Logo' class="text-danger" style="display:none">{{ __('event.Pleasewrite') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -264,8 +263,8 @@
                             setTimeout(function() {
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'No Users found register!',
+                                    title: '{{ __('event.OopsU') }}',
+                                    text: '{{ __('event.Oops') }}',
                                 })
                                 jQuery('#loadMe').modal('hide');
                             }, 1000);
@@ -275,7 +274,7 @@
                             Swal.fire({
                                 position: 'center',
                                 icon: 'success',
-                                title: 'Message sent done to all users register!',
+                                title: '{{ __('event.MessageSentDone') }}',
                                 showConfirmButton: false,
                                 timer: 2000
                             })

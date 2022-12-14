@@ -53,6 +53,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
+                                $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                 $( ".errors" ).empty();
                                 t.value && n.hide()
                             }))
@@ -66,7 +67,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$( ".errors" ).empty(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$( ".errors" ).empty(),$("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -105,6 +106,7 @@ $(function () {
                                                             confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                             customClass: {confirmButton: "btn btn-primary"}
                                                         }).then((function (t) {
+                                                            $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                                             $( ".errors" ).empty()
                                                             t.isConfirmed && n.hide()
                                                         }))

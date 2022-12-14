@@ -70,6 +70,7 @@ $(function () {
                                                         customClass: {confirmButton: "btn btn-primary"}
                                                     }).then((function (t) {
                                                         e.reset();
+                                                        $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                                         $('#image_id').remove();
                                                         $( ".containerss" ).append( "<div id='image_div'></div>" );
                                                         t.isConfirmed && n.hide()
@@ -109,7 +110,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id').remove(),$( ".containerss" ).append( "<div id='image_div'></div>" ), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id').remove(),$( ".containerss" ).append( "<div id='image_div'></div>" ),$("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -129,7 +130,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id').remove(),$( ".containerss" ).append( "<div id='image_div'></div>") , n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id').remove(),$( ".containerss" ).append( "<div id='image_div'></div>") ,$("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,

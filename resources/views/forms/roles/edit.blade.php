@@ -11,12 +11,12 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ __('role.Dashboard') }}
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class="text-muted fs-7 fw-bold my-1 ms-1">Settings</small>
+                        <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ __('role.Roles') }}</small>
                         <!--end::Description--></h1>
                     <!--end::Title-->
                 </div>
@@ -42,7 +42,7 @@
                         <div class="card-header border-0">
                             <!--begin::Card title-->
                             <div class="card-title">
-                                <h2>Settings</h2>
+                                <h2>{{ __('role.Roles') }}</h2>
                             </div>
                             <!--end::Card title-->
                         </div>
@@ -59,7 +59,7 @@
                                             <div class="col-md-6 mb-7">
                                                 <!--begin::Label-->
                                                 <!--begin::Label-->
-                                                <label class="required fw-semibold fs-6 mb-2">Role Name</label>
+                                                <label class="required fw-semibold fs-6 mb-2">{{ __('role.Name') }}</label>
                                                 <!--end::Label-->
                                                 <input id="role_id" name="role_id" type="hidden" value="{{$role->id}}">
 
@@ -81,7 +81,7 @@
                                             <div class="col-md-12 mb-7">
                                                 <!--begin::Label-->
                                                 <!--begin::Label-->
-                                                <label class="required fw-semibold fs-6 mb-2">Permissions</label>
+                                                <label class="required fw-semibold fs-6 mb-2">{{ __('role.Permissions') }}</label>
                                                 <!--end::Label-->
                                                 <br>
                                                 <strong id="permission_error"
@@ -109,9 +109,11 @@
                             </div>
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
+                                <a href="{{ route('roles.index') }}"
+                                   id="kt_ecommerce_edit_user_cancel" class="btn btn-light me-5">{{ __('role.Discard') }}</a>
                                 <button id="kt_modal_update_user_submit" class="btn btn-primary">
-                                    <span class="indicator-label">Save Changes</span>
-                                    <span class="indicator-progress">Please wait...
+                                    <span class="indicator-label">{{ __('admin.Save') }}</span>
+                                    <span class="indicator-progress">{{ __('admin.Please') }}
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                 </button>
                             </div>

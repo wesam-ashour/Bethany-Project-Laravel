@@ -73,6 +73,7 @@ return [
     'content_DescriptionTourists' => 'Description is required',
     'placeholderDescriptionTourists' => 'Enter a description',
 
-
+    'PlacesDetails' => 'Places Details',
+    'TouristsDetails' => 'Tourists Details',
 
 ];

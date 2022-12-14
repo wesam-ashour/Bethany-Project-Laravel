@@ -104,6 +104,7 @@ $(function () {
                 confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                 customClass: {confirmButton: "btn btn-primary"}
             }).then((function (e) {
+                window.location.reload();
                 e.isConfirmed
             }))
             submit_button.disabled = !1

@@ -1,6 +1,11 @@
 @extends('layouts.master')
 @section('content')
-
+    <style>
+        #file-chosen{
+            margin-left: 0.3rem;
+            font-family: sans-serif;
+        }
+    </style>
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -54,7 +59,7 @@
 												</span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-ecommerce-forms-filter="search"
-                                       class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('place.Search') }}"/>
+                                       class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('event.Search') }}"/>
                             </div>
                             <!--end::Search-->
                         </div>
@@ -275,9 +280,13 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="file"
-                                                                   class="form-control form-control-solid"
-                                                                   id="fileupload" name="fileupload">
+                                                            <input type="file" id="fileupload" name="fileupload" hidden/>
+
+                                                            @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                                                <label for="fileupload" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
+                                                            @else
+                                                                <label  for="fileupload" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                            @endif
 
                                                             <!--end::Input-->
                                                             <strong id="fileupload_error" class="errors text-danger"
@@ -537,9 +546,15 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="file"
-                                                                   class="form-control form-control-solid"
-                                                                   id="fileuploads" name="fileuploads">
+
+                                                            <input type="file" id="fileuploads" name="fileuploads" hidden/>
+
+                                                            @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                                                <label for="fileuploads" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
+                                                            @else
+                                                                <label  for="fileuploads" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosens" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                            @endif
+
 
                                                             <!--end::Input-->
                                                             <strong id="image_update_error" class="errors text-danger"
@@ -683,7 +698,23 @@
         <!--end::Post-->
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        const actualBtn = document.getElementById('fileupload');
 
+        const fileChosen = document.getElementById('file-chosen');
+
+        actualBtn.addEventListener('change', function(){
+            fileChosen.textContent = this.files[0].name
+        })
+
+        const actualBtns = document.getElementById('fileuploads');
+
+        const fileChosens = document.getElementById('file-chosens');
+
+        actualBtns.addEventListener('change', function(){
+            fileChosens.textContent = this.files[0].name
+        })
+    </script>
     <script type="text/javascript">
         $(function () {
             $('body').on('click', '.editProduct', function () {

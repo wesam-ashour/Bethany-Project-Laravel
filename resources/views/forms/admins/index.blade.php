@@ -279,7 +279,7 @@
                                                 </div>
                                                 <!--end::Scroll-->
                                                 <!--begin::Actions-->
-                                                <div class="text-center pt-15">
+                                                <div class="text-center pt-15" >
                                                     <button type="reset" class="btn btn-light me-3"
                                                             data-kt-users-modal-action="cancel">{{ __('admin.Discard') }}
                                                     </button>

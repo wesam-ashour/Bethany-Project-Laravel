@@ -55,7 +55,7 @@
 												</span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-ecommerce-forms-filter="search"
-                                       class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('user.Search') }}"/>
+                                       class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('event.Search') }}"/>
                             </div>
                             <!--end::Search-->
                         </div>

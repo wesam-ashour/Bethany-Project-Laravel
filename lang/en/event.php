@@ -66,16 +66,22 @@ return [
     'Full' => 'Full Name',
     'Email' => 'Email',
     'Username' => 'Username',
-    'Added' => 'Added at',
+    'Added' => 'Added by',
     'SendMessage' => 'Send Message to register users',
     'Message' => 'Message',
     'EnterMessage' => 'Enter a Message',
     'Close' => 'Close',
     'SendM' => 'Send',
     'Sending' => 'Sending Message',
-    'Please' => 'Please Wait ',
     'Loading' => 'Loading...',
     'Oops' => 'No users found!',
+
+    'Pleasewrite' => 'Please write message!',
+    'OopsU' => 'Oops',
+    'MessageSentDone' => 'Message sent done to all users register!',
+
+    'EventsDetails' => 'Event Details',
+    'updated' => 'updated by',
 
 
 

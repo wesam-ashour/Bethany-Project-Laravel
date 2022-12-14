@@ -169,8 +169,15 @@
                                                         class="required fw-bold fs-6 mb-2">{{ __('admin.Image') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="file" class="form-control form-control-solid"
-                                                           id="image" name="image">
+
+                                                    <input type="file" id="image" name="image" hidden/>
+
+                                                    @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                                        <label for="image" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
+                                                    @else
+                                                        <label  for="image" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosens" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                    @endif
+
                                                     @error('image')
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                     @enderror
@@ -209,5 +216,14 @@
         <!--end::Post-->
     </div>
     <!--end::Content-->
+    <script>
+        const actualBtns = document.getElementById('image');
+
+        const fileChosens = document.getElementById('file-chosens');
+
+        actualBtns.addEventListener('change', function(){
+            fileChosens.textContent = this.files[0].name
+        })
+    </script>
 @endsection
 

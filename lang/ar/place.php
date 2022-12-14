@@ -70,6 +70,8 @@ return [
     'content_DescriptionTourists' => 'أدخل وصف الوموقع',
     'placeholderDescriptionTourists' => 'وصف الموقع مطلوب',
 
+    'PlacesDetails' => 'بيانات المكان',
+    'TouristsDetails' => 'بيانات الموقع السياحي',
 
 
 

@@ -73,6 +73,7 @@
                                                             customClass: {confirmButton: "btn btn-primary"}
                                                         }).then((function (t) {
                                                             e.reset();
+                                                            $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                                             t.isConfirmed && n.hide()
                                                         }))
                                                     }), 2e3));
@@ -110,7 +111,7 @@
                                     cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                     customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                                 }).then((function (t) {
-                                    t.value ? (e.reset(), $( ".errors" ).empty(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                    t.value ? (e.reset(), $( ".errors" ).empty(),$("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                         text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                         icon: "error",
                                         buttonsStyling: !1,
@@ -128,7 +129,7 @@
                                     cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                     customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                                 }).then((function (t) {
-                                    t.value ? (e.reset(),$( ".errors" ).empty(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                    t.value ? (e.reset(),$( ".errors" ).empty(),$("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                         text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                         icon: "error",
                                         buttonsStyling: !1,

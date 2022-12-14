@@ -131,8 +131,14 @@
                                                     class="required fw-bold fs-6 mb-2">{{ __('options.Image') }}</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="file" class="form-control form-control-solid"
-                                                       id="fileupload" name="fileupload">
+
+                                                <input type="file" id="fileupload" name="fileupload" hidden/>
+
+                                                @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                                    <label for="fileupload" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
+                                                @else
+                                                    <label  for="fileupload" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosens" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                @endif
 
                                                 <!--end::Input-->
                                             </div>
@@ -178,6 +184,16 @@
                 </div>
                 <!--end::Content-->
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script>
+
+                    const actualBtns = document.getElementById('fileupload');
+
+                    const fileChosens = document.getElementById('file-chosens');
+
+                    actualBtns.addEventListener('change', function(){
+                        fileChosens.textContent = this.files[0].name
+                    })
+                </script>
                 <script>const language = $('#language').val();</script>
                 <script src="{{ asset('assets/forms/settings/edit_settings.js') }}" defer></script>
 

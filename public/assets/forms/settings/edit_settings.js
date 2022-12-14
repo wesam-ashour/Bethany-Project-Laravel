@@ -83,6 +83,7 @@ $(function () {
                 confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                 customClass: {confirmButton: "btn btn-primary"}
             }).then((function (e) {
+                $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                 e.isConfirmed
                 location.reload(true);
             }))

@@ -12,12 +12,12 @@
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ __('event.Dashboard') }}
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
                         <!--begin::Description-->
-                        <small class="text-muted fs-7 fw-bold my-1 ms-1">Events - {{$event->title}}</small>
+                        <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ __('event.Events') }} - {{$event->title}}</small>
                         <!--end::Description--></h1>
                     <!--end::Title-->
                 </div>
@@ -46,7 +46,7 @@
                                 <div class="card-header cursor-pointer">
                                     <!--begin::Card title-->
                                     <div class="card-title m-0">
-                                        <h3 class="fw-bold m-0">Event Details</h3>
+                                        <h3 class="fw-bold m-0">{{ __('event.EventsDetails') }}</h3>
                                     </div>
                                     <!--end::Card title-->
                                     <!--begin::Action-->
@@ -57,7 +57,7 @@
                                 <div class="card-body p-9">
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">Cover</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.Image') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8">
@@ -68,7 +68,7 @@
                                     <!--begin::Row-->
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">title</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.Title') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8">
@@ -80,7 +80,7 @@
                                     <!--begin::Input group-->
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">description</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.Description') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8 fv-row">
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">date</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.Date') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8 fv-row">
@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">time</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.Time') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8 fv-row">
@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">address</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.Address') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8 fv-row">
@@ -120,21 +120,21 @@
                                     </div>
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">status</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.Status') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8 fv-row">
                                             @if($event->status == 1)
-                                                <div class="badge badge-light-success">Active</div>
+                                                <div class="badge badge-light-success">{{ __('event.Active') }}</div>
                                             @else
-                                                <div class="badge badge-light-danger">Not Active</div>
+                                                <div class="badge badge-light-danger">{{ __('event.Inactive') }}</div>
                                             @endif
                                         </div>
                                         <!--end::Col-->
                                     </div>
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">added by</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.Added') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8 fv-row">
@@ -146,7 +146,7 @@
                                     @if($event->updated_by != null)
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">updated by</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.updated') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8 fv-row">
@@ -159,7 +159,7 @@
                                     <!--begin::Input group-->
                                     <div class="row mb-7">
                                         <!--begin::Label-->
-                                        <label class="col-lg-4 fw-semibold text-muted">Location</label>
+                                        <label class="col-lg-4 fw-semibold text-muted">{{ __('event.Location') }}</label>
 
                                         <!--end::Label-->
                                         <!--begin::Col-->

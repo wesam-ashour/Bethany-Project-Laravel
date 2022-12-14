@@ -318,10 +318,11 @@
 
                                                             <input type="file" id="fileupload" name="fileupload" hidden/>
 
+                                                            @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                                             <label for="fileupload" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
-
-{{--                                                            <label  for="fileupload" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف بعد     </span></label>--}}
-
+                                                            @else
+                                                            <label  for="fileupload" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                            @endif
                                                             <!--end::Input-->
                                                             <strong id="fileupload_error" class="errors text-danger"
                                                                     role="alert"></strong>
@@ -601,9 +602,14 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="file"
-                                                                   class="form-control form-control-solid"
-                                                                   id="fileuploads" name="fileuploads">
+
+                                                            <input type="file" id="fileuploads" name="fileuploads" hidden/>
+
+                                                            @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                                                <label for="fileuploads" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
+                                                            @else
+                                                                <label  for="fileuploads" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosens" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                            @endif
 
                                                             <!--end::Input-->
                                                             <strong id="fileupload_update_error" class="errors text-danger"
@@ -727,6 +733,14 @@
 
     actualBtn.addEventListener('change', function(){
         fileChosen.textContent = this.files[0].name
+    })
+
+    const actualBtns = document.getElementById('fileuploads');
+
+    const fileChosens = document.getElementById('file-chosens');
+
+    actualBtns.addEventListener('change', function(){
+        fileChosens.textContent = this.files[0].name
     })
 </script>
     <script>
