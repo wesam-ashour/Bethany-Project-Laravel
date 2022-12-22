@@ -40,19 +40,33 @@ class PlacesApiController extends Controller
 
     public function scanned_qr(Request $request){
 
+       $validator = Validator::make($request->all(),[
+            'qr_code' => 'required',
+        ], [
+            'qr_code.required' => trans("place.qr_code field is required"),
+
+        ]);
+        if ($validator->fails()){
+            return response()->json(['error'=>$validator->errors()->all()],409);
+
+        }
         $places = PlacesAPI::query()->where('type',1)->where('QRCode',$request->qr_code)->get()->first();
 
-        $places->increment('scanned');
-        
-        $scanneds = new ScannedsAPI();
+        if($places){
+            $places->increment('scanned');
 
-        $scanneds->place_id = $places->id;
-        $scanneds->created_at = Carbon::now();
-        $scanneds->updated_at = Carbon::now();
+            $scanneds = new ScannedsAPI();
 
-        $scanneds->save();
+            $scanneds->place_id = $places->id;
+            $scanneds->created_at = Carbon::now();
+            $scanneds->updated_at = Carbon::now();
 
-        return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.Places Scanned') , $places , 200);
+            $scanneds->save();
+
+            return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.Places Scanned') , $places , 200);
+        }else{
+            return response()->json(['error'=> trans("place.No data for readable QR code")],409);
+        }
 
 
     }

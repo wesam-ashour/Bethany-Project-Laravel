@@ -147,7 +147,7 @@
                                                         <div class="fv-row col-md-12 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">{{ __('role.Name') }} ({{ __('place.English') }})</span>
+                                                                <span class="required">{{ __('role.Name') }}</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
                                                                    data-bs-content="{{ __('role.contentName') }}"></i>

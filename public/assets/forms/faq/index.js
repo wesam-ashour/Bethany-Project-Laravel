@@ -7,6 +7,7 @@ $(function () {
     let id = 0, core_name = "";
     $(document).ready(function () {
         "use strict";
+
         get_forms();
         /*Table Actions*/
         table_function();
@@ -134,11 +135,53 @@ $(function () {
                 init: function () {
                     (t = document.querySelector("#kt_ecommerce_forms_table")) && ((e = $(t).DataTable({
                         searchable: true,
+                        serverSide: true,
+                        // language: {
+                        //     url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
+                        // },
                         ajax: {
                             "url": base_path + language + "/faq",
                             "type": 'GET',
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
                             /*"data":{core_name:core_name},*/
                         },
+                        language: language === "ar" ?
+                            {
+                                "sProcessing": "جارٍ التحميل...",
+                                "sLengthMenu": "أظهر _MENU_ مدخلات",
+                                "sZeroRecords": "لم يعثر على أية سجلات",
+                                "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                                "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                                "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                                "sInfoPostFix": "",
+                                "sSearch": "ابحث:",
+                                "sUrl": "",
+                                "oPaginate": {
+                                    "sFirst": "الأول",
+                                    "sPrevious": "السابق",
+                                    "sNext": "التالي",
+                                    "sLast": "الأخير"
+                                }
+                            } :
+                            {
+                                "emptyTable": "No data available in table",
+                                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                                "infoEmpty": "Showing 0 to 0 of 0 entries",
+                                "infoFiltered": "(filtered from _MAX_ total entries)",
+                                "infoThousands": ",",
+                                "lengthMenu": "Show _MENU_ entries",
+                                "loadingRecords": "Loading...",
+                                "processing": "Processing...",
+                                "search": "Search:",
+                                "zeroRecords": "No matching records found",
+                                "thousands": ",",
+                                "paginate": {
+                                    "first": "First",
+                                    "last": "Last",
+                                    "next": "Next",
+                                    "previous": "Previous"
+                                },
+                            },
                         columns: [
                             {
                                 data: 'question',

@@ -410,8 +410,8 @@
         var _ydata2 = [];
         var _xdata2 = [];
 
-        var _ydata3 = JSON.parse('{!! json_encode($months3) !!}');
-        var _xdata3 = JSON.parse('{!! json_encode($monthCount3) !!}');
+        var _ydata3 = [];
+        var _xdata3 = [];
     </script>
     <script src="{{ asset('/assets/demo/chart-bar-demo.js') }}"></script>
 
@@ -438,7 +438,7 @@
 
             $(".get-data").click(function(e){
                 let chartStatus = Chart.getChart("myBarChart3"); // <canvas> id
-                if (chartStatus != undefined) {
+                if (chartStatus !== undefined) {
                     chartStatus.destroy();
                 }
                 _ydata3 = [];
@@ -452,12 +452,12 @@
 
                 var type = "GET";
                 var ctx = document.getElementById("myBarChart3");
-                var myLineChart4 = new Chart(ctx, {
+                var myLineChart5 = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: _ydata3,
                         datasets: [{
-                            label: "{{ __('home.systemـvisits') }}",
+                            label: "{{ __('home.places_scaneed') }}",
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(255, 159, 64, 0.2)',
@@ -509,10 +509,94 @@
                         jQuery.each(data.monthCount, function (index, item) {
                             _xdata3.push(item);
                         });
-                        myLineChart4.update();
+                        myLineChart5.update();
+
+
+                    },
+                    error: function (data) {
+                    },
+                });
+            });
+
+            $("#btn-chart3").click(function (e) {
+                let chartStatus = Chart.getChart("myBarChart3"); // <canvas> id
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                }
+                _ydata3 = [];
+                _xdata3 = [];
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                e.preventDefault();
+
+                var type = "GET";
+                var ctx = document.getElementById("myBarChart3");
+                var myLineChart3 = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: _ydata3,
+                        datasets: [{
+                            label: "{{ __('home.places_scaneed') }}",
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 205, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(201, 203, 207, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                            ],
+                            data: _xdata3,
+                            borderWidth: 1
+                        }],
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        legend: {
+                            display: true
+                        }
+                    }
+                });
+                $.ajax({
+                    type: type,
+                    url: '{{ route('get_scanned') }}',
+                    data: {scan:1},
+                    dataType: 'json',
+
+                    success: function (data) {
+
+                        jQuery.each(data.months3, function (index, item) {
+                            _ydata3.push(item);
+                        });
+
+                        jQuery.each(data.monthCount3, function (index, item) {
+                            _xdata3.push(item);
+                        });
+                        myLineChart3.update();
                         $("#chart1").hide();
-                        $("#chart2").hide();
                         $("#chart3").show();
+                        $("#chart2").hide();
+
+
 
                     },
                     error: function (data) {

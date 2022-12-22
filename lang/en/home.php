@@ -46,6 +46,7 @@ return [
 
     'Apply' => 'Apply',
     'systemـvisits' => 'system visits in a specific period',
+    'places_scaneed' => 'place title',
 
 
 ];

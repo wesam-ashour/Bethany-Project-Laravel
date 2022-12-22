@@ -20,8 +20,8 @@ return [
     'History' => 'السجل',
     'Save' => 'حفظ التغيرات',
     'Please' => 'الرجاء الانتظار',
-    'FoundationPlace' => 'ادخل وصف التأسيس',
-    'HistoryPlace' => 'ادخل وصف التاريخ',
+    'FoundationPlace' => 'ادخل بيانات حول التطبيق',
+    'HistoryPlace' => 'ادخل بيانات السجل',
     'License' => 'مفتاح ترخيص خرائط جوجل',
 
 

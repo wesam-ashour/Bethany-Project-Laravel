@@ -586,6 +586,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>const language = $('#language').val();</script>
 
+
+    <script src="{{ asset('assets/forms/faq/index.js') }}" defer></script>
+    <script src="{{ asset('assets/forms/faq/faq.js') }}" defer></script>
+    <script src="{{ asset('assets/forms/faq/create_faq.js') }}" defer></script>
+    <script src="{{ asset('assets/forms/faq/edit_faq.js') }}" defer></script>
+
     <script>
         $("#target").click(function () {
             $('#kt_modal_show_event').modal('hide');
@@ -618,9 +624,4 @@
             });
         });
     </script>
-    <script src="{{ asset('assets/forms/faq/index.js') }}" defer></script>
-    <script src="{{ asset('assets/forms/faq/faq.js') }}" defer></script>
-    <script src="{{ asset('assets/forms/faq/create_faq.js') }}" defer></script>
-    <script src="{{ asset('assets/forms/faq/edit_faq.js') }}" defer></script>
-
 @endsection

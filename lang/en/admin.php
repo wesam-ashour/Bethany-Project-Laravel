@@ -40,6 +40,8 @@ return [
     'min' => 'This field must not be lower than 8 characters.',
     'numeric' => 'This field must be a number',
     'unique' => 'The username has already been taken.',
+    'uniqueEmail' => 'The email has already been taken.',
+    'reqEmail' => 'The email must be a valid email address.',
     'digits' => 'The mobile must be 10 digits',
     'placeholderName' => 'Enter a name',
     'placeholderMobile' => 'Enter a mobile',

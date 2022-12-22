@@ -42,7 +42,7 @@ return [
     'question-edit' => 'تعديل-تعليمه',
     'question-delete' => 'حذف-تعليمه',
     'option-list' => 'قائمه-الاعدادات',
-//            'option-create',
+    'option-create' => 'اضافه-الاعدادات',
     'option-edit' => 'تعديل-الاعدادات',
 //            'option-delete',
 

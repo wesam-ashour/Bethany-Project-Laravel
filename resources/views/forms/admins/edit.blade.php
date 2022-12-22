@@ -316,26 +316,27 @@
                                     <!--end::Scroll-->
 
                                 </div>
+                                </form>
+                                <div class="d-flex justify-content-end">
+                                    <button id="kt_modal_update_user_submit" class="btn btn-primary">
+                                        <span class="indicator-label">{{ __('admin.Save') }}</span>
+                                        <span class="indicator-progress">{{ __('admin.Please') }}
+												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+                                </div>
                             </div>
+
                             <!--end::Card body-->
                         </div>
                         <!--end:::Tab content-->
-                        </form>
+
                     </div>
                     <!--end::Content-->
 
                 </div>
 
                 <!--begin::Actions-->
-                <div class="d-flex justify-content-end">
-                    <a href="{{ route('admins.index') }}"
-                       id="kt_ecommerce_edit_user_cancel" class="btn btn-light me-5">{{ __('admin.Cancel') }}</a>
-                    <button id="kt_modal_update_user_submit" class="btn btn-primary">
-                        <span class="indicator-label">{{ __('admin.Save') }}</span>
-                        <span class="indicator-progress">{{ __('admin.Please') }}
-												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                </div>
+
                 <!--end::Actions-->
 
             </div>

@@ -42,7 +42,7 @@ return [
     'question-edit' => 'question-edit',
     'question-delete' => 'question-delete',
     'option-list' => 'option-list',
-//            'option-create',
+    'option-create' => 'option-create',
     'option-edit' => 'option-edit',
 //            'option-delete',
 

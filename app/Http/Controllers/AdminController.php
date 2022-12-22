@@ -119,11 +119,10 @@ class AdminController extends Controller
                 'address.max' => trans("admin.max"),
 
                 'email.required' => trans("admin.required"),
-                'email.email' => trans("admin.email"),
-                'email.unique' => trans("admin.unique"),
+                'email.email' => trans("admin.reqEmail"),
+                'email.unique' => trans("admin.uniqueEmail"),
 
                 'user_name.required' => trans("admin.required"),
-                'user_name.string' => trans("admin.email"),
                 'user_name.unique' => trans("admin.unique"),
                 'user_name.max' => trans("admin.max"),
 
@@ -195,11 +194,10 @@ class AdminController extends Controller
                 'address.max' => trans("admin.max"),
 
                 'email.required' => trans("admin.required"),
-                'email.email' => trans("admin.email"),
-                'email.unique' => trans("admin.unique"),
+                'email.email' => trans("admin.reqEmail"),
+                'email.unique' => trans("admin.uniqueEmail"),
 
                 'user_name.required' => trans("admin.required"),
-                'user_name.string' => trans("admin.email"),
                 'user_name.unique' => trans("admin.unique"),
                 'user_name.max' => trans("admin.max"),
 
@@ -259,6 +257,22 @@ class AdminController extends Controller
             }
         }
         return response()->json(['error' => "error"]);
+    }
+
+    public function get_scanned(Request $request){
+
+
+            $data3 = DB::table('scanneds')->select('id', 'place_id')->where('deleted_at','=',null)->get()->groupBy(function ($data3) {
+                return Place::find($data3->place_id)->title;
+            });
+            $months3 = [];
+            $monthCount3 = [];
+            foreach ($data3 as $month => $values) {
+                $months3[] = $month;
+                $monthCount3[] = count($values);
+            }
+            return response(['months3' => $months3, 'monthCount3' => $monthCount3]);
+
     }
 
     public function get_places(Request $request){
@@ -326,6 +340,8 @@ class AdminController extends Controller
                 }
                 return response(['months2' => $months2, 'monthCount2' => $monthCount2]);
             }
+
+
 
         }
         if ($request->input('start')) {
@@ -479,11 +495,10 @@ class AdminController extends Controller
                 'address.max' => trans("admin.max"),
 
                 'email.required' => trans("admin.required"),
-                'email.email' => trans("admin.email"),
-                'email.unique' => trans("admin.unique"),
+                'email.email' => trans("admin.reqEmail"),
+                'email.unique' => trans("admin.uniqueEmail"),
 
                 'user_name.required' => trans("admin.required"),
-                'user_name.string' => trans("admin.email"),
                 'user_name.unique' => trans("admin.unique"),
                 'user_name.max' => trans("admin.max"),
 

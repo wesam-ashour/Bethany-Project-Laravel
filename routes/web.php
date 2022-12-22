@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth','localeSessionRedirect', 'localizationRedi
     Route::get('profile', [AdminController::class, 'userEdit'])->name('userEdit');
     Route::put('profile/{id}', [AdminController::class, 'userUpdate'])->name('userUpdate');
     Route::get('qr/getPlaces/', [AdminController::class, 'get_places'])->name('get_places');
+    Route::get('get_scanned/', [AdminController::class, 'get_scanned'])->name('get_scanned');
 
     Route::get('pdf/register/', [EventController::class, 'pdf'])->name('pdf');
     Route::get('pdf/register/excel', [EventController::class, 'excel'])->name('excel');

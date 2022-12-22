@@ -104,7 +104,7 @@ $(function () {
                 confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                 customClass: {confirmButton: "btn btn-primary"}
             }).then((function (e) {
-                window.location.reload();
+                window.location.href = base_path + language+  "/admins/";
                 e.isConfirmed
             }))
             submit_button.disabled = !1
