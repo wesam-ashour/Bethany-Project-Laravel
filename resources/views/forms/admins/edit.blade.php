@@ -345,9 +345,11 @@
         <!--end::Post-->
     </div>
     <!--end::Content-->
-    <script>const language = $('#language').val();</script>
-
     <script src="{{ asset('assets/forms/admins/edit_admins.js') }}" defer></script>
-
+    <script>
+        function redirect() {
+            window.location.href = "{{ route('admins.index')}}";
+        }
+    </script>
 @endsection
 
