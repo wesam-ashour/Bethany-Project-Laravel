@@ -75,5 +75,10 @@ return [
 
     'PlacesDetails' => 'Places Details',
     'TouristsDetails' => 'Tourists Details',
+    
+    /*API*/
+    'Places list' => 'Places list ',
+    'Places Scanned' => 'Scan the code successfully'
+
 
 ];

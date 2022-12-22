@@ -4,12 +4,13 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Bar Chart Example
 var ctx = document.getElementById("myBarChart");
+const language = $('#language').val();
 var myLineChart = new Chart(ctx, {
   type: 'bar',
   data: {
     labels: _ydata,
     datasets: [{
-      label: "Registration users in events",
+      label: language === "en" ? "Registration users in events" : "المستخدمين المسجلين بالحدث",
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',
@@ -67,7 +68,7 @@ var myLineChart3 = new Chart(ctx, {
     data: {
         labels: _ydata3,
         datasets: [{
-            label: "Place Title",
+            label: language === "en" ? "Place Title" : "عنوان المكان",
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(255, 159, 64, 0.2)',

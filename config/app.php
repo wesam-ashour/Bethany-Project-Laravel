@@ -167,6 +167,7 @@ return [
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -196,7 +197,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

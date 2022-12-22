@@ -27,7 +27,7 @@ class QuestionController extends Controller
                     return $data->question;
                 })
                 ->addColumn('answer', function ($data) {
-                    return $data->question;
+                    return $data->answer;
                 })
                 ->addColumn('action', function ($data) {
                     $action = '<div class="text-center">

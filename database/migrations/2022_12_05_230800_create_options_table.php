@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->id();
             $table->string('image')->nullable();
+            $table->string('key')->nullable();
             $table->longText('foundation')->nullable();
             $table->longText('history')->nullable();
             $table->softDeletes();

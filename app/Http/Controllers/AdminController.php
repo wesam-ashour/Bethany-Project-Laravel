@@ -261,10 +261,35 @@ class AdminController extends Controller
         return response()->json(['error' => "error"]);
     }
 
+    public function get_places(Request $request){
+        if ($request->ajax()) {
+//            dd($request->input());
+            if ($request->input('scanQr') !== null) {
+
+                $scanQr = $request->scanQr;
+
+                foreach ($scanQr as $values) {
+                    $data = DB::table('scanneds')->select('id', 'place_id')->where('place_id', '=', $values)->where('deleted_at','=',null)->get()->groupBy(function ($data) {
+                        return Place::find($data->place_id)->title;
+                    });
+                    foreach ($data as $month => $values) {
+                        $months[] = $month;
+                        $monthCount[] = count($values);
+                    }
+                }
+
+                return response(['months' => $months, 'monthCount' => $monthCount]);
+
+            }
+        }
+    }
+
     public function dashboard(Request $request)
     {
 
         $events = Event::all();
+        $places = Place::where('type',1)->get();
+
         $d = [];
         $visit = Visit::orderBy('id', 'DESC')->get();
         foreach ($visit as $value) {
@@ -301,6 +326,7 @@ class AdminController extends Controller
                 }
                 return response(['months2' => $months2, 'monthCount2' => $monthCount2]);
             }
+
         }
         if ($request->input('start')) {
             $startDate = $request->start;
@@ -330,6 +356,9 @@ class AdminController extends Controller
             return view("dashboard", compact('events', 'months', 'monthCount', 'months2', 'monthCount2'));
 
         }
+
+
+
         if ($request->input('select')) {
             if (Auth::user()) {
                 if (Auth::user()) {
@@ -365,7 +394,7 @@ class AdminController extends Controller
                         $monthCount3[] = count($values);
                     }
 
-                    return view('dashboard', compact('events', 'months', 'monthCount', 'months2', 'monthCount2', 'months3', 'monthCount3', 'dates'));
+                    return view('dashboard', compact('events','places', 'months', 'monthCount', 'months2', 'monthCount2', 'months3', 'monthCount3', 'dates'));
                 } else {
                     return redirect("/");
                 }
@@ -405,7 +434,7 @@ class AdminController extends Controller
                     $months3[] = $month;
                     $monthCount3[] = count($values);
                 }
-                return view('dashboard', compact('events', 'months', 'monthCount', 'months2', 'monthCount2', 'months3', 'monthCount3', 'dates'));
+                return view('dashboard', compact('events','places', 'months', 'monthCount', 'months2', 'monthCount2', 'months3', 'monthCount3', 'dates'));
 
             }
         }

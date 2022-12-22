@@ -57,11 +57,11 @@
                                         <!--begin::Image input-->
                                         <div class="image-input image-input-empty image-input-outline mb-3"
                                              data-kt-image-input="true"
-                                             style="background-image: url({{asset("images/admins/".$user->image)}});">
+                                             style="background-image: url({{asset("public/images/admins/".$user->image)}});">
                                             <!--begin::Preview existing avatar-->
                                             <div id="uploaded_image"
                                                  class="image-input-wrapper w-125px h-125px"
-                                                 style="background-image: url({{asset("images/admins/".$user->image)}});"></div>
+                                                 style="background-image: url({{asset("public/images/admins/".$user->image)}});"></div>
                                             <!--end::Preview existing avatar-->
                                             <!--begin::Label-->
                                             <label

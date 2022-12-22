@@ -74,10 +74,12 @@
                                                         }).then((function (t) {
                                                             e.reset();
                                                             $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
+                                                            $("textarea").val("");
                                                             t.isConfirmed && n.hide()
                                                         }))
                                                     }), 2e3));
                                                     $("input").val("");
+                                                    $("textarea").val("");
                                                     $(".errors").html("");
                                                     $('#kt_ecommerce_forms_table').DataTable().ajax.reload();
                                                 } else {

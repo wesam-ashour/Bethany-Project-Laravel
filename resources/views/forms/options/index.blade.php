@@ -142,6 +142,20 @@
 
                                                 <!--end::Input-->
                                             </div>
+                                            <div class="col-md-6 mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2">{{ __('options.License') }}</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input id="key" type="text" name="key"
+                                                          class="form-control form-control-solid"
+                                                          placeholder="key" value="{{$options->key}}"
+                                                >
+                                                <strong id="history_ar_error" class="errors text-danger"
+                                                        role="alert">
+                                                </strong>
+                                                <!--end::Input-->
+                                            </div>
                                             @if($options->image != null)
                                                 <div class="col-md-6 mb-7">
                                                     <!--end::Label-->
@@ -149,7 +163,7 @@
                                                     <br>
                                                     <div>
                                                         <img style="max-width: 100%;"
-                                                             src="{{ asset('images/main/' . $options->image) }}"/>
+                                                             src="{{ asset('public/images/main/' . $options->image) }}"/>
                                                     </div>
 
                                                     <!--end::Input-->
@@ -164,7 +178,7 @@
                                 <!--end::Content-->
                             </div>
                             <!--begin::Actions-->
-                            @can('option-edit')
+
                                 <div class="d-flex justify-content-end">
                                     <button id="kt_modal_update_user_submit" class="btn btn-primary">
                                         <span class="indicator-label">{{ __('options.Save') }}</span>
@@ -172,7 +186,7 @@
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                     </button>
                                 </div>
-                            @endcan
+
                             <!--end::Actions-->
                             <!--end::Layout-->
                             <!--begin::Modals-->

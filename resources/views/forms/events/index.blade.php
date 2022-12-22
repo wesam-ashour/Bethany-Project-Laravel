@@ -1,11 +1,11 @@
 @extends('layouts.master')
 @section('content')
-<style>
-    #file-chosen{
-        margin-left: 0.3rem;
-        font-family: sans-serif;
-    }
-</style>
+    <style>
+        #file-chosen {
+            margin-left: 0.3rem;
+            font-family: sans-serif;
+        }
+    </style>
 
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -60,7 +60,8 @@
 												</span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-ecommerce-forms-filter="search"
-                                       class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('event.Search') }}"/>
+                                       class="form-control form-control-solid w-250px ps-14"
+                                       placeholder="{{ __('event.Search') }}"/>
                             </div>
                             <!--end::Search-->
                         </div>
@@ -70,21 +71,26 @@
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                 @can('event-create')
-                                <button type="button" class="btn btn-primary addNew" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_add_user">
-                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                                    <span class="svg-icon svg-icon-2">
-                            													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    <button type="button" class="btn btn-primary addNew" data-bs-toggle="modal"
+                                            data-bs-target="#kt_modal_add_user">
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                                        <span class="svg-icon svg-icon-2">
+                            													<svg xmlns="http://www.w3.org/2000/svg"
+                                                                                     width="24" height="24"
                                                                                      viewBox="0 0 24 24" fill="none">
-                            														<rect opacity="0.5" x="11.364" y="20.364" width="16" height="2"
-                                                                                          rx="1" transform="rotate(-90 11.364 20.364)"
+                            														<rect opacity="0.5" x="11.364"
+                                                                                          y="20.364" width="16"
+                                                                                          height="2"
+                                                                                          rx="1"
+                                                                                          transform="rotate(-90 11.364 20.364)"
                                                                                           fill="black"/>
-                            														<rect x="4.36396" y="11.364" width="16" height="2" rx="1"
+                            														<rect x="4.36396" y="11.364"
+                                                                                          width="16" height="2" rx="1"
                                                                                           fill="black"/>
                             													</svg>
                             												</span>
-                                    <!--end::Svg Icon-->{{ __('event.Add') }}
-                                </button>
+                                        <!--end::Svg Icon-->{{ __('event.Add') }}
+                                    </button>
                                 @endcan
                                 <!--end::Add user-->
                             </div>
@@ -156,7 +162,8 @@
                                                             <!--begin::Input-->
                                                             <input id="title_en"
                                                                    class="form-control form-control-solid"
-                                                                   placeholder="{{ __('event.placeholderTitle') }}" name="title_en"/>
+                                                                   placeholder="{{ __('event.placeholderTitle') }}"
+                                                                   name="title_en"/>
                                                             <!--end::Input-->
                                                             <strong id="title_en_error" class="errors text-danger"
                                                                     role="alert"></strong>
@@ -176,7 +183,8 @@
                                                             <!--begin::Input-->
                                                             <input id="title_ar"
                                                                    class="form-control form-control-solid"
-                                                                   placeholder="{{ __('event.placeholderTitle') }}" name="title_ar"/>
+                                                                   placeholder="{{ __('event.placeholderTitle') }}"
+                                                                   name="title_ar"/>
                                                             <!--end::Input-->
                                                             <strong id="title_ar_error" class="errors text-danger"
                                                                     role="alert"></strong>
@@ -195,7 +203,8 @@
                                                             <!--begin::Input-->
                                                             <input id="address_en"
                                                                    class="form-control form-control-solid"
-                                                                   placeholder="{{ __('event.placeholderAddress') }}" name="address_en"/>
+                                                                   placeholder="{{ __('event.placeholderAddress') }}"
+                                                                   name="address_en"/>
                                                             <!--end::Input-->
                                                             <strong id="address_en_error" class="errors text-danger"
                                                                     role="alert"></strong>
@@ -214,7 +223,8 @@
                                                             <!--begin::Input-->
                                                             <input id="address_ar"
                                                                    class="form-control form-control-solid"
-                                                                   placeholder="{{ __('event.placeholderAddress') }}" name="address_ar"/>
+                                                                   placeholder="{{ __('event.placeholderAddress') }}"
+                                                                   name="address_ar"/>
                                                             <!--end::Input-->
                                                             <strong id="address_ar_error" class="errors text-danger"
                                                                     role="alert"></strong>
@@ -274,7 +284,7 @@
                                                             <input class="form-control form-control-solid"
                                                                    name="date" type="date"
                                                                    placeholder="{{ __('event.placeholderDate') }}"
-                                                                   id="kt_datepicker_6" />
+                                                                   id="kt_datepicker_6"/>
 
 
                                                             <!--end::Input-->
@@ -304,7 +314,7 @@
                                                         </div>
 
 
-                                                        <div class="fv-row col-md-6 mb-7">
+                                                        <div class="fv-row col-md-12 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
                                                                 <span class="required">{{ __('event.Image') }}</span>
@@ -316,18 +326,79 @@
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
 
-                                                            <input type="file" id="fileupload" name="fileupload" hidden/>
+                                                            <input type="file" id="fileupload" name="fileupload"
+                                                                   hidden/>
 
                                                             @if(\Illuminate\Support\Facades\App::getLocale() == "en")
-                                                            <label for="fileupload" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
+                                                                <label for="fileupload"
+                                                                       class="form-control form-control-solid"
+                                                                       style="color: black">Choose File: <span
+                                                                        id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
                                                             @else
-                                                            <label  for="fileupload" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                                <label for="fileupload"
+                                                                       class="form-control form-control-solid"
+                                                                       style="color: black;">اختر ملف : <span
+                                                                        id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
                                                             @endif
                                                             <!--end::Input-->
                                                             <strong id="fileupload_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
+                                                        <div class="fv-row col-md-4 mb-3">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">Lat</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+
+                                                            <input type="text" id="default_latitude"
+                                                                   class="form-control form-control-solid"
+                                                                   name="default_latitude">
+
+
+                                                            <!--end::Input-->
+                                                            <strong id="time_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-md-4 mb-3">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-bold form-label mb-2">
+                                                                <span class="required">Long</span>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+
+                                                            <input type="text" id="default_longitude"
+                                                                   class="form-control form-control-solid"
+                                                                   name="default_longitude">
+
+                                                            <!--end::Input-->
+                                                            <strong id="time_error" class="errors text-danger"
+                                                                    role="alert"></strong>
+                                                        </div>
+
+                                                        <div class="fv-row col-sm-1 mb-3" style="padding-top: 28px;">
+
+                                                            <button  type="button" class="btn btn-light-primary"
+                                                                    onclick="initMap()">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="fv-row col-sm-1 mb-3" style="padding-top: 28px; @if(\Illuminate\Support\Facades\App::getLocale() == "en") padding-left: 30px; @else padding-right: 30px; @endif">
+
+                                                            <button  type="button" class="btn btn-light-success"
+                                                                     onclick="resetMap()">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-fill" viewBox="0 0 16 16">
+                                                                    <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
 
 
                                                         <div class="fv-row mb-7">
@@ -343,10 +414,8 @@
                                                             <!--begin::Input-->
                                                             <div id="map1"
                                                                  style="width: 100%; height:400px;"></div>
-                                                            <input type="hidden" id="default_latitude"
-                                                                   name="default_latitude">
-                                                            <input type="hidden" id="default_longitude"
-                                                                   name="default_longitude">
+
+
                                                             <!--end::Input-->
                                                             <strong id="name_error" class="errors text-danger"
                                                                     role="alert"></strong>
@@ -366,7 +435,8 @@
                                                             data-kt-users-modal-action="submit">
                                                         <span class="indicator-label">{{ __('event.Submit') }}</span>
                                                         <span class="indicator-progress">{{ __('event.Please') }}
-																		<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+																		<span
+                                                                            class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                     </button>
                                                 </div>
                                                 <!--end::Actions-->
@@ -429,7 +499,7 @@
 
                                                     <div class="row">
                                                         <input type="hidden" id="event_id" name="event_id">
-                                                            <!--end::Input-->
+                                                        <!--end::Input-->
                                                         <div class="fv-row col-md-6 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
@@ -443,9 +513,11 @@
                                                             <!--begin::Input-->
                                                             <input id="title_en_edit"
                                                                    class="form-control form-control-solid"
-                                                                   placeholder="{{ __('event.placeholderTitle') }}Enter a title" name="title_en_edit"/>
+                                                                   placeholder="{{ __('event.placeholderTitle') }}Enter a title"
+                                                                   name="title_en_edit"/>
                                                             <!--end::Input-->
-                                                            <strong id="title_en_edit_update_error" class="errors text-danger"
+                                                            <strong id="title_en_edit_update_error"
+                                                                    class="errors text-danger"
                                                                     role="alert"></strong>
 
                                                         </div>
@@ -463,9 +535,11 @@
                                                             <!--begin::Input-->
                                                             <input id="title_ar_edit"
                                                                    class="form-control form-control-solid"
-                                                                   placeholder="{{ __('event.placeholderTitle') }}" name="title_ar_edit"/>
+                                                                   placeholder="{{ __('event.placeholderTitle') }}"
+                                                                   name="title_ar_edit"/>
                                                             <!--end::Input-->
-                                                            <strong id="title_ar_edit_update_error" class="errors text-danger"
+                                                            <strong id="title_ar_edit_update_error"
+                                                                    class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -482,9 +556,11 @@
                                                             <!--begin::Input-->
                                                             <input id="address_en_edit"
                                                                    class="form-control form-control-solid"
-                                                                   placeholder="{{ __('event.placeholderAddress') }}" name="address_en_edit"/>
+                                                                   placeholder="{{ __('event.placeholderAddress') }}"
+                                                                   name="address_en_edit"/>
                                                             <!--end::Input-->
-                                                            <strong id="address_en_edit_update_error" class="errors text-danger"
+                                                            <strong id="address_en_edit_update_error"
+                                                                    class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -501,9 +577,11 @@
                                                             <!--begin::Input-->
                                                             <input id="address_ar_edit"
                                                                    class="form-control form-control-solid"
-                                                                   placeholder="{{ __('event.placeholderAddress') }}" name="address_ar_edit"/>
+                                                                   placeholder="{{ __('event.placeholderAddress') }}"
+                                                                   name="address_ar_edit"/>
                                                             <!--end::Input-->
-                                                            <strong id="address_ar_edit_update_error" class="errors text-danger"
+                                                            <strong id="address_ar_edit_update_error"
+                                                                    class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -523,7 +601,8 @@
                                                                       placeholder="{{ __('event.placeholderDescription') }}"
                                                                       name="description_en_edit"></textarea>
                                                             <!--end::Input-->
-                                                            <strong id="description_en_edit_update_error" class="errors text-danger"
+                                                            <strong id="description_en_edit_update_error"
+                                                                    class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -543,7 +622,8 @@
                                                                       placeholder="{{ __('event.placeholderDescription') }}"
                                                                       name="description_ar_edit"></textarea>
                                                             <!--end::Input-->
-                                                            <strong id="description_ar_edit_update_error" class="errors text-danger"
+                                                            <strong id="description_ar_edit_update_error"
+                                                                    class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -586,7 +666,8 @@
                                                                    id="time_edit" name="time_edit"/>
 
                                                             <!--end::Input-->
-                                                            <strong id="time_edit_update_error" class="errors text-danger"
+                                                            <strong id="time_edit_update_error"
+                                                                    class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -603,16 +684,24 @@
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
 
-                                                            <input type="file" id="fileuploads" name="fileuploads" hidden/>
+                                                            <input type="file" id="fileuploads" name="fileuploads"
+                                                                   hidden/>
 
                                                             @if(\Illuminate\Support\Facades\App::getLocale() == "en")
-                                                                <label for="fileuploads" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
+                                                                <label for="fileuploads"
+                                                                       class="form-control form-control-solid"
+                                                                       style="color: black">Choose File: <span
+                                                                        id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
                                                             @else
-                                                                <label  for="fileuploads" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosens" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                                <label for="fileuploads"
+                                                                       class="form-control form-control-solid"
+                                                                       style="color: black;">اختر ملف : <span
+                                                                        id="file-chosens" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
                                                             @endif
 
                                                             <!--end::Input-->
-                                                            <strong id="fileupload_update_error" class="errors text-danger"
+                                                            <strong id="fileupload_update_error"
+                                                                    class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -620,13 +709,15 @@
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
                                                                 <span class="required">{{ __('event.Status') }}</span>
-                                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                                   data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
                                                                    data-bs-content="{{ __('event.content_Status') }}"></i>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <select class="form-select" name="status" id="status" data-placeholder="{{ __('event.content_Status_data') }}">
+                                                            <select class="form-select" name="status" id="status"
+                                                                    data-placeholder="{{ __('event.content_Status_data') }}">
                                                                 @foreach(\App\Models\Event::Status as $i)
                                                                     <option value="{{$i}}">
                                                                         @if($i == 1)
@@ -642,12 +733,11 @@
                                                                     role="alert"></strong>
                                                         </div>
 
-
-
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">{{ __('event.Location') }} </span>
+                                                                <span
+                                                                    class="required">{{ __('event.Location') }} </span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7"
                                                                    data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
@@ -656,10 +746,13 @@
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
                                                             <div id="map" style="width: 100%; height:400px;"></div>
-                                                            <input type="hidden" id="default_latitude_u" name="default_latitude_u">
-                                                            <input type="hidden" id="default_longitude_u" name="default_longitude_u">
+                                                            <input type="hidden" id="default_latitude_u"
+                                                                   name="default_latitude_u">
+                                                            <input type="hidden" id="default_longitude_u"
+                                                                   name="default_longitude_u">
                                                             <!--end::Input-->
-                                                            <strong id="default_latitude_u_update_error" class="errors text-danger"
+                                                            <strong id="default_latitude_u_update_error"
+                                                                    class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -676,7 +769,8 @@
                                                             data-kt-permissions-modal-action="submit">
                                                         <span class="indicator-label">{{ __('event.Submit') }}</span>
                                                         <span class="indicator-progress">{{ __('event.Please') }}
-																		<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+																		<span
+                                                                            class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                     </button>
                                                 </div>
                                                 <!--end::Actions-->
@@ -726,23 +820,23 @@
         <!--end::Post-->
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>
-    const actualBtn = document.getElementById('fileupload');
+    <script>
+        const actualBtn = document.getElementById('fileupload');
 
-    const fileChosen = document.getElementById('file-chosen');
+        const fileChosen = document.getElementById('file-chosen');
 
-    actualBtn.addEventListener('change', function(){
-        fileChosen.textContent = this.files[0].name
-    })
+        actualBtn.addEventListener('change', function () {
+            fileChosen.textContent = this.files[0].name
+        })
 
-    const actualBtns = document.getElementById('fileuploads');
+        const actualBtns = document.getElementById('fileuploads');
 
-    const fileChosens = document.getElementById('file-chosens');
+        const fileChosens = document.getElementById('file-chosens');
 
-    actualBtns.addEventListener('change', function(){
-        fileChosens.textContent = this.files[0].name
-    })
-</script>
+        actualBtns.addEventListener('change', function () {
+            fileChosens.textContent = this.files[0].name
+        })
+    </script>
     <script>
         jQuery(document).ready(function ($) {
             $('.classroomLike').click(function () {
@@ -774,18 +868,31 @@
         var marker;
 
         /* ----------------------------- Initialize Map ----------------------------- */
+        function resetMap() {
+            $("#default_latitude").val('');
+            $("#default_longitude").val('');
+            showlocation();
+        }
+
         function showlocation() {
             navigator.geolocation.getCurrentPosition(initMap);
         }
 
         function initMap(position) {
-            var lat = parseFloat(position.coords.latitude);
-            var lon = parseFloat(position.coords.longitude);
+
+            if (document.getElementById("default_latitude").value.length == 0) {
+                var lat = parseFloat(position.coords.latitude);
+                var lon = parseFloat(position.coords.longitude);
+
+            } else {
+                var lat = $('#default_latitude').val();
+                var lon = $('#default_longitude').val();
+            }
             document.getElementById('default_latitude').value = lat;
             document.getElementById('default_longitude').value = lon;
             var myLatlng = new google.maps.LatLng(lat, lon);
             var mapOptions = {
-                zoom: 13,
+                zoom: 10,
                 center: myLatlng
             }
             var map = new google.maps.Map(document.getElementById("map1"), mapOptions);

@@ -293,7 +293,7 @@ class PlaceController extends Controller
         $response = array(
             'status' => 'success',
             'id' => $u,
-            'qr' => asset('images/qr/' . "$u" . '.svg'),
+            'qr' => asset('public/images/qr/' . "$u" . '.svg'),
         );
 
         return response()->json($response);
@@ -311,7 +311,7 @@ class PlaceController extends Controller
 
     public function generatePDF($id)
     {
-        $pd = Place::find($id)->QRCode;
+        $pd = Place::find($id);
         $pdf = \niklasravnsborg\LaravelPdf\Facades\Pdf::loadView('forms.places.qrcode', compact('pd'));
         return $pdf->download('qrcode.pdf');
 

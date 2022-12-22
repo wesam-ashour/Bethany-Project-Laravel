@@ -43,7 +43,7 @@
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click"
                          data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img src="{{ asset('images/admins/' . \Illuminate\Support\Facades\Auth::user()->image) }}"
+                        <img src="{{ asset('public/images/admins/' . \Illuminate\Support\Facades\Auth::user()->image) }}"
                              alt="user"/>
                     </div>
                     <!--begin::User account menu-->
@@ -56,7 +56,7 @@
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
                                     <img alt="Logo"
-                                         src="{{ asset('images/admins/' . \Illuminate\Support\Facades\Auth::user()->image) }}"/>
+                                         src="{{ asset('public/images/admins/' . \Illuminate\Support\Facades\Auth::user()->image) }}"/>
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->

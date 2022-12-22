@@ -93,7 +93,7 @@
                                                 <!--begin::Input-->
                                                 @foreach($permission as $value)
                                                     <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name','id' => 'permission[]','name'=>'permission[]','multiple')) }}
-                                                        {{ $value->name }}</label>
+                                                        @lang('permissions.'.$value->name)</label>
                                                     <br/>
                                                 @endforeach
 

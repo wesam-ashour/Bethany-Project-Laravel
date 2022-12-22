@@ -144,10 +144,10 @@
                                                     <!--begin::Input group-->
 
                                                     <div class="row">
-                                                        <div class="fv-row mb-7">
+                                                        <div class="fv-row col-md-12 mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">{{ __('role.Name') }}</span>
+                                                                <span class="required">{{ __('role.Name') }} ({{ __('place.English') }})</span>
                                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                                    data-bs-trigger="hover" data-bs-html="true"
                                                                    data-bs-content="{{ __('role.contentName') }}"></i>
@@ -162,6 +162,9 @@
                                                         </div>
 
 
+                                                    </div>
+
+
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
@@ -174,7 +177,7 @@
                                                             <!--begin::Input-->
                                                             <select  class="form-select form-select-solid" name="permission[]"   data-kt-select2="true" id="permission" multiple @if(\Illuminate\Support\Facades\App::getLocale() == "ar") dir="rtl" @endif>
                                                                 @foreach($permission as $value)
-                                                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                                                    <option value="{{$value->id}}">@lang('permissions.'.$value->name)</option>
                                                                 @endforeach
                                                             </select>
                                                             <!--end::Input-->
@@ -182,7 +185,7 @@
                                                                     role="alert"></strong>
                                                         </div>
 
-                                                    </div>
+
                                                 </div>
                                                 <!--end::Scroll-->
                                                 <!--begin::Actions-->

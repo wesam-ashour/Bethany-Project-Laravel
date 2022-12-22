@@ -71,21 +71,47 @@
                                 <i class="las la-angle-double-right text-light"></i>
                             </a> --}}
                             <!--end::Card toolbar-->
+                                <input type="hidden" name="download" id="download" value="{{ $event->id }}">
+
+{{--                                <button type="submit" type="submit" id="btn-pdf" class="btn btn-light-danger font-weight-bolder download-pdf "--}}
+{{--                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+
+{{--                                <a  class="navi-link">--}}
+{{--                                    <span class="navi-icon">--}}
+{{--                                        <i class="la la-file-pdf-o"></i>--}}
+{{--                                    </span>--}}
+{{--                                    <span class="navi-text">{{ __('event.Export') }}</span>--}}
+{{--                                </a>--}}
+{{--                            </button>--}}
+
+
+                            <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1h-2z"/>
+                                    <path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"/>
+                                </svg>
+                                {{ __('event.Export') }}
+                            </button>
                             <button class="btn btn-success" id="btn-add">
                                 {{ __('event.Send') }}
                             </button>
-                                <input type="hidden" name="download" id="download" value="{{ $event->id }}">
-
-                                <button type="submit" type="submit" id="btn-pdf" class="btn btn-light-danger font-weight-bolder download-pdf "
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                                <a  class="navi-link">
-                                    <span class="navi-icon">
-                                        <i class="la la-file-pdf-o"></i>
-                                    </span>
-                                    <span class="navi-text">{{ __('event.Export') }}</span>
-                                </a>
-                            </button>
+                            <!--begin::Menu-->
+                            <div id="kt_datatable_example_export_menu" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true">
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a class="menu-link px-3 download-excel" data-kt-export="excel">
+                                        {{ __('event.Excel') }}
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a id="btn-pdf"  class="menu-link px-3 download-pdf" data-kt-export="pdf">
+                                        {{ __('event.PDF') }}
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
+                            </div>
 
                             <!--end::Add forms-->
                         </div>
@@ -198,6 +224,37 @@
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
                     link.download = "Users.pdf";
+                    link.click();
+                },
+                error: function(blob){
+                    console.log(blob);
+                }
+            });
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        $(".download-excel").click(function(){
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '{{ route('excel') }}',
+                data: {id: id},
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(response){
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "Users.xlsx";
                     link.click();
                 },
                 error: function(blob){

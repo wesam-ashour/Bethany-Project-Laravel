@@ -62,7 +62,7 @@ return [
 
     'register' => 'register users',
     'Send' => 'Send Meesage',
-    'Export' => 'Export PDF',
+    'Export' => 'Export Report',
     'Full' => 'Full Name',
     'Email' => 'Email',
     'Username' => 'Username',
@@ -82,6 +82,25 @@ return [
 
     'EventsDetails' => 'Event Details',
     'updated' => 'updated by',
+
+    'Excel' => 'Export as Excel',
+    'PDF' => 'Export as PDF',
+
+
+    /*API*/
+
+    'Events List' => 'Events List',
+    'the user already regsiter in this event' => 'the user already regsiter in this event',
+
+    'The event has been successfully registered' => 'The event has been successfully registered',
+
+    'full name field is required' => 'Full Name Field Is Required',
+    'email field is required' => 'Email Field Is Required',
+    'mobile field is required' => 'Mobile Field Is Required',
+    'address field is required' => 'Address Field Is Required',
+    'The event id not found' => 'The event id not found'
+
+
 
 
 

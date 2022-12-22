@@ -32,11 +32,13 @@ class OptionController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
+
             $validator = Validator::make($request->all(), [
                 'foundation_en' => 'required|string',
                 'foundation_ar' => 'required|string',
                 'history_en' => 'required|string',
                 'history_ar' => 'required|string',
+                'key' => 'required|string',
                 'fileupload' => $request->fileupload != 'undefined' ? 'sometimes|mimes:jpeg,jpg,png' : '',
             ], [
                 'foundation_en.required' => trans("event.required"),
@@ -55,6 +57,7 @@ class OptionController extends Controller
                 $data = Option::query()->find(1);
                 $data->foundation = ['en' => $request->foundation_en, 'ar' => $request->foundation_ar];
                 $data->history = ['en' => $request->history_en, 'ar' => $request->history_ar];
+                $data->key = $request->key;
 
                 if ($request->input('fileupload') != 'undefined') {
                     $imageuploaded = request()->file('fileupload');

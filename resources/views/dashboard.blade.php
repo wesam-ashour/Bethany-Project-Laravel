@@ -122,7 +122,7 @@
                 <!--begin::Charts Widget 1-->
                 <div class="">
                     <div class="row" id="chart1">
-                        <div class="col-xl-6">
+                        <div class="col-xl-12">
                             <!--begin::Charts Widget 1-->
                             <div class="card card-xl-stretch mb-xl-6">
                                 <!--begin::Header-->
@@ -239,7 +239,7 @@
                     </div>
 
                     <div class="row" id="chart2" style="display: none;">
-                        <div class="col-xl-6">
+                        <div class="col-xl-12">
                             <!--begin::Charts Widget 1-->
                             <div class="card card-xl-stretch mb-xl-6">
                                 <!--begin::Header-->
@@ -275,7 +275,7 @@
                     </div>
 
                     <div class="row" id="chart3" style="display: none;">
-                        <div class="col-xl-6">
+                        <div class="col-xl-12">
                             <!--begin::Charts Widget 1-->
                             <div class="card card-xl-stretch mb-xl-6">
                                 <!--begin::Header-->
@@ -315,6 +315,61 @@
                                             <!--end::Svg Icon-->
                                         </button>
                                         <!--begin::Menu 1-->
+                                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
+                                             data-kt-menu="true" id="kt_menu_637e9afa6155ds">
+                                            <!--begin::Header-->
+                                            <div class="px-7 py-5">
+                                                <div class="fs-5 text-dark fw-bold">{{ __('home.Filter') }}</div>
+                                            </div>
+                                            <!--end::Header-->
+                                            <!--begin::Menu separator-->
+                                            <div class="separator border-gray-200"></div>
+                                            <!--end::Menu separator-->
+                                            <!--begin::Form-->
+                                            <div class="px-7 py-5">
+                                                <!--begin::Input group-->
+                                                <form  id="kt_modal_add_user_form">
+                                                    <div class="mb-10">
+                                                        <!--begin::Label-->
+                                                        <label class="form-label fw-semibold">{{ __('home.Select') }}</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <div>
+                                                            <select name="scanQr[]" id="scanQr"
+                                                                    class="form-select form-select-solid" multiple
+                                                                    data-kt-select2="true"
+                                                                    data-placeholder="{{ __('home.SelectOption') }}"
+                                                                    data-dropdown-parent="#kt_menu_637e9afa6155ds"
+                                                                    data-allow-clear="true" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") dir="rtl" @endif>
+                                                                {{-- <option></option> --}}
+                                                                @forelse ($places as $place)
+                                                                    <option value="{{ $place->id }}">
+                                                                        {{ $place->title }}</option>
+                                                                @empty
+                                                                    <option></option>
+                                                                @endforelse
+                                                            </select>
+                                                        </div>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                    <!--begin::Input group-->
+
+
+                                                    <div class="d-flex justify-content-end">
+                                                        {{--                                                        <button type="reset"--}}
+                                                        {{--                                                                class="btn btn-sm btn-light btn-active-light-primary me-2"--}}
+                                                        {{--                                                                data-kt-menu-dismiss="true">Reset--}}
+                                                        {{--                                                        </button>--}}
+                                                        <button type="button" class="btn btn-sm btn-primary get-data"
+                                                                >{{ __('home.Apply') }}
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                <!--end::Actions-->
+                                            </div>
+                                            <!--end::Form-->
+                                        </div>
 
                                         <!--end::Menu 1-->
                                         <!--end::Menu-->
@@ -380,6 +435,91 @@
                 $("#chart2").hide();
                 $("#chart3").show();
             });
+
+            $(".get-data").click(function(e){
+                let chartStatus = Chart.getChart("myBarChart3"); // <canvas> id
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                }
+                _ydata3 = [];
+                _xdata3 = [];
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                e.preventDefault();
+
+                var type = "GET";
+                var ctx = document.getElementById("myBarChart3");
+                var myLineChart4 = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: _ydata3,
+                        datasets: [{
+                            label: "{{ __('home.systemـvisits') }}",
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 205, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(201, 203, 207, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                            ],
+                            data: _xdata3,
+                            borderWidth: 1
+                        }],
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        legend: {
+                            display: true
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: type,
+                    url: '{{ route('get_places') }}',
+                    data: {scanQr :$('#scanQr').val()},
+                    dataType: 'json',
+
+                    success: function (data) {
+                        jQuery.each(data.months, function (index, item) {
+                            _ydata3.push(item);
+                        });
+
+                        jQuery.each(data.monthCount, function (index, item) {
+                            _xdata3.push(item);
+                        });
+                        myLineChart4.update();
+                        $("#chart1").hide();
+                        $("#chart2").hide();
+                        $("#chart3").show();
+
+                    },
+                    error: function (data) {
+                    },
+                });
+            });
+
             $("select.country").change(function(e){
                 let chartStatus = Chart.getChart("myBarChart2"); // <canvas> id
                 if (chartStatus != undefined) {
@@ -404,7 +544,7 @@
                     data: {
                         labels: _ydata2,
                         datasets: [{
-                            label: "system visits in a specific period",
+                            label: "{{ __('home.systemـvisits') }}",
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(255, 159, 64, 0.2)',
@@ -490,7 +630,7 @@
                     data: {
                         labels: _ydata2,
                         datasets: [{
-                            label: "system visits in a specific period",
+                            label: "{{ __('home.systemـvisits') }}",
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(255, 159, 64, 0.2)',

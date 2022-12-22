@@ -43,11 +43,20 @@ class EventsApiController extends Controller
             'email' => 'required|email',
             'mobile' => 'required',
             'address' => 'required',
+        ], [
+            'full_name.required' => trans("event.full name field is required"),
+            'email.required' => trans("event.email field is required"),
+            'mobile.required' => trans("event.mobile field is required"),
+            'address.required' => trans("event.address field is required"),
+
+
         ]);
         if ($validator->fails()){
             return response()->json(['error'=>$validator->errors()->all()],409);
 
         }
+        $cheak_event_id = EventAPI::find($request->event_id);
+        if ($cheak_event_id){
         $user = new UserAPI();
         $eventUser = new EventUserAPI();
         $cheakuser = UserAPI::where('email', '=', $request->email)->first();
@@ -82,6 +91,9 @@ class EventsApiController extends Controller
 
             }
             return response()->json(['error'=>trans('event.This mobile number is already in use')],409);
+        }
+        }else{
+            return response()->json(['error'=>trans('event.The event id not found')],409);
         }
 
     }

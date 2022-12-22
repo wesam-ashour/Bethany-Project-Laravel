@@ -35,6 +35,7 @@ return [
     'string' => 'This field must be string',
     'max' => 'This field must not be greater than 255 characters.',
 
-
+    /*API*/
+    'FAQ list' => 'FAQ list'
 
 ];

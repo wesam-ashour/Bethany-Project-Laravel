@@ -22,6 +22,7 @@ return [
     'Please' => 'Please wait...',
     'FoundationPlace' => 'Write foundation description',
     'HistoryPlace' => 'Write History description',
+    'License' => 'Google Maps License Key',
 
 
 ];

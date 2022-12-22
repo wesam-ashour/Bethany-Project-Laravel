@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Couchbase\QueryException;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,9 @@ class RoleController extends Controller
         if ($request->ajax()) {
             $data = Role::query()->latest();
             return DataTables::of($data)->addIndexColumn()
+                ->addColumn('name', function ($data) {
+                    return $data->name;
+                })
                 ->addColumn('action', function ($data) {
                     if ($data->id !== 1){
                     $action = '<div class="text-center">
@@ -75,6 +79,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
+
             $validator = Validator::make($request->all(), [
                 'name' => 'required|unique:roles,name',
                 'permission' => 'required',
@@ -82,15 +87,18 @@ class RoleController extends Controller
                 'name.required' => trans("role.required"),
                 'name.max' => trans("role.max"),
                 'name.unique' => trans("role.unique"),
+
                 'permission.required' => trans("role.required"),
             ]);
             if ($validator->passes()) {
-
-                $role = Role::create(['name' => $request->input('name')]);
+                $role = new Role();
+                $role->name = $request->name;
+                $role->save();
                 $role->syncPermissions($request->input('permission'));
 
                 return response()->json(['success' => $role]);
             }
+
             return response()->json(['error' => $validator->errors()->toArray()]);
         }
 

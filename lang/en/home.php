@@ -44,5 +44,8 @@ return [
     'visits' => 'visits in specific period',
     'ScannedQR' => 'Scanned QR code for places',
 
+    'Apply' => 'Apply',
+    'systemـvisits' => 'system visits in a specific period',
+
 
 ];

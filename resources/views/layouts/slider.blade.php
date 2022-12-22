@@ -15,9 +15,9 @@
         <div
             class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
             id="#kt_aside_menu" data-kt-menu="true" data-kt-menu-expand="false">
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{str_contains($url,"dashboard") ? "hover show":""}}">
-	                <span class="menu-link">
-										<span class="menu-icon">
+            <div class="menu-item">
+                <a class="menu-link  {{str_contains($url,"dashboard") ? "active":""}}" href="{{url('dashboard')}}">
+													<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
 											<span class="svg-icon svg-icon-2">
 												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -31,21 +31,10 @@
                                                           fill="black"/>
 												</svg>
 											</span>
-                                            <!--end::Svg Icon-->
+                                                        <!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">{{ __('home.Dashboard') }}</span>
-										<span class="menu-arrow"></span>
-									</span>
-                <div class="menu-sub menu-sub-accordion menu-active-bg">
-                    <div class="menu-item">
-                        <a class="menu-link {{str_contains($url,"dashboard") ? "active":""}}" href="{{url('dashboard')}}">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-                            <span class="menu-title">{{ __('home.Home') }}</span>
-                        </a>
-                    </div>
-                </div>
+                    <span class="menu-title">{{ __('home.Dashboard') }}</span>
+                </a>
             </div>
             <div class="menu-item">
                 <div class="menu-content pt-8 pb-2">
@@ -97,30 +86,11 @@
             </div>
             @endif
             @if(auth()->user()->can('user-list') || auth()->user()->can('event-list') || auth()->user()->can('place-list') || auth()->user()->can('tourist-list'))
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{str_contains($url,"users") || str_contains($url,"events") || str_contains($url,"places") || str_contains($url,"tourists") ? "hover show":""}}">
-									<span class="menu-link">
-										<span class="menu-icon">
-											<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
-											<span class="svg-icon svg-icon-2">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     viewBox="0 0 24 24" fill="none">
-													<path
-                                                        d="M21 9V11C21 11.6 20.6 12 20 12H14V8H20C20.6 8 21 8.4 21 9ZM10 8H4C3.4 8 3 8.4 3 9V11C3 11.6 3.4 12 4 12H10V8Z"
-                                                        fill="black"/>
-													<path
-                                                        d="M15 2C13.3 2 12 3.3 12 5V8H15C16.7 8 18 6.7 18 5C18 3.3 16.7 2 15 2Z"
-                                                        fill="black"/>
-													<path opacity="0.3"
-                                                          d="M9 2C10.7 2 12 3.3 12 5V8H9C7.3 8 6 6.7 6 5C6 3.3 7.3 2 9 2ZM4 12V21C4 21.6 4.4 22 5 22H10V12H4ZM20 12V21C20 21.6 19.6 22 19 22H14V12H20Z"
-                                                          fill="black"/>
-												</svg>
-											</span>
-                                            <!--end::Svg Icon-->
-										</span>
-										<span class="menu-title">{{ __('home.Pages') }}</span>
-										<span class="menu-arrow"></span>
-									</span>
-                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                <div class="menu-item">
+                    <div class="menu-content pt-8 pb-2">
+                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ __('home.Tables') }}</span>
+                    </div>
+                </div>
                     @can('user-list')
                     <div class="menu-item">
                         <a class="menu-link {{str_contains($url,"users") ? "active":""}}" href="{{route('users.index')}}">
@@ -131,7 +101,7 @@
                         </a>
                     </div>
                     @endcan
-                        @can('event-list')
+                    @can('event-list')
                     <div class="menu-item">
                         <a class="menu-link {{str_contains($url,"events") ? "active":""}}" href="{{route('events.index')}}">
 												<span class="menu-bullet">
@@ -140,8 +110,8 @@
                             <span class="menu-title">{{ __('home.Events') }}</span>
                         </a>
                     </div>
-                        @endcan
-                        @can('place-list')
+                    @endcan
+                    @can('place-list')
                     <div class="menu-item">
                         <a class="menu-link {{str_contains($url,"places") ? "active":""}}" href="{{route('places.index')}}">
 												<span class="menu-bullet">
@@ -150,8 +120,8 @@
                             <span class="menu-title">{{ __('home.Places') }}</span>
                         </a>
                     </div>
-                        @endcan
-                        @can('tourist-list')
+                    @endcan
+                    @can('tourist-list')
                     <div class="menu-item">
                         <a class="menu-link {{str_contains($url,"tourists") ? "active":""}}" href="{{route('tourists.index')}}">
 												<span class="menu-bullet">
@@ -160,33 +130,12 @@
                             <span class="menu-title">{{ __('home.Tourist') }}</span>
                         </a>
                     </div>
-                        @endcan
-                </div>
-            </div>
+                    @endcan
+
             @endcan
             @if(auth()->user()->can('question-list') || auth()->user()->can('option-list'))
 
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{str_contains($url,"faq") || str_contains($url,"options") ? "hover show":""}}">
-									<span class="menu-link">
-										<span class="menu-icon">
-											<!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
-											<span class="svg-icon svg-icon-2">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     viewBox="0 0 24 24" fill="none">
-													<path
-                                                        d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
-                                                        fill="black"/>
-													<path opacity="0.3"
-                                                          d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
-                                                          fill="black"/>
-												</svg>
-											</span>
-                                            <!--end::Svg Icon-->
-										</span>
-										<span class="menu-title">{{ __('home.Options') }}</span>
-										<span class="menu-arrow"></span>
-									</span>
-                <div class="menu-sub menu-sub-accordion menu-active-bg">
+
                     <div class="menu-item">
                         @can('question-list')
                         <a class="menu-link {{str_contains($url,"faq") ? "active":""}}" href="{{route('faq.index')}}">
@@ -196,17 +145,18 @@
                             <span class="menu-title">{{ __('home.faq') }}</span>
                         </a>
                         @endcan
-                            @can('option-list')
+                    </div>
+                    <div class="menu-item">
+                        @can('option-list')
                         <a class="menu-link {{str_contains($url,"options") ? "active":""}}" href="{{route('options.index')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
                             <span class="menu-title">{{ __('home.Settings') }}</span>
                         </a>
-                            @endcan
+                        @endcan
                     </div>
-                </div>
-            </div>
+
             @endif
 
             <div class="menu-item">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Mail\MessageMail;
 use App\Models\Admin;
 use App\Models\Event;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -28,6 +30,11 @@ class EventController extends Controller
         $pd = DB::table('event_user')->where('event_id', '=', $request->id)->get();
         $pdf = PDF::loadView('forms.events.pdf', compact('pd'));
         return $pdf->download('Users.pdf');
+    }
+
+    public function excel(Request $request){
+        $id = $request->id;
+        return Excel::download(new UsersExport($id), 'users.xlsx');
     }
 
     public function index(Request $request)
@@ -302,6 +309,8 @@ class EventController extends Controller
     {
         if ($request->ajax()) {
             $data = Event::query()->find($id)->delete();
+            $data2 = DB::table('event_user')->where('event_id',$id)->delete();
+
             return response()->json(['success' => "success"]);
         }
         return response()->json(['error' => "error"]);

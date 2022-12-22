@@ -61,7 +61,7 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8">
-                                            <img class="col-lg-8" src="{{ asset('images/events/' . $event->image) }}" />
+                                            <img class="col-lg-8" src="{{ asset('public/images/events/' . $event->image) }}" />
                                         </div>
                                         <!--end::Col-->
                                     </div>

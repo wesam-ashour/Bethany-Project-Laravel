@@ -17,6 +17,7 @@ class OptionsSeeder extends Seeder
     {
         $user = Option::create([
             'image' => 'main.png',
+            'key' => 'AIzaSyBSNQLhR2yEuFkYAoU_q4sXlvsd_8lOMBA',
             'foundation' => '',
             'history' => '',
         ]);

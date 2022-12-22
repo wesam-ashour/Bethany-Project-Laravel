@@ -20,8 +20,8 @@ class SettingsAPI extends Model
     ];
 
 
-      protected $appends = ['Gallery'];
-     public function getGalleryAttribute()
+      protected $appends = ['gallerys'];
+     public function getGallerysAttribute()
      {
         return  PlacesAPI::query()->where('type',1)->select('id','image')->get();;
      }

@@ -16,12 +16,14 @@ return [
     'Dashboard' => 'لوحه التحكم',
     'Settings' => 'الاعدادات',
     'Image' => 'الصورة الرئيسيه',
-    'Foundation' => 'التأسيس',
-    'History' => 'التاريخ',
+    'Foundation' => 'حول التطبيق',
+    'History' => 'السجل',
     'Save' => 'حفظ التغيرات',
     'Please' => 'الرجاء الانتظار',
     'FoundationPlace' => 'ادخل وصف التأسيس',
     'HistoryPlace' => 'ادخل وصف التاريخ',
+    'License' => 'مفتاح ترخيص خرائط جوجل',
+
 
 
 ];

@@ -37,17 +37,17 @@ class PermissionTableSeeder extends Seeder
             'tourist-edit',
             'tourist-delete',
             'user-list',
-            'user-create',
-            'user-edit',
-            'user-delete',
+//            'user-create',
+//            'user-edit',
+//            'user-delete',
             'question-list',
             'question-create',
             'question-edit',
             'question-delete',
             'option-list',
             'option-create',
-            'option-edit',
-            'option-delete',
+//            'option-edit',
+//            'option-delete',
         ];
 
         foreach ($permissions as $permission) {

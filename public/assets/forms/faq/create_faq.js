@@ -65,6 +65,7 @@ $(function () {
                                                         t.isConfirmed && n.hide()
                                                     }))
                                                 }), 2e3));
+                                                e.reset();
                                                 $("input").val("");
                                                 $(".errors").html("");
                                                 $('#kt_ecommerce_forms_table').DataTable().ajax.reload();

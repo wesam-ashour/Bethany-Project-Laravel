@@ -72,7 +72,10 @@ return [
 
     'PlacesDetails' => 'بيانات المكان',
     'TouristsDetails' => 'بيانات الموقع السياحي',
-
+    
+    /*API*/
+    'Places list' => 'قائمة الأماكن',
+    'Places Scanned' => 'تم مسح الرمز بنجاح'
 
 
 

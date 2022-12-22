@@ -62,7 +62,7 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="col-lg-8">
-                                            <img class="col-lg-8" src="{{ asset('images/places/' . $tourist->image) }}" />
+                                            <img class="col-lg-8" src="{{ asset('public/images/places/' . $tourist->image) }}" />
                                         </div>
                                         <!--end::Col-->
                                     </div>

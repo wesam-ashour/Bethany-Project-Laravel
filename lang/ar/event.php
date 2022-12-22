@@ -62,7 +62,7 @@ return [
 
     'register' => 'المستخدمين المسجلين',
     'Send' => 'ارسال رساله',
-    'Export' => 'تصدير PDF',
+    'Export' => 'تصدير تقرير',
     'Full' => 'الاسم كاملا',
     'Email' => 'الايميل',
     'Username' => 'اسم المستخدم',
@@ -82,6 +82,19 @@ return [
 
     'EventsDetails' => 'يبانات الحدث',
     'updated' => 'تم التعديل من قبل',
+
+    'Excel' => 'تصدير بتنسيق Excel',
+    'PDF' => 'تصدير كملف PDF',
+
+    'The event has been successfully registered' => 'تم تسجيل الحدث بنجاح',
+     'full name field is required' => 'حقل الاسم مطلوب',
+    'email field is required' => 'حقل الايميل مطلوب',
+    'mobile field is required' => 'حقل رقم الموبايل مطلوب',
+    'address field is required' => 'حقل العنوان مطلوب',
+    'The event id not found' => 'معرّف الحدث غير موجود'
+
+
+
 
 
 
