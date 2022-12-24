@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth','localeSessionRedirect', 'localizationRedi
         return redirect()->back();
     });
     Route::get('profile', [AdminController::class, 'userEdit'])->name('userEdit');
-    Route::post('profile/', [AdminController::class, 'userUpdate'])->name('userUpdate');
+    Route::post('profile/edit', [AdminController::class, 'userUpdate'])->name('userUpdate');
     Route::get('qr/getPlaces/', [AdminController::class, 'get_places'])->name('get_places');
     Route::get('get_scanned/', [AdminController::class, 'get_scanned'])->name('get_scanned');
     Route::get('get_events/', [AdminController::class, 'get_events'])->name('get_events');

@@ -18,8 +18,8 @@ $(function () {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                type: "post",
-                url: base_path + language + "/profile/",
+                type: "POST",
+                url: base_path + language + "/profile/edit",
                 processData: false,
                 contentType: false,
                 data: formDatas,
@@ -72,23 +72,6 @@ $(function () {
         }), 1000));
     }
 
-    function prepare_image_base64(image) {
-        image = image.replace('url("data:image/jpeg;base64,', '');
-        image = image.replace('url("data:image/jpeg;base64,', '');
-        image = image.replace('url("data:image/png;base64,', '');
-        image = image.replace('url("data:image/jpg;base64,', '');
-        image = image.replace('")', '');
-        if (image == "none") {
-            return "";
-        } else
-            return image;
-    }
-
-    function image_update() {
-        image_file_input.on('change', function (ev) {
-            image_updated = 1;
-        });
-    }
 
     function print_error(errors) {
         console.log(errors)
