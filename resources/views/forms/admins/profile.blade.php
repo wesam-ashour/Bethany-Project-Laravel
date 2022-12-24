@@ -34,34 +34,32 @@
                 <!--begin::Layout-->
                 <div class="flex-lg-row-fluid">
                     <div class="card pt-4 mb-6 mb-xl-9">
-                    <!--begin::Sidebar-->
-                    <form action="{{route('userUpdate',$user->id)}}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        {{ method_field('put') }}
+                        <!--begin::Sidebar-->
+
                         <!--end::Sidebar-->
                         <!--begin::Content-->
-                            <!--begin:::Tab content-->
-                            <div class="card pt-4 mb-6 mb-xl-9">
-                                <!--begin::Card header-->
-                                <div class="card-header border-0">
-                                    <!--begin::Card title-->
-                                    <div class="card-title">
-                                        <h2>{{ __('admin.Profile') }}</h2>
-                                    </div>
-                                    <!--end::Card title-->
+                        <!--begin:::Tab content-->
+                        <div class="card pt-4 mb-6 mb-xl-9">
+                            <!--begin::Card header-->
+                            <div class="card-header border-0">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>{{ __('admin.Profile') }}</h2>
                                 </div>
+                                <!--end::Card title-->
+                            </div>
 
 
-                                <!--end::Card header-->
-                                <!--begin::Card body-->
-                                <div id="kt_modal_edit_user" class="card-body pt-0 pb-5">
-                                    <div id="kt_modal_edit_user_form" data-kt-redirect="">
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div id="kt_modal_edit_user" class="card-body pt-0 pb-5">
+                                <div id="kt_modal_edit_user_form" data-kt-redirect="">
 
-                                        <!--begin::Scroll-->
-                                        <div id="kt_modal_edit_user_scroll">
+                                    <!--begin::Scroll-->
+                                    <div id="kt_modal_edit_user_scroll">
+                                        <form id="kt_modal_edit_user_only" enctype="multipart/form-data">
 
                                             <!--begin::Input group-->
-                                            <input id="admin_id" name="admin_id" type="hidden" value="{{$user->id}}">
                                             <div class="row">
                                                 <!--end::Input group-->
                                                 <!--begin::Input group-->
@@ -75,9 +73,9 @@
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
                                                            placeholder="{{ __('admin.placeholderName') }}"
                                                            value="{{$user->name}}"/>
-                                                    @error('name')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <strong id="name_error" class="errors text-danger"
+                                                            role="alert">
+                                                    </strong>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -92,9 +90,9 @@
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
                                                            placeholder="{{ __('admin.contentEmail') }}"
                                                            value="{{$user->email}}"/>
-                                                    @error('email')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <strong id="email_error" class="errors text-danger"
+                                                            role="alert">
+                                                    </strong>
                                                     <!--end::Input-->
                                                 </div>
                                                 <div class="col-md-6 mb-7">
@@ -107,9 +105,9 @@
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
                                                            placeholder="{{ __('admin.contentUsername') }}"
                                                            value="{{$user->user_name}}"/>
-                                                    @error('user_name')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <strong id="user_name_error" class="errors text-danger"
+                                                            role="alert">
+                                                    </strong>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -124,9 +122,9 @@
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
                                                            placeholder="{{ __('admin.placeholderMobile') }}"
                                                            value="{{$user->mobile}}"/>
-                                                    @error('mobile')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <strong id="mobile_error" class="errors text-danger"
+                                                            role="alert">
+                                                    </strong>
                                                     <!--end::Input-->
                                                 </div>
 
@@ -140,9 +138,9 @@
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
                                                            placeholder="{{ __('admin.placeholderAddress') }}"
                                                            value="{{$user->address}}"/>
-                                                    @error('address')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <strong id="address_error" class="errors text-danger"
+                                                            role="alert">
+                                                    </strong>
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
@@ -157,9 +155,9 @@
                                                            class="form-control form-control-solid mb-3 mb-lg-0"
                                                            placeholder="{{ __('admin.placeholderPassword') }}"
                                                            value=""/>
-                                                    @error('password')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <strong id="password_error" class="errors text-danger"
+                                                            role="alert">
+                                                    </strong>
                                                     <!--end::Input-->
                                                 </div>
 
@@ -170,45 +168,48 @@
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
 
-                                                    <input type="file" id="image" name="image" hidden/>
+                                                    <input type="file" id="fileupload" name="fileupload" hidden/>
 
                                                     @if(\Illuminate\Support\Facades\App::getLocale() == "en")
-                                                        <label for="image" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
+                                                        <label for="fileupload" class="form-control form-control-solid"
+                                                               style="color: black">Choose File: <span id="file-chosens"
+                                                                                                       style="color: #5a6268">    No file chosen</span></label>
                                                     @else
-                                                        <label  for="image" class="form-control form-control-solid" style="color: black;">اختر ملف : <span id="file-chosens" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                        <label for="fileupload" class="form-control form-control-solid"
+                                                               style="color: black;">اختر ملف : <span id="file-chosens"
+                                                                                                      style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
                                                     @endif
 
-                                                    @error('image')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <strong id="fileupload_error" class="errors text-danger"
+                                                            role="alert">
+                                                    </strong>
 
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Input group-->
                                             </div>
-
-                                        </div>
-                                        <!--end::Scroll-->
-
+                                        </form>
                                     </div>
-                                    <div class="d-flex justify-content-end">
-                                        <a href="{{ route('dashboard') }}"
-                                           id="kt_ecommerce_edit_user_cancel"
-                                           class="btn btn-light me-5">{{ __('admin.Cancel') }}</a>
-                                        <button class="btn btn-primary">
-                                            <span class="indicator-label">{{ __('admin.Save') }}</span>
-                                            <span class="indicator-progress">{{ __('admin.Please') }}
-												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                        </button>
-                                    </div>
+                                    <!--end::Scroll-->
                                 </div>
-                                <!--end::Card body-->
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ route('dashboard') }}"
+                                       id="kt_ecommerce_edit_user_cancel"
+                                       class="btn btn-light me-5">{{ __('admin.Cancel') }}</a>
+                                    <button id="kt_modal_update_user_submit" class="btn btn-primary">
+                                        <span class="indicator-label">{{ __('admin.Save') }}</span>
+                                        <span class="indicator-progress">{{ __('admin.Please') }}
+												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+                                </div>
                             </div>
+                            <!--end::Card body-->
+                        </div>
 
-                            <!--end:::Tab content-->
+                        <!--end:::Tab content-->
                         <!--end::Content-->
-                    </form>
-                </div>
+
+                    </div>
                 </div>
             </div>
             <!--end::Container-->
@@ -217,13 +218,16 @@
     </div>
     <!--end::Content-->
     <script>
-        const actualBtns = document.getElementById('image');
+        const actualBtns = document.getElementById('fileupload');
 
         const fileChosens = document.getElementById('file-chosens');
 
-        actualBtns.addEventListener('change', function(){
+        actualBtns.addEventListener('change', function () {
             fileChosens.textContent = this.files[0].name
         })
     </script>
+
+    <script>const language = $('#language').val();</script>
+    <script src="{{ asset('assets/forms/admins/profile.js') }}" defer></script>
 @endsection
 

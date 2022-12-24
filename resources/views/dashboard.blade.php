@@ -35,7 +35,7 @@
 
                 <!--begin::Row-->
                 <div class="row g-5 g-xl-8">
-                    <div class="col-xl-4" id="btn-chart1">
+                    <div class="col-xl-4" onclick="start();">
                         <!--begin::Statistics Widget 5-->
                         <a class="card bg-danger hoverable card-xl-stretch mb-xl-8">
                             <!--begin::Body-->
@@ -182,7 +182,7 @@
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <div>
-                                                            <select name="select[]"
+                                                            <select name="events[]" id="events"
                                                                     class="form-select form-select-solid" multiple
                                                                     data-kt-select2="true"
                                                                     data-placeholder="{{ __('home.SelectOption') }}"
@@ -202,14 +202,8 @@
                                                     </div>
                                                     <!--end::Input group-->
                                                     <!--begin::Input group-->
-
-
                                                     <div class="d-flex justify-content-end">
-{{--                                                        <button type="reset"--}}
-{{--                                                                class="btn btn-sm btn-light btn-active-light-primary me-2"--}}
-{{--                                                                data-kt-menu-dismiss="true">Reset--}}
-{{--                                                        </button>--}}
-                                                        <button type="submit" class="btn btn-sm btn-primary"
+                                                        <button type="submit" class="btn btn-sm btn-primary get-events"
                                                                 data-kt-menu-dismiss="true">{{ __('home.Apply') }}
                                                         </button>
                                                     </div>
@@ -404,8 +398,8 @@
 
 
     <script type="text/javascript">
-        var _ydata = JSON.parse('{!! json_encode($months) !!}');
-        var _xdata = JSON.parse('{!! json_encode($monthCount) !!}');
+        var _ydata1 = [];
+        var _xdata1 = [];
 
         var _ydata2 = [];
         var _xdata2 = [];
@@ -414,7 +408,7 @@
         var _xdata3 = [];
     </script>
     <script src="{{ asset('/assets/demo/chart-bar-demo.js') }}"></script>
-
+    <script>window.onload = $("#btn-chart1");</script>
     <script>
         $(document).ready(function () {
             $(".btn").click(function () {
@@ -423,17 +417,266 @@
         });
     </script>
     <script>
-        jQuery(document).ready(function ($) {
-            $("#btn-chart1").click(function (e) {
-                $("#chart1").show();
-                $("#chart2").hide();
-                $("#chart3").hide();
+        window.onload = function() {
+            start();
+        };
+        function start(){
+            let chartStatus = Chart.getChart("myBarChart"); // <canvas> id
+            if (chartStatus != undefined) {
+                chartStatus.destroy();
+            }
+            _ydata1 = [];
+            _xdata1 = [];
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
             });
 
-            $("#btn-chart3").click(function (e) {
-                $("#chart1").hide();
-                $("#chart2").hide();
-                $("#chart3").show();
+            var type = "GET";
+            var ctx = document.getElementById("myBarChart");
+            var myLineChart1 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: _ydata1,
+                    datasets: [{
+                        label: "{{ __('home.get_events') }}",
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        data: _xdata1,
+                        borderWidth: 1
+                    }],
+                },
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    legend: {
+                        display: true
+                    }
+                }
+            });
+            $.ajax({
+                type: type,
+                url: '{{ route('get_events') }}',
+                data: {event : 1},
+                dataType: 'json',
+
+                success: function (data) {
+                    jQuery.each(data.months, function (index, item) {
+                        _ydata1.push(item);
+                    });
+
+                    jQuery.each(data.monthCount, function (index, item) {
+                        _xdata1.push(item);
+                    });
+                    myLineChart1.update();
+                    $("#chart1").show();
+                    $("#chart2").hide();
+                    $("#chart3").hide();
+
+
+
+
+                },
+                error: function (data) {
+                },
+            });
+        }
+
+        jQuery(document).ready(function ($) {
+            $(".get-events").click(function(e){
+                let chartStatus = Chart.getChart("myBarChart"); // <canvas> id
+                if (chartStatus !== undefined) {
+                    chartStatus.destroy();
+                }
+                _ydata1 = [];
+                _xdata1 = [];
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                e.preventDefault();
+
+                var type = "GET";
+                var ctx = document.getElementById("myBarChart");
+                var myLineChart6 = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: _ydata1,
+                        datasets: [{
+                            label: "{{ __('home.get_events') }}",
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 205, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(201, 203, 207, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                            ],
+                            data: _xdata1,
+                            borderWidth: 1
+                        }],
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        legend: {
+                            display: true
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: type,
+                    url: '{{ route('get_events') }}',
+                    data: {events :$('#events').val()},
+                    dataType: 'json',
+
+                    success: function (data) {
+                        jQuery.each(data.months2, function (index, item) {
+                            _ydata1.push(item);
+                        });
+
+                        jQuery.each(data.monthCount2, function (index, item) {
+                            _xdata1.push(item);
+                        });
+                        myLineChart6.update();
+
+
+                    },
+                    error: function (data) {
+                    },
+                });
+            });
+
+
+            $("#btn-chart2").click(function (e) {
+                let chartStatus = Chart.getChart("myBarChart2"); // <canvas> id
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                }
+                _ydata2 = [];
+                _xdata2 = [];
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                e.preventDefault();
+
+                var formData = {
+                    start: $('.start').val(),
+                    end: $('.end').val(),
+                };
+                var type = "GET";
+                var ctx = document.getElementById("myBarChart2");
+                var myLineChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: _ydata2,
+                        datasets: [{
+                            label: "{{ __('home.systemـvisits') }}",
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 205, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(201, 203, 207, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                            ],
+                            data: _xdata2,
+                            borderWidth: 1
+                        }],
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        legend: {
+                            display: true
+                        }
+                    }
+                });
+                $.ajax({
+                    type: type,
+                    url: '{{ route('dashboard') }}',
+                    data: formData,
+                    dataType: 'json',
+
+                    success: function (data) {
+
+                        jQuery.each(data.months2, function (index, item) {
+                            _ydata2.push(item);
+                        });
+
+                        jQuery.each(data.monthCount2, function (index, item) {
+                            _xdata2.push(item);
+                        });
+                        myLineChart.update();
+                        $("#chart1").hide();
+                        $("#chart3").hide();
+                        $("#chart2").show();
+
+
+
+                    },
+                    error: function (data) {
+                    },
+                });
             });
 
             $(".get-data").click(function(e){
@@ -682,96 +925,6 @@
                             _xdata2.push(item);
                         });
                         myLineChart2.update();
-
-                    },
-                    error: function (data) {
-                    },
-                });
-            });
-
-            $("#btn-chart2").click(function (e) {
-                let chartStatus = Chart.getChart("myBarChart2"); // <canvas> id
-                if (chartStatus != undefined) {
-                    chartStatus.destroy();
-                }
-                _ydata2 = [];
-                _xdata2 = [];
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                e.preventDefault();
-
-                var formData = {
-                    start: $('.start').val(),
-                    end: $('.end').val(),
-                };
-                var type = "GET";
-                var ctx = document.getElementById("myBarChart2");
-                var myLineChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: _ydata2,
-                        datasets: [{
-                            label: "{{ __('home.systemـvisits') }}",
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(255, 159, 64, 0.2)',
-                                'rgba(255, 205, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(201, 203, 207, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgb(255, 99, 132)',
-                                'rgb(255, 159, 64)',
-                                'rgb(255, 205, 86)',
-                                'rgb(75, 192, 192)',
-                                'rgb(54, 162, 235)',
-                                'rgb(153, 102, 255)',
-                                'rgb(201, 203, 207)'
-                            ],
-                            data: _xdata2,
-                            borderWidth: 1
-                        }],
-                    },
-                    options: {
-                        scales: {
-                            x: {
-                                beginAtZero: true
-                            },
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
-                        legend: {
-                            display: true
-                        }
-                    }
-                });
-                $.ajax({
-                    type: type,
-                    url: '{{ route('dashboard') }}',
-                    data: formData,
-                    dataType: 'json',
-
-                    success: function (data) {
-
-                        jQuery.each(data.months2, function (index, item) {
-                            _ydata2.push(item);
-                        });
-
-                        jQuery.each(data.monthCount2, function (index, item) {
-                            _xdata2.push(item);
-                        });
-                        myLineChart.update();
-                        $("#chart1").hide();
-                        $("#chart3").hide();
-                        $("#chart2").show();
-
-
 
                     },
                     error: function (data) {

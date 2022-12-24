@@ -37,13 +37,13 @@ class AdminController extends Controller
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('roles', function ($data) {
                     if (count($data->getRoleNames()) > 0)
-                        return '<div class="badge badge-light-primary">' . $data->getRoleNames()->implode(', '). '</div>';
+                        return '<div class="badge badge-light-primary">' . $data->getRoleNames()->implode(', ') . '</div>';
                     else
                         return '<div class="text-center text-gray-600"><div>no roles</div></div>';
 
                 })
                 ->addColumn('status', function ($data) {
-                    return ($data->status == 1) ? '<div class="badge badge-light-success">'.trans("admin.Active").'</div>' : '<div class="badge badge-light-danger">'.trans("admin.Inactive").'</div>';
+                    return ($data->status == 1) ? '<div class="badge badge-light-success">' . trans("admin.Active") . '</div>' : '<div class="badge badge-light-danger">' . trans("admin.Inactive") . '</div>';
                 })
                 ->addColumn('created_at', function ($data) {
                     return $data->created_at->diffForHumans();
@@ -58,22 +58,22 @@ class AdminController extends Controller
 									<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                       fill="black"/>
 									</svg>
-									</span>'.trans("admin.Actions").'
+									</span>' . trans("admin.Actions") . '
                                   </button>
                                   <div class="dropdown-menu">';
-                    if (\auth()->user()->can('admin-edit')){
-                    $action = $action . '<div  class="menu-item px-3">
+                    if (\auth()->user()->can('admin-edit')) {
+                        $action = $action . '<div  class="menu-item px-3">
                                         <a href="' . route('admins.edit', $data->id) . '"
-                                           class="menu-link px-3">'.trans("admin.edit").'</a>
+                                           class="menu-link px-3">' . trans("admin.edit") . '</a>
                                     </div>';
                     }
-                    if (\auth()->user()->can('admin-delete')){
-                    if ($data->id !== 1){
-                    $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
+                    if (\auth()->user()->can('admin-delete')) {
+                        if ($data->id !== 1) {
+                            $action = $action . '<div id="delete" data-id="' . $data->id . '" data-name="' . $data->title . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
                                         <a data-kt-docs-table-filter="delete_row"
-                                           class="menu-link px-3">'.trans("admin.delete").'</a>
+                                           class="menu-link px-3">' . trans("admin.delete") . '</a>
                                     </div>';
-                    }
+                        }
                     }
 
                     $action = $action . '</div></div></div>';
@@ -171,10 +171,10 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->ajax()) {
-            $validator   = Validator::make($request->all(), [
+            $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'mobile' => 'required|numeric|digits:10',
-                'user_name' => 'required|string|max:255|unique:admins,user_name,'. $request->id,
+                'user_name' => 'required|string|max:255|unique:admins,user_name,' . $request->id,
                 'address' => 'required|string|max:255',
                 'status' => 'sometimes|string|max:255',
                 'email' => 'required|email|unique:admins,email,' . $request->id,
@@ -248,10 +248,10 @@ class AdminController extends Controller
     {
         if ($request->ajax()) {
             $validate = Admin::find($id)->id;
-            if ($validate == 1){
+            if ($validate == 1) {
                 return response()->json(['error' => "error"]);
 
-            }else {
+            } else {
                 $data = Admin::query()->find($id)->delete();
                 return response()->json(['success' => "success"]);
             }
@@ -259,23 +259,57 @@ class AdminController extends Controller
         return response()->json(['error' => "error"]);
     }
 
-    public function get_scanned(Request $request){
-
-
-            $data3 = DB::table('scanneds')->select('id', 'place_id')->where('deleted_at','=',null)->get()->groupBy(function ($data3) {
-                return Place::find($data3->place_id)->title;
+    public function get_events(Request $request)
+    {
+        if ($request->input('event')) {
+            $data = DB::table('event_user')->select('id', 'event_id')->take(6)->get()->groupBy(function ($data) {
+                return Event::find($data->event_id)->title;
             });
-            $months3 = [];
-            $monthCount3 = [];
-            foreach ($data3 as $month => $values) {
-                $months3[] = $month;
-                $monthCount3[] = count($values);
+
+            $months = [];
+            $monthCount = [];
+            foreach ($data as $month => $values) {
+                $months[] = $month;
+                $monthCount[] = count($values);
             }
-            return response(['months3' => $months3, 'monthCount3' => $monthCount3]);
+            return response(['months' => $months, 'monthCount' => $monthCount]);
+        }
+
+        if ($request->input('events')) {
+            foreach ($request->input('events') as $values) {
+                $data = DB::table('event_user')->select('id', 'event_id')->where('event_id', '=', $values)->take(6)->get()->groupBy(function ($data) {
+                    return Event::find($data->event_id)->title;
+                });
+                foreach ($data as $month => $values) {
+                    $months2[] = $month;
+                    $monthCount2[] = count($values);
+                }
+            }
+            return response(['months2' => $months2, 'monthCount2' => $monthCount2]);
+
+        }
 
     }
 
-    public function get_places(Request $request){
+    public function get_scanned(Request $request)
+    {
+
+
+        $data3 = DB::table('scanneds')->select('id', 'place_id')->where('deleted_at', '=', null)->get()->groupBy(function ($data3) {
+            return Place::find($data3->place_id)->title;
+        });
+        $months3 = [];
+        $monthCount3 = [];
+        foreach ($data3 as $month => $values) {
+            $months3[] = $month;
+            $monthCount3[] = count($values);
+        }
+        return response(['months3' => $months3, 'monthCount3' => $monthCount3]);
+
+    }
+
+    public function get_places(Request $request)
+    {
         if ($request->ajax()) {
 //            dd($request->input());
             if ($request->input('scanQr') !== null) {
@@ -283,7 +317,7 @@ class AdminController extends Controller
                 $scanQr = $request->scanQr;
 
                 foreach ($scanQr as $values) {
-                    $data = DB::table('scanneds')->select('id', 'place_id')->where('place_id', '=', $values)->where('deleted_at','=',null)->get()->groupBy(function ($data) {
+                    $data = DB::table('scanneds')->select('id', 'place_id')->where('place_id', '=', $values)->where('deleted_at', '=', null)->get()->groupBy(function ($data) {
                         return Place::find($data->place_id)->title;
                     });
                     foreach ($data as $month => $values) {
@@ -302,19 +336,17 @@ class AdminController extends Controller
     {
 
         $events = Event::all();
-        $places = Place::where('type',1)->get();
-
+        $places = Place::where('type', 1)->get();
         $d = [];
         $visit = Visit::orderBy('id', 'DESC')->get();
         foreach ($visit as $value) {
             $d[] = Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->year;
-
         }
         $dates = collect($d)->unique();
+
         if ($request->ajax()) {
 
             if (!$request->start) {
-
                 $data2 = DB::table('visits')->select('id', 'created_at')->get()->groupBy(function ($data2) {
                     return Carbon::parse($data2->created_at)->format('M');
                 });
@@ -341,119 +373,10 @@ class AdminController extends Controller
                 return response(['months2' => $months2, 'monthCount2' => $monthCount2]);
             }
 
-
-
-        }
-        if ($request->input('start')) {
-            $startDate = $request->start;
-            $endDate = $request->end;
-
-            $data = DB::table('event_user')->select('id', 'event_id')->take(6)->get()->groupBy(function ($data) {
-                return Event::find($data->event_id)->title;
-            });
-
-            $data2 = Visit::whereBetween('created_at', [$startDate, $endDate])->select('id', 'admin_id')->get()->groupBy(function ($data2) {
-                return Admin::find($data2->admin_id)->full_name;
-            });
-
-            $months = [];
-            $monthCount = [];
-            foreach ($data as $month => $values) {
-                $months[] = $month;
-                $monthCount[] = count($values);
-            }
-
-            $months2 = [];
-            $monthCount2 = [];
-            foreach ($data2 as $month => $values) {
-                $months2[] = $month;
-                $monthCount2[] = count($values);
-            }
-            return view("dashboard", compact('events', 'months', 'monthCount', 'months2', 'monthCount2'));
-
         }
 
+        return view('dashboard', compact('events', 'places', 'dates'));
 
-
-        if ($request->input('select')) {
-            if (Auth::user()) {
-                if (Auth::user()) {
-                    $months = [];
-                    $monthCount = [];
-                    foreach ($request->select as $values) {
-                        $data = DB::table('event_user')->select('id', 'event_id')->where('event_id', '=', $values)->get()->groupBy(function ($data) {
-                            return Event::find($data->event_id)->title;
-                        });
-                        foreach ($data as $month => $values) {
-                            $months[] = $month;
-                            $monthCount[] = count($values);
-                        }
-                    }
-
-                    $data2 = DB::table('visits')->select('id', 'created_at')->get()->groupBy(function ($data2) {
-                        return Carbon::parse($data2->created_at)->format('M');
-                    });
-                    $months2 = [];
-                    $monthCount2 = [];
-                    foreach ($data2 as $month => $values) {
-                        $months2[] = $month;
-                        $monthCount2[] = count($values);
-                    }
-
-                    $data3 = DB::table('scanneds')->select('id', 'place_id')->where('deleted_at','=',null)->get()->groupBy(function ($data3) {
-                        return Place::find($data3->place_id)->title;
-                    });
-                    $months3 = [];
-                    $monthCount3 = [];
-                    foreach ($data3 as $month => $values) {
-                        $months3[] = $month;
-                        $monthCount3[] = count($values);
-                    }
-
-                    return view('dashboard', compact('events','places', 'months', 'monthCount', 'months2', 'monthCount2', 'months3', 'monthCount3', 'dates'));
-                } else {
-                    return redirect("/");
-                }
-            }
-        }
-
-        if (Auth::user()) {
-            if (Auth::user()) {
-                $data = DB::table('event_user')->select('id', 'event_id')->take(6)->get()->groupBy(function ($data) {
-                    return Event::find($data->event_id)->title;
-                });
-
-                $data2 = DB::table('visits')->select('id', 'created_at')->get()->groupBy(function ($data2) {
-                    return Carbon::parse($data2->created_at)->format('M');
-                });
-
-                $months = [];
-                $monthCount = [];
-                foreach ($data as $month => $values) {
-                    $months[] = $month;
-                    $monthCount[] = count($values);
-                }
-
-                $months2 = [];
-                $monthCount2 = [];
-                foreach ($data2 as $month => $values) {
-                    $months2[] = $month;
-                    $monthCount2[] = count($values);
-                }
-
-                $data3 = DB::table('scanneds')->select('id', 'place_id')->where('deleted_at','=',null)->get()->groupBy(function ($data3) {
-                    return Place::find($data3->place_id)->title;
-                });
-                $months3 = [];
-                $monthCount3 = [];
-                foreach ($data3 as $month => $values) {
-                    $months3[] = $month;
-                    $monthCount3[] = count($values);
-                }
-                return view('dashboard', compact('events','places', 'months', 'monthCount', 'months2', 'monthCount2', 'months3', 'monthCount3', 'dates'));
-
-            }
-        }
     }
 
     public function lan($locale)
@@ -463,25 +386,27 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public  function  userEdit(Request $request){
+    public function userEdit(Request $request)
+    {
         $userId = \auth()->user()->id;
         $user = Admin::find($userId);
 
-        return view('forms.admins.profile',compact('user'));
+        return view('forms.admins.profile', compact('user'));
     }
 
-    public  function  userUpdate(Request $request,$id){
-        $user = Admin::find($id);
-        request()->validate([
+    public function userUpdate(Request $request)
+    {
+        $id = Auth::user()->id;
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'mobile' => 'required|numeric',
-            'user_name' => 'required|string|max:255|unique:admins,user_name,'. $request->id,
+            'user_name' => 'required|string|max:255|unique:admins,user_name,' . $id,
             'address' => 'required|string|max:255',
             'status' => 'sometimes|string|max:255',
-            'email' => 'required|email|unique:admins,email,' . $request->id,
+            'email' => 'required|email|unique:admins,email,' . $id,
             'password' => $request->password != null ? 'sometimes|string|min:8|max:255' : '',
-            'image' => $request->image != null ? 'image|mimes:jpeg,png,jpg|max:1024' : '',
-            ],
+            'fileupload' => $request->fileupload != null ? 'image|mimes:jpeg,png,jpg|max:1024' : '',
+        ],
             [
                 'name.required' => trans("admin.required"),
                 'name.string' => trans("admin.string"),
@@ -509,34 +434,34 @@ class AdminController extends Controller
 
                 'roles.required' => trans("admin.required"),
             ]);
-                $data = Admin::query()->find($id);
+        if ($validator->passes()) {
+            $data = Admin::query()->find($id);
 
-                $data->name = $request->name;
-                $data->mobile = $request->mobile;
-                $data->email = $request->email;
-                $data->user_name = $request->user_name;
-                $data->address = $request->address;
-                if (!empty($request->password)) {
-                    $data->password = Hash::make($request->password);;
-                } else {
-                    $input = Arr::except($request, array('password'));
-                }
+            $data->name = $request->name;
+            $data->mobile = $request->mobile;
+            $data->email = $request->email;
+            $data->user_name = $request->user_name;
+            $data->address = $request->address;
+            if (!empty($request->password)) {
+                $data->password = Hash::make($request->password);;
+            } else {
+                $input = Arr::except($request, array('password'));
+            }
 
-                $data->status = $request->status != null ? $request->status : '1';
+            $data->status = $request->status != null ? $request->status : '1';
 
-                if ($request->hasFile('image') != null){
-                    $imageuploaded = request()->file('image');
-                    $imagename = time() . '.' . $imageuploaded->getClientOriginalExtension();
-                    $imagepath = public_path('/images/admins');
-                    $imageuploaded->move($imagepath, $imagename);
-                    $data->image = $imagename;
-                }
+            if ($request->hasFile('fileupload') != null) {
+                $imageuploaded = request()->file('fileupload');
+                $imagename = time() . '.' . $imageuploaded->getClientOriginalExtension();
+                $imagepath = public_path('/images/admins');
+                $imageuploaded->move($imagepath, $imagename);
+                $data->image = $imagename;
+            }
 
-                $data->save();
-                return redirect()->back()->with('success', trans("admin.updated"));;
-
-
-        return redirect()->back()->with('error', 'error');;
+            $data->save();
+            return response()->json(['success' => $data]);
+        }
+        return response()->json(['error' => $validator->errors()->toArray()]);
 
     }
 }
