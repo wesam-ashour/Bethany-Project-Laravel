@@ -338,7 +338,7 @@
 
 
                                                             <!--end::Input-->
-                                                            <strong id="time_error" class="errors text-danger"
+                                                            <strong id="lat_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -354,7 +354,7 @@
                                                                    class="form-control form-control-solid">
 
                                                             <!--end::Input-->
-                                                            <strong id="time_error" class="errors text-danger"
+                                                            <strong id="long_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -633,7 +633,7 @@
                                                                 </button>
 
                                                             </div>
-                                                            <strong id="uniqid_edit_error" class="errors text-danger"
+                                                            <strong id="uniqid_edit_update_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                             <br><br>
                                                             <div class="containers">
@@ -657,7 +657,7 @@
 
 
                                                             <!--end::Input-->
-                                                            <strong id="default_latitude_u_error" class="errors text-danger"
+                                                            <strong id="default_latitude_u_update_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -673,7 +673,7 @@
                                                                    class="form-control form-control-solid">
 
                                                             <!--end::Input-->
-                                                            <strong id="default_longitude_u_error" class="errors text-danger"
+                                                            <strong id="default_longitude_u_update_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 

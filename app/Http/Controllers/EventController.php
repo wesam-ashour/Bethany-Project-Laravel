@@ -129,8 +129,8 @@ class EventController extends Controller
                 'date' => 'required',
                 'time' => 'required',
                 'fileupload' => 'mimes:jpeg,jpg,png|required',
-                'default_latitude' => 'required|numeric|max:255',
-                'default_longitude' => 'required|numeric|max:255',
+                'default_latitude' => 'required|numeric',
+                'default_longitude' => 'required|numeric',
 
             ], [
                 'title_en.required' => trans("event.required"),
@@ -160,6 +160,11 @@ class EventController extends Controller
                 'time.required' => trans("event.required"),
 
                 'default_latitude.required' => trans("event.required"),
+                'default_latitude.numeric' => trans("admin.numeric"),
+
+                'default_longitude.required' => trans("event.required"),
+                'default_longitude.numeric' => trans("admin.numeric"),
+
 
                 'fileupload.required' => trans("event.required"),
                 'fileupload.mimes' => trans("event.mimes"),
@@ -240,8 +245,8 @@ class EventController extends Controller
                 'time_edit' => 'required',
                 'status' => 'required',
                 'fileuploads' => 'mimes:jpeg,jpg,png|sometimes',
-                'default_latitude_u' => 'required|numeric|max:255',
-                'default_longitude_u' => 'required|numeric|max:255',
+                'default_latitude_u' => 'required|numeric',
+                'default_longitude_u' => 'required|numeric',
 
             ], [
                 'title_en_edit.required' => trans("event.required"),
@@ -273,6 +278,11 @@ class EventController extends Controller
                 'status.required' => trans("event.required"),
 
                 'default_latitude_u.required' => trans("event.required"),
+                'default_latitude_u.numeric' => trans("admin.numeric"),
+
+                'default_longitude_u.required' => trans("event.required"),
+                'default_longitude_u.numeric' => trans("admin.numeric"),
+
 
                 'fileuploads.mimes' => trans("event.mimes"),
 

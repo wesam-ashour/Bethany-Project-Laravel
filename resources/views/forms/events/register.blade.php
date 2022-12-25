@@ -58,7 +58,7 @@
                                 <!--end::Svg Icon-->
                             </div>
                             <input id="search" type="text" data-kt-ecommerce-forms-filter="search"
-                                class="form-control form-control-solid w-250px ps-14" placeholder="Search" />
+                                class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('event.Search') }}" />
                             <!--end::Search-->
                         </div>
                         <div id="filter_perant" class="card-toolbar flex-row-fluid justify-content-end gap-5"

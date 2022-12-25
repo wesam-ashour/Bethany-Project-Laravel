@@ -106,8 +106,8 @@ class TouristController extends Controller
                 'description_ar' => 'required|string',
                 'location_en' => 'required|string',
                 'location_ar' => 'required|string',
-                'lat' => 'required|numeric|max:255',
-                'long' => 'required|numeric|max:255',
+                'lat' => 'required|numeric',
+                'long' => 'required|numeric',
                 'uniqid' => 'required|max:255',
                 'fileupload' => 'required|mimes:jpeg,png,jpg'
             ],[
@@ -132,7 +132,11 @@ class TouristController extends Controller
                 'location_ar.string' => trans("place.string"),
                 'location_ar.max' => trans("place.max"),
 
-                'lat.required' => trans("place.lat"),
+                'lat.required' => trans("place.required"),
+                'lat.numeric' => trans("admin.numeric"),
+
+                'long.required' => trans("place.required"),
+                'long.numeric' => trans("admin.numeric"),
 
                 'uniqid.required' => trans("place.uniqid"),
                 'uniqid.max' => trans("place.max"),
@@ -215,7 +219,8 @@ class TouristController extends Controller
                         'description_ar_edit' => 'required|string',
                         'location_en_edit' => 'required|string',
                         'location_ar_edit' => 'required|string',
-                        'default_latitude_u' => 'required|numeric|max:255',
+                        'default_latitude_u' => 'required|numeric',
+                        'default_longitude_u' => 'required|numeric',
                         'uniqid_edit' => 'sometimes|max:255',
                         'image' =>  $request->image != 'undefined' ? 'mimes:jpeg,png,jpg' : '',
                     ], [
@@ -240,7 +245,12 @@ class TouristController extends Controller
                         'location_ar_edit.string' => trans("place.string"),
                         'location_ar_edit.max' => trans("place.max"),
 
-                        'lat_edit.required' => trans("place.lat"),
+                        'default_latitude_u.required' => trans("place.required"),
+                        'default_latitude_u.numeric' => trans("admin.numeric"),
+
+                        'default_longitude_u.required' => trans("place.required"),
+                        'default_longitude_u.numeric' => trans("admin.numeric"),
+
 
                         'uniqid_edit.max' => trans("place.max"),
 

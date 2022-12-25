@@ -107,7 +107,7 @@
                                     <div class="d-flex flex-stack fs-4 py-3">
                                         <div class="fw-bolder rotate collapsible" data-bs-toggle="collapse"
                                              href="#kt_user_view_details" role="button" aria-expanded="false"
-                                             aria-controls="kt_user_view_details">Details
+                                             aria-controls="kt_user_view_details">{{ __('admin.Details') }}
                                             <span class="ms-2 rotate-180">
 														<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
 														<span class="svg-icon svg-icon-3">
@@ -255,7 +255,7 @@
                                                 @if($user->id !== 1)
                                                 <div class="col-md-6 mb-7">
                                                     <!--begin::Label-->
-                                                    <label class="required fw-bold fs-6 mb-2">Status</label>
+                                                    <label class="required fw-bold fs-6 mb-2">{{ __('admin.Status') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <select class="form-select form-select-solid" name="status" id="status" data-placeholder="{{ __('event.content_Status_data') }}">

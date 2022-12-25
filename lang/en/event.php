@@ -66,7 +66,7 @@ return [
     'Full' => 'Full Name',
     'Email' => 'Email',
     'Username' => 'Username',
-    'Added' => 'Added by',
+    'Added' => 'Added on date',
     'SendMessage' => 'Send Message to register users',
     'Message' => 'Message',
     'EnterMessage' => 'Enter a Message',

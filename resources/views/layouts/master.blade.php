@@ -47,7 +47,7 @@
             <div class="aside-logo flex-column-auto" id="kt_aside_logo">
                 <!--begin::Logo-->
                 <a href="{{route('dashboard')}}" style="color: white;font-size: 20px;">
-                    Bethany Admin Panel
+                    {{ __('home.Panel') }}
                 </a>
                 <!--end::Logo-->
             </div>

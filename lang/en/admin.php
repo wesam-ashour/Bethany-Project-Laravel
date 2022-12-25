@@ -64,6 +64,8 @@ return [
     'Account' => 'Account ID',
     'Allowed' => 'Allowed file types: png, jpg, jpeg.',
     'Image' => 'Admin Image',
-    'updated' => 'Admin Information updated successfully'
+    'updated' => 'Admin Information updated successfully',
+
+    'Details' => 'Details'
 
 ];

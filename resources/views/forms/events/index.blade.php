@@ -359,7 +359,7 @@
 
 
                                                             <!--end::Input-->
-                                                            <strong id="time_error" class="errors text-danger"
+                                                            <strong id="default_latitude_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -376,7 +376,7 @@
                                                                    name="default_longitude">
 
                                                             <!--end::Input-->
-                                                            <strong id="time_error" class="errors text-danger"
+                                                            <strong id="default_longitude_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -747,7 +747,7 @@
 
 
                                                             <!--end::Input-->
-                                                            <strong id="default_latitude_u_error" class="errors text-danger"
+                                                            <strong id="default_latitude_u_update_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 
@@ -763,7 +763,7 @@
                                                                    class="form-control form-control-solid">
 
                                                             <!--end::Input-->
-                                                            <strong id="default_longitude_u_error" class="errors text-danger"
+                                                            <strong id="default_longitude_u_update_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>
 

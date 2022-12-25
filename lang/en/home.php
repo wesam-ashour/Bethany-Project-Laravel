@@ -48,7 +48,7 @@ return [
     'systemـvisits' => 'system visits in a specific period',
     'places_scaneed' => 'place title',
 
-    'Panel' => 'Admin Panel',
+    'Panel' => 'Bethany Admin Panel',
     'get_events' => 'Registration users in events',
 
 
