@@ -132,7 +132,7 @@
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
 
-                                                <input type="file" id="fileupload" name="fileupload" hidden/>
+                                                <input type="file" id="fileupload" name="fileupload" accept="image/png, image/jpg, image/jpeg" hidden/>
 
                                                 @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                                     <label for="fileupload" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
@@ -178,7 +178,7 @@
                                 <!--end::Content-->
                             </div>
                             <!--begin::Actions-->
-
+                            @can('option-create')
                                 <div class="d-flex justify-content-end">
                                     <button id="kt_modal_update_user_submit" class="btn btn-primary">
                                         <span class="indicator-label">{{ __('options.Save') }}</span>
@@ -186,6 +186,7 @@
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                     </button>
                                 </div>
+                            @endcan
 
                             <!--end::Actions-->
                             <!--end::Layout-->

@@ -143,6 +143,8 @@ class TouristController extends Controller
 
                 'fileupload.required' => trans("place.image_req"),
                 'fileupload.mimes' => trans("place.mimes"),
+                'fileupload.uploaded' => trans("event.uploaded"),
+
             ]);
 
             if ($validator->passes()) {
@@ -255,6 +257,8 @@ class TouristController extends Controller
                         'uniqid_edit.max' => trans("place.max"),
 
                         'image.mimes' => trans("place.mimes"),
+                        'image.uploaded' => trans("event.uploaded"),
+
                     ]);
 
 

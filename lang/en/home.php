@@ -51,5 +51,7 @@ return [
     'Panel' => 'Bethany Admin Panel',
     'get_events' => 'Registration users in events',
 
+    'Tables' => 'Tables',
+
 
 ];

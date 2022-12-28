@@ -284,7 +284,7 @@
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
 
-                                                            <input type="file" id="fileupload" name="fileupload" hidden/>
+                                                            <input type="file" id="fileupload" name="fileupload" accept="image/png, image/jpg, image/jpeg" hidden/>
 
                                                             @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                                                 <label for="fileupload" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
@@ -604,7 +604,7 @@
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="file" id="fileuploads" name="fileuploads" hidden/>
+                                                            <input type="file" id="fileuploads" name="fileuploads" accept="image/png, image/jpg, image/jpeg" hidden/>
 
                                                             @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                                                 <label for="fileuploads" class="form-control form-control-solid" style="color: black">Choose File: <span id="file-chosens" style="color: #5a6268">    No file chosen</span></label>

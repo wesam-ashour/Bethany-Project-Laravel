@@ -326,7 +326,7 @@
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
 
-                                                            <input type="file" id="fileupload" name="fileupload"
+                                                            <input type="file" id="fileupload" name="fileupload" accept="image/png, image/jpg, image/jpeg"
                                                                    hidden/>
 
                                                             @if(\Illuminate\Support\Facades\App::getLocale() == "en")
@@ -684,7 +684,7 @@
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
 
-                                                            <input type="file" id="fileuploads" name="fileuploads"
+                                                            <input type="file" id="fileuploads" name="fileuploads" accept="image/png, image/jpg, image/jpeg"
                                                                    hidden/>
 
                                                             @if(\Illuminate\Support\Facades\App::getLocale() == "en")
@@ -700,7 +700,7 @@
                                                             @endif
 
                                                             <!--end::Input-->
-                                                            <strong id="fileupload_update_error"
+                                                            <strong id="fileuploads_update_error"
                                                                     class="errors text-danger"
                                                                     role="alert"></strong>
                                                         </div>

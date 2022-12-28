@@ -168,6 +168,7 @@ class EventController extends Controller
 
                 'fileupload.required' => trans("event.required"),
                 'fileupload.mimes' => trans("event.mimes"),
+                'fileupload.uploaded' => trans("event.uploaded"),
 
             ]);
             if ($validator->passes()) {
@@ -285,6 +286,8 @@ class EventController extends Controller
 
 
                 'fileuploads.mimes' => trans("event.mimes"),
+                'fileuploads.uploaded' => trans("event.uploaded"),
+
 
             ]);
             if ($validator->passes()) {

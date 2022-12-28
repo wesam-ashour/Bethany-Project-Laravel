@@ -52,6 +52,8 @@ class OptionController extends Controller
                 'history_ar.string' => trans("event.string"),
 
                 'fileupload.mimes' => trans("event.mimes"),
+                'fileupload.uploaded' => trans("event.uploaded"),
+
             ]);
             if ($validator->passes()) {
                 $data = Option::query()->find(1);

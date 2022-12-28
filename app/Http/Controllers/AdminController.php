@@ -179,7 +179,8 @@ class AdminController extends Controller
                 'status' => 'sometimes|string|max:255',
                 'email' => 'required|email|unique:admins,email,' . $request->id,
                 'password' => $request->password != null ? 'sometimes|string|min:8|max:255' : '',
-                'roles' => 'required'
+                'roles' => 'required',
+                'image' => 'mimes:jpeg,jpg,png|sometimes',
             ], [
                 'name.required' => trans("admin.required"),
                 'name.string' => trans("admin.string"),
@@ -207,6 +208,9 @@ class AdminController extends Controller
                 'password.max' => trans("admin.max"),
 
                 'roles.required' => trans("admin.required"),
+
+                'image.uploaded' => trans("event.uploaded"),
+
             ]);
             if ($validator->passes()) {
                 $data = Admin::query()->find($request->id);
@@ -405,7 +409,7 @@ class AdminController extends Controller
             'status' => 'sometimes|string|max:255',
             'email' => 'required|email|unique:admins,email,' . $id,
             'password' => $request->password != null ? 'sometimes|string|min:8|max:255' : '',
-            'fileupload' => $request->fileupload != null ? 'image|mimes:jpeg,png,jpg|max:1024' : '',
+            'fileupload' => $request->fileupload != null ? 'image|mimes:jpeg,png,jpg' : '',
         ],
             [
                 'name.required' => trans("admin.required"),
@@ -433,6 +437,8 @@ class AdminController extends Controller
                 'password.max' => trans("admin.max"),
 
                 'roles.required' => trans("admin.required"),
+                'fileupload.uploaded' => trans("event.uploaded"),
+
             ]);
         if ($validator->passes()) {
             $data = Admin::query()->find($id);

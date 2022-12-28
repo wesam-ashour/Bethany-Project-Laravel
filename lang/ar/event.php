@@ -86,6 +86,8 @@ return [
     'Excel' => 'تصدير بتنسيق Excel',
     'PDF' => 'تصدير كملف PDF',
 
+    'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
+
     'The event has been successfully registered' => 'تم تسجيل الحدث بنجاح',
      'full name field is required' => 'حقل الاسم مطلوب',
     'email field is required' => 'حقل الايميل مطلوب',

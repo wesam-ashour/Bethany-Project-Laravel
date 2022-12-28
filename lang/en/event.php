@@ -86,6 +86,8 @@ return [
     'Excel' => 'Export as Excel',
     'PDF' => 'Export as PDF',
 
+    'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
+
 
     /*API*/
 

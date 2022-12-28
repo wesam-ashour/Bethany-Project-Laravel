@@ -61,10 +61,11 @@ $(function () {
                                                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                         customClass: {confirmButton: "btn btn-primary"}
                                                     }).then((function (t) {
-                                                        t.isConfirmed && n.hide()
+                                                        t.isConfirmed && n.hide() && e.reset()
                                                     }))
                                                 }), 2e3));
                                                 $("input").val("");
+                                                $('#permission').empty();
                                                 $(".errors").html("");
                                                 $('#kt_ecommerce_forms_table').DataTable().ajax.reload();
                                             } else {

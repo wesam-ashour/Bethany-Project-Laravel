@@ -148,7 +148,7 @@
                                                 <div class="col-md-6 mb-7">
                                                     <!--begin::Label-->
                                                     <label
-                                                        class="required fw-bold fs-6 mb-2">{{ __('admin.Password') }}</label>
+                                                        class="fw-bold fs-6 mb-2">{{ __('admin.Password') }}</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <input id="password" type="password" name="password"
@@ -164,11 +164,13 @@
                                                 <div class="col-md-6 mb-7">
                                                     <!--begin::Label-->
                                                     <label
-                                                        class="required fw-bold fs-6 mb-2">{{ __('admin.Image') }}</label>
+                                                        class=" fw-bold fs-6 mb-2">{{ __('admin.Image') }} </label>
+                                                    <div class="text-muted fs-7">{{ __('admin.Allowed') }} </div><br>
+
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
 
-                                                    <input type="file" id="fileupload" name="fileupload" hidden/>
+                                                    <input type="file" id="fileupload" name="fileupload" accept="image/png, image/jpg, image/jpeg" hidden/>
 
                                                     @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                                         <label for="fileupload" class="form-control form-control-solid"
