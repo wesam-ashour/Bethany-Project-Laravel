@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
+use \Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
@@ -24,10 +25,10 @@ class QuestionController extends Controller
             $data = Faq::query()->latest();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('question', function ($data) {
-                    return $data->question;
+                    return Str::limit($data->question,40);
                 })
                 ->addColumn('answer', function ($data) {
-                    return $data->answer;
+                    return Str::limit($data->answer,40);
                 })
                 ->addColumn('action', function ($data) {
                     $action = '<div class="text-center">

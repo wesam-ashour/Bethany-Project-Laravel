@@ -61,9 +61,9 @@
                                         <label class="col-lg-4 fw-semibold text-muted">{{ __('place.Image') }}</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <img class="col-lg-8" src="{{ asset('public/images/places/' . $tourist->image) }}" />
-                                        </div>
+
+                                            <img style="max-width: 1025px; height:300px;" src="{{ asset('public/images/places/' . $tourist->image) }}" />
+
                                         <!--end::Col-->
                                     </div>
                                     <!--end::Row-->
@@ -125,7 +125,7 @@
                                     @endif
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    <div class="row mb-7">
+                                    <div class="fv-row col-md-6 mb-7">
                                         <!--begin::Label-->
                                         <label class="col-lg-4 fw-semibold text-muted">{{ __('place.Location') }}</label>
 
@@ -133,11 +133,11 @@
                                         <!--begin::Col-->
                                         </div>
                                         <!--end::Col-->
-                                    <div class="col-lg-8">
-                                        <div id="map"  style="width: 1050px; height:400px;">
+
+                                        <div id="map"  style="max-width: 1025px; height:400px;">
 
                                         </div>
-                                        </div>
+
                                 </div>
 
                                 <!--end::Card body-->

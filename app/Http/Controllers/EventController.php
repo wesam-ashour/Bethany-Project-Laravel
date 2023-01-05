@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
 use Yajra\DataTables\Facades\DataTables;
+use \Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -57,7 +58,7 @@ class EventController extends Controller
             $data = Event::select('id', 'title', 'date', 'added_by', 'status')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('title', function ($data) {
-                    return $data->title;
+                    return  Str::limit($data->title,20) ;
                 })
                 ->addColumn('added_by', function ($data) {
                     return Admin::find($data->added_by)->name;

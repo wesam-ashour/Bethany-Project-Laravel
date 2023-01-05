@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Yajra\DataTables\DataTables;
+use \Illuminate\Support\Str;
 
 class PlaceController extends Controller
 {
@@ -28,13 +29,13 @@ class PlaceController extends Controller
             $data = Place::where('type', '=', 1)->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('title', function ($data) {
-                    return $data->title;
+                    return Str::limit($data->title,20) ;
                 })
                 ->addColumn('description', function ($data) {
-                    return $data->description;
+                    return Str::limit($data->description,20) ;
                 })
                 ->addColumn('location', function ($data) {
-                    return $data->location;
+                    return Str::limit($data->location,20);
                 })
                 ->addColumn('lat', function ($data) {
                     $lat = sprintf('%.6f', floor($data->lat * 10000 * ($data->lat > 0 ? 1 : -1)) / 10000 * ($data->lat > 0 ? 1 : -1));
