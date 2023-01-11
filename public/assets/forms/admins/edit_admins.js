@@ -10,7 +10,7 @@ $(function () {
         user_name = $("#user_name").val(),
         address = $("#address").val(),
         password = $("#password").val(),
-        uploaded_image = $(" #uploaded_image"),
+        uploaded_image = $("#uploaded_image"),
         roles = $("#roles").val();
 
     $(document).ready(function () {
