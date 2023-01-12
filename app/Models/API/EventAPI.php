@@ -35,7 +35,7 @@ class EventAPI extends Model
     protected function address(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $this->getTranslation('description',app()->getLocale()),
+            get: fn ($value) => $this->getTranslation('address',app()->getLocale()),
         );
     }
     public function getImageAttribute($value)

@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Exception;
 
 class EventsApiController extends Controller
 {
@@ -40,7 +41,7 @@ class EventsApiController extends Controller
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|string',
             'mobile' => 'required',
             'address' => 'required',
         ], [
@@ -52,7 +53,8 @@ class EventsApiController extends Controller
 
         ]);
         if ($validator->fails()){
-            return response()->json(['error'=>$validator->errors()->all()],409);
+            return  $this->setError(400 ,false, $validator->errors()->first() , 400);
+
 
         }
         $cheak_event_id = EventAPI::find($request->event_id);
@@ -64,7 +66,7 @@ class EventsApiController extends Controller
         if ($cheakuser && $cheakmobile){
             $cheak_event_user = EventUserAPI::where('user_id', $cheakuser->id)->where('event_id',$request->event_id)->first();
             if ($cheak_event_user){
-                return response()->json(['error'=>trans('event.the user already regsiter in this event')],409);
+                return  $this->setError(400 ,false, trans('event.the user already regsiter in this event') , 400);
             }
             $eventUser->user_id = $cheakuser->id;
             $eventUser->event_id = $request->event_id;
@@ -75,25 +77,30 @@ class EventsApiController extends Controller
 
         }else{
             if (!$cheakmobile){
-                $user->full_name = $request->full_name;
-                $user->email = $request->email;
-                $user->mobile = $request->mobile;
-                $user->address = $request->address;
-                $user->created_at = Carbon::now();
-                $user->updated_at = Carbon::now();
-                $user->save();
-                Mail::to($request->email)->send(new EmailVerified(DB::getPdo()->lastInsertId()));
-                $eventUser->user_id = DB::getPdo()->lastInsertId();
-                $eventUser->event_id = $request->event_id;
-                $eventUser->created_at = Carbon::now();
-                $eventUser->save();
+                try {
+                    $user->full_name = $request->full_name;
+                    $user->email = $request->email;
+                    $user->mobile = $request->mobile;
+                    $user->address = $request->address;
+                    $user->created_at = Carbon::now();
+                    $user->updated_at = Carbon::now();
+                    $user->save();
+                        Mail::to($request->email)->send(new EmailVerified(DB::getPdo()->lastInsertId()));
+                        $eventUser->user_id = DB::getPdo()->lastInsertId();
+                        $eventUser->event_id = $request->event_id;
+                        $eventUser->created_at = Carbon::now();
+                        $eventUser->save();
+
+                    } catch (Exception $e) {
+                        return  $this->setError(400 ,false, trans('event.An error occurred during registration, please try again') , 400);
+                    }
                 return  $this->api_response(2,true,trans('event.The event has been successfully registered') , '' , 200);
 
             }
-            return response()->json(['error'=>trans('event.This mobile number is already in use')],409);
+            return  $this->setError(400 ,false, trans('event.This mobile number is already in use') , 400);
         }
         }else{
-            return response()->json(['error'=>trans('event.The event id not found')],409);
+            return  $this->setError(400 ,false,trans('event.The event id not found') , 400);
         }
 
     }

@@ -89,11 +89,16 @@ return [
     'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
 
     'The event has been successfully registered' => 'تم تسجيل الحدث بنجاح',
-     'full name field is required' => 'حقل الاسم مطلوب',
+    'the user already regsiter in this event' => 'المستخدم مسجل بالفعل في هذا الحدث',
+    'This mobile number is already in use' => 'رقم الهاتف المحمول هذا قيد الاستخدام بالفعل'
+    ,'full name field is required' => 'حقل الاسم مطلوب',
     'email field is required' => 'حقل الايميل مطلوب',
+    'The email has already been taken.' => 'الأيميل مسجل من قبل',
     'mobile field is required' => 'حقل رقم الموبايل مطلوب',
     'address field is required' => 'حقل العنوان مطلوب',
-    'The event id not found' => 'معرّف الحدث غير موجود'
+    'The event id not found' => 'معرّف الحدث غير موجود',
+    'An error occurred during registration, please try again' => 'حدث خطاء ما اثناء التسجيل يرجى المحاولة مرة اخرى' ,
+
 
 
 

@@ -93,14 +93,18 @@ return [
 
     'Events List' => 'Events List',
     'the user already regsiter in this event' => 'the user already regsiter in this event',
+    'This mobile number is already in use' => 'This mobile number is already in use',
 
     'The event has been successfully registered' => 'The event has been successfully registered',
 
     'full name field is required' => 'Full Name Field Is Required',
     'email field is required' => 'Email Field Is Required',
+    'The email has already been taken.' => 'The email has already been taken.',
     'mobile field is required' => 'Mobile Field Is Required',
     'address field is required' => 'Address Field Is Required',
-    'The event id not found' => 'The event id not found'
+    'The event id not found' => 'The event id not found',
+        'An error occurred during registration, please try again' => 'An error occurred during registration, please try again' ,
+
 
 
 

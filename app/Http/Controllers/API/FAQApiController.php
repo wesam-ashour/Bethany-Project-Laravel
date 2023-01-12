@@ -14,7 +14,7 @@ class FAQApiController extends Controller
     public function index(Request $request)
     {
 
-        $faq = FaqAPI::query()->get();
+        $faq = FaqAPI::query()->where('deleted_at','=',null)->get();
         return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('faq.FAQ list') , $faq , 200);
 
 
