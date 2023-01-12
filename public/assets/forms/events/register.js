@@ -153,6 +153,10 @@ $(function () {
                                 name: 'email'
                             },
                             {
+                                data: 'mobile',
+                                name: 'mobile'
+                            },
+                            {
                                 data: 'email_verified',
                                 name: 'email_verified'
                             },

@@ -340,6 +340,9 @@ class EventController extends Controller
                 ->addColumn('full_name', function ($data) {
                     return User::find($data->user_id)->full_name;
                 })
+                ->addColumn('mobile', function ($data) {
+                    return User::find($data->user_id)->mobile;
+                })
                 ->addColumn('email', function ($data) {
                     return User::find($data->user_id)->email;
                 })->addColumn('email_verified', function ($data) {
