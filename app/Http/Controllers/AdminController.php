@@ -101,7 +101,7 @@ class AdminController extends Controller
                 'name' => 'required|string|max:255',
                 'mobile' => 'required|numeric|digits:10',
                 'address' => 'required|string|max:255',
-                'email' => 'required|email|unique:admins,email|max:255',
+                'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|unique:admins,email|max:255',
                 'user_name' => 'required|string|unique:admins,user_name|max:255',
                 'password' => 'required|string|min:8|max:255',
                 'roles' => 'required'
@@ -121,6 +121,7 @@ class AdminController extends Controller
                 'email.required' => trans("admin.required"),
                 'email.email' => trans("admin.reqEmail"),
                 'email.unique' => trans("admin.uniqueEmail"),
+                'email.regex' => trans("web.regex"),
 
                 'user_name.required' => trans("admin.required"),
                 'user_name.unique' => trans("admin.unique"),
@@ -177,7 +178,7 @@ class AdminController extends Controller
                 'user_name' => 'required|string|max:255|unique:admins,user_name,' . $request->id,
                 'address' => 'required|string|max:255',
                 'status' => 'sometimes|string|max:255',
-                'email' => 'required|email|unique:admins,email,' . $request->id,
+                'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|unique:admins,email,' . $request->id,
                 'password' => $request->password != null ? 'sometimes|string|min:8|max:255' : '',
                 'roles' => 'required',
                 'image' => 'mimes:jpeg,jpg,png|sometimes',
@@ -193,6 +194,7 @@ class AdminController extends Controller
                 'address.required' => trans("admin.required"),
                 'address.string' => trans("admin.string"),
                 'address.max' => trans("admin.max"),
+                'email.regex' => trans("web.regex"),
 
                 'email.required' => trans("admin.required"),
                 'email.email' => trans("admin.reqEmail"),
