@@ -37,6 +37,7 @@ $(function () {
                         });
                         const i = t.querySelector('[data-kt-users-modal-action="submit"]');
                         i.addEventListener("click", (t => {
+                            $(':input[type="submit"]').prop('disabled', true);
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 $(".errors").html("");
 
@@ -76,6 +77,7 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 $(".errors").html("");
                                                 print_error(response.error);
                                             }
