@@ -65,7 +65,7 @@ return [
     'Allowed' => 'Allowed file types: png, jpg, jpeg.',
     'Image' => 'Admin Image',
     'updated' => 'Admin Information updated successfully',
-
+    'regex' => 'The email format is invalid',
     'Details' => 'Details'
 
 ];

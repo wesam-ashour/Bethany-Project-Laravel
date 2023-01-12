@@ -121,7 +121,7 @@ class AdminController extends Controller
                 'email.required' => trans("admin.required"),
                 'email.email' => trans("admin.reqEmail"),
                 'email.unique' => trans("admin.uniqueEmail"),
-                'email.regex' => trans("web.regex"),
+                'email.regex' => trans("admin.regex"),
 
                 'user_name.required' => trans("admin.required"),
                 'user_name.unique' => trans("admin.unique"),
@@ -194,7 +194,7 @@ class AdminController extends Controller
                 'address.required' => trans("admin.required"),
                 'address.string' => trans("admin.string"),
                 'address.max' => trans("admin.max"),
-                'email.regex' => trans("web.regex"),
+                'email.regex' => trans("admin.regex"),
 
                 'email.required' => trans("admin.required"),
                 'email.email' => trans("admin.reqEmail"),
