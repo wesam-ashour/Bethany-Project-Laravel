@@ -10,7 +10,7 @@
 
 <body>
 
-    <h1>You can scan QR code to get more information about {{$pd->title['en']}} </h1>
+    <h1>You can scan QR code to get more information about {{$pd->getTranslations('title', ['en'])}} </h1>
     <br>
     <br>
     <br>
