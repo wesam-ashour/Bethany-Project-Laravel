@@ -374,9 +374,9 @@ class EventController extends Controller
                         if (!empty($value->user_id)) {
                             $details = $request->message;
                                 $user = DB::table('users')->where('id',$value->user_id)->where('email_verified','==','ture')->get();
-                                dd($user);
-                                Mail::to($user->email)->send(new MessageMail($details));
-
+                                if ($user){
+                                    Mail::to($user->email)->send(new MessageMail($details));
+                                }
                         }
                     }
                     return response()->json(['status' => 1, 'msg' => 'Messages has been sent to all users']);
