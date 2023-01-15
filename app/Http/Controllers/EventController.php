@@ -375,7 +375,7 @@ class EventController extends Controller
                             $details = $request->message;
                                 $user = DB::table('users')->where('id',$value->user_id)->where('email_verified','==','ture')->get();
                                 if ($user){
-                                    Mail::to($user->email)->send(new MessageMail($details));
+                                    Mail::to($user[0]->email)->send(new MessageMail($details));
                                 }
                         }
                     }
