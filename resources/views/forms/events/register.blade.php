@@ -310,13 +310,13 @@
                     dataType: 'json',
 
                     success: function(data) {
-                        if (data.status == 0) {
+                        if (data.status === 0) {
                             setTimeout(function() {
                                 jQuery('#loadMe').modal('hide');
                                 mySpan.style.display = "";
                                 jQuery('#ajaxModel').modal('show');
                             }, 1000);
-                        } else if (data.status == 2) {
+                        } else if (data.status === 2) {
 
                             setTimeout(function() {
                                 Swal.fire({
@@ -334,7 +334,9 @@
                                 icon: 'success',
                                 title: '{{ __('event.MessageSentDone') }}',
                                 showConfirmButton: false,
-                                timer: 2000
+                                timer: 1000
+                            }).then(() => {
+                                jQuery('#loadMe').modal('hide');
                             })
                         }
                     },

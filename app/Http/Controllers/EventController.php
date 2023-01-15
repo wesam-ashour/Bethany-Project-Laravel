@@ -21,19 +21,21 @@ class EventController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:event-list|event-create|event-edit|event-delete', ['only' => ['index','show']]);
-        $this->middleware('permission:event-create', ['only' => ['create','store']]);
-        $this->middleware('permission:event-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:event-list|event-create|event-edit|event-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:event-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:event-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:event-delete', ['only' => ['destroy']]);
     }
 
-    public function pdf(Request $request){
+    public function pdf(Request $request)
+    {
         $pd = DB::table('event_user')->where('event_id', '=', $request->id)->get();
         $pdf = PDF::loadView('forms.events.pdf', compact('pd'));
         return $pdf->download('Users.pdf');
     }
 
-    public function excel(Request $request){
+    public function excel(Request $request)
+    {
         $id = $request->id;
         return Excel::download(new UsersExport($id), 'users.xlsx');
     }
@@ -58,13 +60,13 @@ class EventController extends Controller
             $data = Event::select('id', 'title', 'date', 'added_by', 'status')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('title', function ($data) {
-                    return  Str::limit($data->title,20) ;
+                    return Str::limit($data->title, 20);
                 })
                 ->addColumn('added_by', function ($data) {
                     return Admin::find($data->added_by)->name;
                 })
                 ->addColumn('status', function ($data) {
-                    return ($data->status == 1) ? '<div class="badge badge-light-success">'.trans("event.Active").'</div>' : '<div class="badge badge-light-danger">'.trans("event.Inactive").'</div>';
+                    return ($data->status == 1) ? '<div class="badge badge-light-success">' . trans("event.Active") . '</div>' : '<div class="badge badge-light-danger">' . trans("event.Inactive") . '</div>';
                 })
                 ->addColumn('action', function ($data) {
                     $action = '<div class="text-center">
@@ -76,17 +78,17 @@ class EventController extends Controller
 									<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                       fill="black"/>
 									</svg>
-									</span>'.trans("event.Actions").'
+									</span>' . trans("event.Actions") . '
                                   </button>
                                   <div class="dropdown-menu">';
 
                     $action = $action . '<div class="menu-item px-3">
                                   <a href="' . url('event/register/' . $data->id) . '"
-                                     class="menu-link px-3">'.trans("event.Register").'</a>
+                                     class="menu-link px-3">' . trans("event.Register") . '</a>
                               </div>';
                     $action = $action . '<div class="menu-item px-3">
                                             <a href="' . route('events.show', $data->id) . '"
-                                               class="menu-link px-3">'.trans("event.Show").'</a>
+                                               class="menu-link px-3">' . trans("event.Show") . '</a>
                                         </div>';
                     if (\auth()->user()->can('event-edit')) {
                         $action = $action . '<div  class="menu-item px-3">
@@ -102,7 +104,7 @@ class EventController extends Controller
                     }
 
                     $action = $action . '</div></div></div>';
-                        return $action;
+                    return $action;
 
                 })
                 ->rawColumns(['action'])
@@ -203,26 +205,26 @@ class EventController extends Controller
         $initialMarkers = [
             [
                 'position' => [
-                    'lat' => (double) $event->lat,
-                    'lng' => (double) $event->long,
+                    'lat' => (double)$event->lat,
+                    'lng' => (double)$event->long,
                 ],
                 'label' => ['color' => 'white', 'text' => 'M'],
                 'draggable' => false
             ],
         ];
-        return view('forms.events.show',compact('event','initialMarkers'));
+        return view('forms.events.show', compact('event', 'initialMarkers'));
 
     }
 
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
         if ($request->ajax()) {
             $event = Event::find($id);
             $initials = [
                 [
                     'position' => [
-                        'lat' => (double) $event->lat,
-                        'lng' => (double) $event->long,
+                        'lat' => (double)$event->lat,
+                        'lng' => (double)$event->long,
                     ],
                     'label' => ['color' => 'white', 'text' => 'M'],
                     'draggable' => true
@@ -303,12 +305,12 @@ class EventController extends Controller
                 $data->status = $request->status;
                 $data->time = $request->time_edit;
 
-                if ($request->input('image') != 'undefined'){
-                $imageuploaded = request()->file('image');
-                $imagename = time() . '.' . $imageuploaded->getClientOriginalExtension();
-                $imagepath = public_path('/images/events');
-                $imageuploaded->move($imagepath, $imagename);
-                $data->image = $imagename;
+                if ($request->input('image') != 'undefined') {
+                    $imageuploaded = request()->file('image');
+                    $imagename = time() . '.' . $imageuploaded->getClientOriginalExtension();
+                    $imagepath = public_path('/images/events');
+                    $imageuploaded->move($imagepath, $imagename);
+                    $data->image = $imagename;
                 }
 
                 $data->save();
@@ -323,7 +325,7 @@ class EventController extends Controller
     {
         if ($request->ajax()) {
             $data = Event::query()->find($id)->delete();
-            $data2 = DB::table('event_user')->where('event_id',$id)->delete();
+            $data2 = DB::table('event_user')->where('event_id', $id)->delete();
 
             return response()->json(['success' => "success"]);
         }
@@ -346,8 +348,8 @@ class EventController extends Controller
                 ->addColumn('email', function ($data) {
                     return User::find($data->user_id)->email;
                 })->addColumn('email_verified', function ($data) {
-                    $user =  User::find($data->user_id)->email_verified;
-                    return ($user == 'true') ? '<div class="badge badge-light-success">'.trans("user.true").'</div>' : '<div class="badge badge-light-danger">'.trans("user.false").'</div>';
+                    $user = User::find($data->user_id)->email_verified;
+                    return ($user == 'true') ? '<div class="badge badge-light-success">' . trans("user.true") . '</div>' : '<div class="badge badge-light-danger">' . trans("user.false") . '</div>';
 
                 })
                 ->escapeColumns([])
@@ -373,10 +375,10 @@ class EventController extends Controller
                     foreach ($data as $key => $value) {
                         if (!empty($value->user_id)) {
                             $details = $request->message;
-                                $user = DB::table('users')->where('id',$value->user_id)->where('email_verified','==','ture')->get();
-                                if ($user->isNotEmpty()){
-                                    Mail::to($user[0]->email)->send(new MessageMail($details));
-                                }
+                            $user = DB::table('users')->where('id', $value->user_id)->get();
+                            if ($user[0]->email_verified == "true") {
+                                Mail::to($user[0]->email)->send(new MessageMail($details));
+                            }
                         }
                     }
                     return response()->json(['status' => 1, 'msg' => 'Messages has been sent to all users']);
