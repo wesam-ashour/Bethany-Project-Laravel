@@ -162,7 +162,7 @@
                     <form id="myForm" name="myForm" class="form-horizontal" novalidate="">
                         <div class="form-group">
                             <div class="form-group row">
-                                <label class="col-form-label text-right col-lg-3 col-sm-12">{{ __('event.Message') }}</label>
+                                <label class="col-form-label text-right col-lg-3 col-sm-12"><h1>{{ __('event.Message') }}</h1>({{ __('event.MessageDescription') }})</label>
                                 <div class="col-lg-9 col-md-9 col-sm-12">
                                     <textarea class="form-control" id="message" name="message" required placeholder="{{ __('event.EnterMessage') }}" rows="3"></textarea>
                                     <span id='Logo' class="text-danger" style="display:none">{{ __('event.Pleasewrite') }}</span>

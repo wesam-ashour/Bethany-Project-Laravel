@@ -75,6 +75,7 @@ return [
     'Sending' => 'Sending Message',
     'Loading' => 'Loading...',
     'Oops' => 'No users found!',
+    'MessageDescription' => 'Note: A message will be sent only to users who have activated the e-mail',
 
     'Pleasewrite' => 'Please write message!',
     'OopsU' => 'Oops',
