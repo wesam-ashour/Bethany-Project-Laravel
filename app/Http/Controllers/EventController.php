@@ -374,7 +374,7 @@ class EventController extends Controller
                         if (!empty($value->user_id)) {
                             $details = $request->message;
                                 $user = DB::table('users')->where('id',$value->user_id)->where('email_verified','==','ture')->get();
-                                if ($user){
+                                if ($user->isNotEmpty()){
                                     Mail::to($user[0]->email)->send(new MessageMail($details));
                                 }
                         }
