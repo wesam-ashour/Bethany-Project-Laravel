@@ -15,7 +15,6 @@ $(function () {
     });
 
 
-
     function create_user() {
         "use strict";
         var KTUsersAddUser = function () {
@@ -27,8 +26,7 @@ $(function () {
                         var o = FormValidation.formValidation(e, {
                             fields: {
                                 title: {
-                                    validators: {
-                                    }
+                                    validators: {}
                                 }
                             },
                             plugins: {
@@ -46,7 +44,7 @@ $(function () {
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 $(".errors").html("");
 
-                                var featured_image =$('#fileupload')[0].files[0];
+                                var featured_image = $('#fileupload')[0].files[0];
                                 var formData = new FormData(document.getElementById("kt_modal_add_user_form"));
                                 formData.append("image", featured_image);
 
@@ -56,12 +54,13 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        "url": base_path + language  + "/" + "tourists",
+                                        "url": base_path + language + "/" + "tourists",
                                         data: formData,
                                         processData: false,  // tell jQuery not to process the data
                                         contentType: false,
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {
                                                     i.removeAttribute("data-kt-indicator"), i.disabled = !1, Swal.fire({
                                                         text: language === "en" ? "Form has been successfully submitted!" : "تم تقديم النموذج بنجاح!",
@@ -73,7 +72,7 @@ $(function () {
                                                         e.reset();
                                                         $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                                         $('#image_id').remove();
-                                                        $( ".containerss" ).append( "<div id='image_div'></div>" );
+                                                        $(".containerss").append("<div id='image_div'></div>");
                                                         t.isConfirmed && n.hide()
                                                     }))
                                                 }), 2e3));
@@ -112,7 +111,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id').remove(),$( ".containerss" ).append( "<div id='image_div'></div>" ),$("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(), $(".errors").empty(), $('#image_id').remove(), $(".containerss").append("<div id='image_div'></div>"), $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -130,7 +129,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id').remove(),$( ".containerss" ).append( "<div id='image_div'></div>") ,$("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(), $(".errors").empty(), $('#image_id').remove(), $(".containerss").append("<div id='image_div'></div>") , $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,

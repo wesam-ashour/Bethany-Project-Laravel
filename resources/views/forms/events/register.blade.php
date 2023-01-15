@@ -151,9 +151,8 @@
     </div>
     <!--end::Content-->
 
-    <div class="modal fade" id="ajaxModel" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div id="ajaxModel"  class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{ __('event.SendMessage') }}</h5>
@@ -162,9 +161,9 @@
                     <form id="myForm" name="myForm" class="form-horizontal" novalidate="">
                         <div class="form-group">
                             <div class="form-group row">
-                                <label class="col-form-label text-right col-lg-3 col-sm-12"><h1>{{ __('event.Message') }}</h1>({{ __('event.MessageDescription') }})</label>
+                                <label class="col-form-label text-right col-lg-3 col-sm-12"><h5>{{ __('event.Message') }}:</h5>{{ __('event.MessageDescription') }}</label>
                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                    <textarea class="form-control" id="message" name="message" required placeholder="{{ __('event.EnterMessage') }}" rows="3"></textarea>
+                                    <textarea style="height: 200px;" class="form-control" id="message" name="message" required placeholder="{{ __('event.EnterMessage') }}" rows="3"></textarea>
                                     <span id='Logo' class="text-danger" style="display:none">{{ __('event.Pleasewrite') }}</span>
                                 </div>
                             </div>
@@ -191,10 +190,12 @@
                 <div class="modal-body">
                     <div data-scroll="true" data-height="300">
                         <div class="d-flex justify-content-center">
-                            <h4 style="padding-right: 7px;">{{ __('event.Please') }}</h4>
-                            <div class="spinner-border" role="status">
-                                <span class="visually-hidden">{{ __('event.Loading') }}</span>
-                            </div>
+                            <h4 style="padding-right: 7px;">{{ __('event.Please') }}
+                                <div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </h4>
+
                         </div>
                     </div>
                 </div>
@@ -334,7 +335,7 @@
                                 icon: 'success',
                                 title: '{{ __('event.MessageSentDone') }}',
                                 showConfirmButton: false,
-                                timer: 1000
+                                timer: 2000
                             }).then(() => {
                                 jQuery('#loadMe').modal('hide');
                             })

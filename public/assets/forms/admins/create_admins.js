@@ -55,6 +55,7 @@ $(function () {
                                         contentType: false,
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {
                                                     i.removeAttribute("data-kt-indicator"), i.disabled = !1, Swal.fire({
                                                         text: language === "en" ? "Form has been successfully submitted!" : "تم تقديم النموذج بنجاح!",
