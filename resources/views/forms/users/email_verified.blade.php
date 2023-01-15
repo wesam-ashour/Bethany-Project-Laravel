@@ -148,7 +148,7 @@
                                 <td bgcolor="#ffffff" align="center" >
                                     <table border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <a href="{{url("api/events/verified/".$details)}}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Confirm Email</a>
+                                            <td align="center" style="border-radius: 3px;" bgcolor="#FFA73B"><a href="{{url("api/events/verified/".$details)}}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;">Confirm Account</a></td>
                                         </tr>
                                     </table>
                                 </td>

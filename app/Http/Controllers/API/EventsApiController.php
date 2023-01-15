@@ -109,6 +109,6 @@ class EventsApiController extends Controller
         $user = UserAPI::query()->where('id',$id)->get()->first();
         $user->email_verified = 'true';
         $user->update();
-        return view('users.emailVerifyDone');
+        return view('forms.users.emailVerifyDone');
     }
 }
