@@ -373,10 +373,10 @@ class EventController extends Controller
                     foreach ($data as $key => $value) {
                         if (!empty($value->user_id)) {
                             $details = $request->message;
-                            if (User::find($value->user_id)->email_verified == "true"){
-                                $user = User::find($value->user_id)->email;
-                                Mail::to($user)->send(new MessageMail($details));
-                            }
+                                $user = User::find($value->user_id);
+                                if ($user->email_verified == "true"){
+                                    Mail::to($user->email)->send(new MessageMail($details));
+                                }
                         }
                     }
                     return response()->json(['status' => 1, 'msg' => 'Messages has been sent to all users']);
