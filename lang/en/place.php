@@ -75,7 +75,9 @@ return [
 
     'PlacesDetails' => 'Places Details',
     'TouristsDetails' => 'Tourists Details',
-    
+    'Lat' => 'Lat',
+    'Long' => 'Long',
+
     /*API*/
     'Places list' => 'Places list ',
     'Places Scanned' => 'Scan the code successfully'

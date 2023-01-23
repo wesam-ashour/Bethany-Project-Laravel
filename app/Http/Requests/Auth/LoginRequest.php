@@ -43,7 +43,7 @@ class LoginRequest extends FormRequest
             'email.string' => trans("auth.stringEmail"),
             'email.email' => trans("auth.emailEmail"),
 
-            'password.required' => trans("auth."),
+            'password.required' => trans("auth.requiredPassword"),
             'password.string' => trans("auth.stringPassword"),
         ];
     }

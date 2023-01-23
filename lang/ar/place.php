@@ -15,8 +15,8 @@ return [
 
     'Dashboard' => 'لوحه تحكم',
     'Places' => 'الاماكن',
-    'English' => 'الانجليزيه',
-    'Arabic' => 'العربيه',
+    'English' => 'الانجليزية',
+    'Arabic' => 'العربية',
     'Add' => 'اضافه مكان',
     'EditEvent' => 'تعديل بيانات المكان',
     'AddTourist' => 'اضافه موقع سياحي',
@@ -72,7 +72,10 @@ return [
 
     'PlacesDetails' => 'بيانات المكان',
     'TouristsDetails' => 'بيانات الموقع السياحي',
-    
+
+    'Lat' => 'خط الطول',
+    'Long' => 'خط العرض',
+
     /*API*/
     'Places list' => 'قائمة الأماكن',
     'Places Scanned' => 'تم مسح الرمز بنجاح'

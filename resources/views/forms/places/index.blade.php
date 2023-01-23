@@ -322,7 +322,7 @@
                                                         <div class="fv-row col-md-4 mb-3">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Lat</span>
+                                                                <span class="required">@lang('place.Lat')</span>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
@@ -340,7 +340,7 @@
                                                         <div class="fv-row col-md-4 mb-3">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Long</span>
+                                                                <span class="required">@lang('place.Long')</span>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
@@ -642,7 +642,7 @@
                                                         <div class="fv-row col-md-4 mb-3">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Lat</span>
+                                                                <span class="required">@lang('place.Lat')</span>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
@@ -660,7 +660,7 @@
                                                         <div class="fv-row col-md-4 mb-3">
                                                             <!--begin::Label-->
                                                             <label class="fs-6 fw-bold form-label mb-2">
-                                                                <span class="required">Long</span>
+                                                                <span class="required">@lang('place.Long')</span>
                                                             </label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->

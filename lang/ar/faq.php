@@ -18,7 +18,7 @@ return [
     'Search' => 'البحث',
     'Add' => 'اضافه سؤال',
     'Question' => 'السؤال',
-    'Answer' => 'الاجابه',
+    'Answer' => 'الاجابة',
     'Discard' => 'تجاهل',
     'Submit' => 'ارسل',
     'Please' => 'الرجاء الانتظار...',
@@ -27,16 +27,16 @@ return [
     'Actions' => 'الاجراءات',
 
     'QuestionContent' => 'السؤال مطلوب',
-    'AnswerContent' => 'الاجابه مطلوبه',
+    'AnswerContent' => 'الاجابة مطلوبه',
     'placeholderQuestion' => 'ادخل السؤال',
-    'placeholderAnswer' => 'ادخل الاجابه',
+    'placeholderAnswer' => 'ادخل الاجابة',
 
     'required' => 'هذا الحقل مطلوب',
     'string' => 'يجب أن يكون هذا الحقل نصا',
     'max' => 'يجب ألا يزيد هذا الحقل عن 500 حرفًا.',
-    
+
     /*API*/
-    
+
     'FAQ list' => 'قائمة الأسئلة الشائعة'
 
 

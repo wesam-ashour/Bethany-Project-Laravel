@@ -1,5 +1,13 @@
 @extends('layouts.master')
 @section('content')
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+        }
+
+    </style>
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Toolbar-->
@@ -54,51 +62,76 @@
                                 <div id="kt_modal_edit_user_scroll">
                                     <form id="kt_modal_edit_user_only1">
 
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="col-md-6 mb-7">
-                                                <!--begin::Label-->
-                                                <!--begin::Label-->
-                                                <label class="required fw-semibold fs-6 mb-2">{{ __('role.Name') }}</label>
-                                                <!--end::Label-->
-                                                <input id="role_id" name="role_id" type="hidden" value="{{$role->id}}">
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="col-md-6 mb-7">
+                                            <!--begin::Label-->
+                                            <!--begin::Label-->
+                                            <label class="required fw-semibold fs-6 mb-2">{{ __('role.Name') }}</label>
+                                            <!--end::Label-->
+                                            <input id="role_id" name="role_id" type="hidden" value="{{$role->id}}">
 
-                                                <!--begin::Input-->
-                                                <input type="text" name="name" id="name"
-                                                       class="form-control form-control-solid mb-3 mb-lg-0" placeholder=""
-                                                       value="{{ $role->name ? : old('name') }}"/>
-                                                <strong id="name_error"
-                                                        class="errors text-danger"
-                                                        role="alert">
-                                                </strong>
-                                                <!--end::Input-->
+                                            <!--begin::Input-->
+                                            <input type="text" name="name" id="name"
+                                                   class="form-control form-control-solid mb-3 mb-lg-0" placeholder=""
+                                                   value="{{ $role->name ? : old('name') }}"/>
+                                            <strong id="name_error"
+                                                    class="errors text-danger"
+                                                    role="alert">
+                                            </strong>
+                                            <!--end::Input-->
 
-                                            </div>
+                                        </div>
 
 
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="col-md-12 mb-7">
-                                                <!--begin::Label-->
-                                                <!--begin::Label-->
-                                                <label class="required fw-semibold fs-6 mb-2">{{ __('role.Permissions') }}</label>
-                                                <!--end::Label-->
-                                                <br>
-                                                <strong id="permission_error"
-                                                        class="errors text-danger"
-                                                        role="alert">
-                                                </strong>
-                                                <br>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="col-md-12 mb-7">
+                                            <!--begin::Label-->
+                                            <!--begin::Label-->
+                                            <label
+                                                class="required fw-semibold fs-6 mb-2">{{ __('role.Permissions') }}</label>
+                                            <!--end::Label-->
+                                            <br>
+                                            <strong id="permission_error"
+                                                    class="errors text-danger"
+                                                    role="alert">
+                                            </strong>
+                                            <br>
 
-                                                <!--begin::Input-->
+                                            {{--                                                <div class="form-check form-check-custom form-check-solid">--}}
+                                            {{--                                                    <input class="form-check-input" type="checkbox" value="1" id="flexCheckChecked" checked="checked" />--}}
+                                            {{--                                                    <label class="form-check-label" for="flexCheckChecked">--}}
+                                            {{--                                                        Checked checkbox--}}
+                                            {{--                                                    </label>--}}
+                                            {{--                                                </div>--}}
+
+                                            <!--begin::Input-->
+                                            <div class="container">
                                                 @foreach($permission as $value)
-                                                    <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name','id' => 'permission[]','name'=>'permission[]','multiple')) }}
-                                                        @lang('permissions.'.$value->name)</label>
-                                                    <br/>
+                                                    <div class="item">
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <input name="permission[]" class="form-check-input"
+                                                                   type="checkbox" value="{{$value->id}}"
+                                                                   id="flexCheckChecked" {{in_array($value->id, $rolePermissions) ? "checked" : ""}} />
+                                                            <label class="form-check-label" for="flexCheckChecked">
+                                                                @lang('permissions.'.$value->name)
+                                                            </label>
+                                                        </div>
+                                                        <br/>
+                                                    </div>
                                                 @endforeach
-
-
                                             </div>
+
+
+                                            {{--                                                @foreach($permission as $value)--}}
+                                            {{--                                                    <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name','id' => 'permission[]','name'=>'permission[]','multiple')) }}--}}
+                                            {{--                                                        @lang('permissions.'.$value->name)</label>--}}
+                                            {{--                                                    <br/>--}}
+                                            {{--                                                @endforeach--}}
+
+
+                                        </div>
 
                                         <!--end::Scroll-->
                                     </form>
@@ -110,7 +143,8 @@
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('roles.index') }}"
-                                   id="kt_ecommerce_edit_user_cancel" class="btn btn-light me-5">{{ __('role.Discard') }}</a>
+                                   id="kt_ecommerce_edit_user_cancel"
+                                   class="btn btn-light me-5">{{ __('role.Discard') }}</a>
                                 <button id="kt_modal_update_user_submit" class="btn btn-primary">
                                     <span class="indicator-label">{{ __('admin.Save') }}</span>
                                     <span class="indicator-progress">{{ __('admin.Please') }}

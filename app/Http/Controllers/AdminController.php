@@ -172,6 +172,8 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->ajax()) {
+//            dd($request->all());
+
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'mobile' => 'required|numeric|digits:10',
@@ -181,7 +183,7 @@ class AdminController extends Controller
                 'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|unique:admins,email,' . $request->id,
                 'password' => $request->password != null ? 'sometimes|string|min:8|max:255' : '',
                 'roles' => 'required',
-                'image' => 'mimes:jpeg,jpg,png|sometimes',
+                'image' => 'required',
             ], [
                 'name.required' => trans("admin.required"),
                 'name.string' => trans("admin.string"),
