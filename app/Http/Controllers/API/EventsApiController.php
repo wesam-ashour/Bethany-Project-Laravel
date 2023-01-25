@@ -39,9 +39,10 @@ class EventsApiController extends Controller
     }
 
     public function register(Request $request){
+
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
-            'email' => 'required|email|string',
+            'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string',
             'mobile' => 'required',
             'address' => 'required',
         ], [
@@ -49,60 +50,62 @@ class EventsApiController extends Controller
             'email.required' => trans("event.email field is required"),
             'mobile.required' => trans("event.mobile field is required"),
             'address.required' => trans("event.address field is required"),
-
-
         ]);
-        if ($validator->fails()){
-            return  $this->setError(400 ,false, $validator->errors()->first() , 400);
+        if($validator->passes()) {
+            $cheak_event_id = EventAPI::find($request->event_id);
+            if ($cheak_event_id) {
+                $checkuser = UserAPI::where('email', $request->email)->where('mobile', $request->mobile)->first();
+                $cheakemail = UserAPI::where('email', '=', $request->email)->get()->first();
+                $cheakmobile = UserAPI::where('mobile', '=', $request->mobile)->get()->first();
+                $eventUser = new EventUserAPI();
 
-
-        }
-        $cheak_event_id = EventAPI::find($request->event_id);
-        if ($cheak_event_id){
-        $user = new UserAPI();
-        $eventUser = new EventUserAPI();
-        $cheakuser = UserAPI::where('email', '=', $request->email)->first();
-        $cheakmobile = UserAPI::where('mobile', '=', $request->mobile)->first();
-        if ($cheakuser && $cheakmobile){
-            $cheak_event_user = EventUserAPI::where('user_id', $cheakuser->id)->where('event_id',$request->event_id)->first();
-            if ($cheak_event_user){
-                return  $this->setError(400 ,false, trans('event.the user already regsiter in this event') , 400);
-            }
-            $eventUser->user_id = $cheakuser->id;
-            $eventUser->event_id = $request->event_id;
-            $eventUser->created_at = Carbon::now();
-            $eventUser->save();
-
-            return  $this->api_response(2,true,trans('event.The event has been successfully registered') , '' , 200);
-
-        }else{
-            if (!$cheakmobile){
-                try {
-                    $user->full_name = $request->full_name;
-                    $user->email = $request->email;
-                    $user->mobile = $request->mobile;
-                    $user->address = $request->address;
-                    $user->created_at = Carbon::now();
-                    $user->updated_at = Carbon::now();
-                    $user->save();
+                //check if user exist
+                if($checkuser == null){
+                    if ($cheakemail){
+                        return $this->setError(400, false, trans('event.The email is already used'), 400);
+                    }
+                    if ($cheakmobile){
+                        return $this->setError(400, false, trans('event.The mobile number is already in use'), 400);
+                    }
+                    try {
+                        $user = new UserAPI();
+                        $user->full_name = $request->full_name;
+                        $user->email = $request->email;
+                        $user->mobile = $request->mobile;
+                        $user->address = $request->address;
+                        $user->created_at = Carbon::now();
+                        $user->updated_at = Carbon::now();
+                        $user->save();
                         Mail::to($request->email)->send(new EmailVerified(DB::getPdo()->lastInsertId()));
                         $eventUser->user_id = DB::getPdo()->lastInsertId();
                         $eventUser->event_id = $request->event_id;
                         $eventUser->created_at = Carbon::now();
                         $eventUser->save();
-
+                        return $this->api_response(200, true, trans('event.The event has been successfully registered'), '', 200);
                     } catch (Exception $e) {
-                        return  $this->setError(400 ,false, trans('event.An error occurred during registration, please try again') , 400);
+                        return $this->setError(400, false, trans('event.An error occurred during registration, please try again'), 400);
                     }
-                return  $this->api_response(2,true,trans('event.The event has been successfully registered') , '' , 200);
 
+                }
+                // Check if the user has been registered for this event before
+                $previous_registration = EventUserAPI::where('user_id', $checkuser->id)->where('event_id', $request->event_id)->first();
+                if ($previous_registration) {
+                    return $this->setError(400, false, trans('event.the user already regsiter in this event'), 400);
+                } else {
+                    // Register the user for the event
+                    EventUserAPI::create([
+                        'user_id' => $checkuser->id,
+                        'event_id' => $request->event_id
+                    ]);
+                    return $this->api_response(2, true, trans('event.The event has been successfully registered'), '', 200);
+                }
+            } else {
+                return $this->setError(400, false, trans('event.The event id not found'), 400);
             }
-            return  $this->setError(400 ,false, trans('event.This mobile number is already in use') , 400);
-        }
         }else{
-            return  $this->setError(400 ,false,trans('event.The event id not found') , 400);
-        }
+            return  $this->setError(400 ,false, $validator->errors()->first() , 400);
 
+        }
     }
 
     public function verified($id){
