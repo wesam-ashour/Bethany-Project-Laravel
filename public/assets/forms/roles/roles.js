@@ -72,7 +72,7 @@ $(function () {
                     $('#kt_ecommerce_forms_table').DataTable().ajax.reload();
                 } else if (response['error']) {
                     Swal.fire({
-                        text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
+                        text: language === "en" ? "Can't delete the role while it given to another users." : "لا يمكن حذف الدور أثناء منحه لمستخدمين آخرين.",
                         icon: "error",
                         buttonsStyling: !1,
                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",

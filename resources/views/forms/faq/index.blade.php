@@ -600,12 +600,9 @@
 
     </script>
     <script type="text/javascript">
+        var token =  $('input[name="csrf-token"]').attr('value');
+
         $(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
 
             $(document).on('click', '#show', function () {
                 let id = $(this).data('id');

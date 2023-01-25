@@ -43,7 +43,7 @@ class TouristController extends Controller
                     return "($lat,$long)";
                 })
                 ->addColumn('QRCode', function ($data) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->QRCode . '" data-original-title="Edit" class="edit btn btn-outline-dark editProduct">'.trans("place.Show").'</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->QRCode . '" data-original-title="Edit" class="edit btn btn-outline-dark editProduct">'.trans("event.show QR").'</a>';
                     return $btn;
                 })
                 ->addColumn('action', function ($data) {

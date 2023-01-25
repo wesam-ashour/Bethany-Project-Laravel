@@ -53,6 +53,7 @@ return [
     'content_Title' => 'Title is required',
     'content_Status' => 'Status is required',
     'content_Status_data' => 'Select an option',
+    'The date cannot be in the past!' => 'The date cannot be in the past!',
 
     'required' => 'This field is required',
     'string' => 'This field must be string',
@@ -61,7 +62,7 @@ return [
     'mimes' => 'Image must be a file of type: jpg,jpeg,png.',
 
     'register' => 'register users',
-    'Send' => 'Send Meesage',
+    'Send' => 'Send Message',
     'Export' => 'Export Report',
     'Full' => 'Full Name',
     'Email' => 'Email',
@@ -76,10 +77,12 @@ return [
     'Loading' => 'Loading...',
     'Oops' => 'No users found!',
     'MessageDescription' => 'Note: A message will be sent only to users who have activated the e-mail',
+    'Oops...' => 'Oops...',
 
     'Pleasewrite' => 'Please write message!',
     'OopsU' => 'Oops',
     'MessageSentDone' => 'Message sent done to all users register!',
+    'show QR' => 'show QR',
 
     'EventsDetails' => 'Event Details',
     'updated' => 'updated by',

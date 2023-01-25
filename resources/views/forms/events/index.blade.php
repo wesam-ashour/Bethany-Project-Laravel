@@ -871,6 +871,61 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
+
+        // Get the input element
+        let input = document.getElementById("kt_datepicker_6");
+
+        // Add a change event listener to the input
+        input.addEventListener("change", function() {
+            // Get the current date
+            let today = new Date();
+
+            // Get the input date
+            let inputDate = new Date(input.value);
+
+            // Compare the input date with the current date
+            if (inputDate < today && inputDate.toDateString() !== today.toDateString()) {
+                // If the input date is in the past and not today, display an error message
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('event.Oops...')',
+                    text: '@lang('event.The date cannot be in the past!')',
+                    footer: ''
+                })
+                input.value = "";
+            }
+        });
+    </script>
+
+    <script>
+
+        // Get the input element
+        let inputs = document.getElementById("kt_datepicker_7");
+
+        // Add a change event listener to the input
+        inputs.addEventListener("change", function() {
+            // Get the current date
+            let today = new Date();
+
+            // Get the input date
+            let inputDate = new Date(inputs.value);
+
+            // Compare the input date with the current date
+            if (inputDate < today && inputDate.toDateString() !== today.toDateString()) {
+                // If the input date is in the past and not today, display an error message
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('event.Oops...')',
+                    text: '@lang('event.The date cannot be in the past!')',
+                    footer: ''
+                })
+                inputs.value = "";
+            }
+        });
+    </script>
+
+
+    <script>
         const actualBtn = document.getElementById('fileupload');
 
         const fileChosen = document.getElementById('file-chosen');

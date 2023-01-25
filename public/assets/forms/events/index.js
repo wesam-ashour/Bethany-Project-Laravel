@@ -106,7 +106,6 @@ $(function () {
                 init: function () {
                     (t = document.querySelector("#kt_ecommerce_forms_table")) && ((e = $(t).DataTable({
                         searchable: true,
-                        serverSide: true,
                         language: {
                             url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
                         },
