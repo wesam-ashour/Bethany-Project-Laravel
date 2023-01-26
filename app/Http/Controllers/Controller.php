@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    
+
     public function api_response($code , $success , $message , $data , $status)
     {
         return response()->json([
@@ -21,8 +21,11 @@ class Controller extends BaseController
         ],$status);
     }
 
-    public function setError($code = 0, $message_or_key = 'Status Message') {
-        $this->setStatus(false, $code, $message_or_key);
-        return $this;
+    public function setError($code, $success , $message,$status) {
+        return response()->json([
+            'code'=> $code,
+            'success' => $success,
+            'message'=>$message,
+        ],$status);
     }
 }
