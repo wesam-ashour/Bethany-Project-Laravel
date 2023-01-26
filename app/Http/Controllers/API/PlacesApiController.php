@@ -28,7 +28,7 @@ class PlacesApiController extends Controller
     {
 
         $p_id = $request->p_id ;
-        $places = PlacesAPI::query()->where('type',1)->get();
+        $places = PlacesAPI::query()->get();
         if ($p_id) {
             $places = PlacesAPI::query()->where('type', 1)->where('id',$p_id)->get();
         }
@@ -40,7 +40,7 @@ class PlacesApiController extends Controller
 
     public function scanned_qr(Request $request){
 
-       $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(),[
             'qr_code' => 'required',
         ], [
             'qr_code.required' => trans("place.qr_code field is required"),
@@ -50,7 +50,7 @@ class PlacesApiController extends Controller
             return response()->json(['error'=>$validator->errors()->all()],409);
 
         }
-        $places = PlacesAPI::query()->where('type',1)->where('QRCode',$request->qr_code)->get()->first();
+        $places = PlacesAPI::query()->where('QRCode',$request->qr_code)->get()->first();
 
         if($places){
             $places->increment('scanned');

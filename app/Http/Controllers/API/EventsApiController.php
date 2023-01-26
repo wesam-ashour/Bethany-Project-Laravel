@@ -28,10 +28,9 @@ class EventsApiController extends Controller
     public function index(Request $request)
     {
         $id = $request->id ;
-
         $events = EventAPI::query()->where('status',1)->orderBy('date', 'asc')->orderBy('time', 'asc')->get();
         if ($id){
-            $events = EventAPI::query()->where('status',1)->where('id',$id)->get();
+            $events = EventAPI::query()->where('status',1)->where('id',$id)->get()->first();
         }
         return  $this->api_response(4,true,trans('event.Events List') , $events , 200);
 
@@ -62,10 +61,10 @@ class EventsApiController extends Controller
                 //check if user exist
                 if($checkuser == null){
                     if ($cheakemail){
-                        return $this->setError(400, false, trans('event.The email is already used'), 400);
+                        return $this->setError(200, true, trans('event.The email is already used'), 200);
                     }
                     if ($cheakmobile){
-                        return $this->setError(400, false, trans('event.The mobile number is already in use'), 400);
+                        return $this->setError(200, true, trans('event.The mobile number is already in use'), 200);
                     }
                     try {
                         $user = new UserAPI();
@@ -83,14 +82,14 @@ class EventsApiController extends Controller
                         $eventUser->save();
                         return $this->api_response(200, true, trans('event.The event has been successfully registered'), '', 200);
                     } catch (Exception $e) {
-                        return $this->setError(400, false, trans('event.An error occurred during registration, please try again'), 400);
+                        return $this->setError(200, false, trans('event.An error occurred during registration, please try again'), 200);
                     }
 
                 }
                 // Check if the user has been registered for this event before
-                $previous_registration = EventUserAPI::where('user_id', $checkuser->id)->where('event_id', $request->event_id)->first();
+                $previous_registration = EventUserAPI::where('user_id', $checkuser->id)->where('event_id', $request->event_id)->get()->first();
                 if ($previous_registration) {
-                    return $this->setError(400, false, trans('event.the user already regsiter in this event'), 400);
+                    return $this->setError(200, true, trans('event.the user already regsiter in this event'), 200);
                 } else {
                     // Register the user for the event
                     EventUserAPI::create([
@@ -100,10 +99,10 @@ class EventsApiController extends Controller
                     return $this->api_response(2, true, trans('event.The event has been successfully registered'), '', 200);
                 }
             } else {
-                return $this->setError(400, false, trans('event.The event id not found'), 400);
+                return $this->setError(200, true, trans('event.The event id not found'), 200);
             }
         }else{
-            return  $this->setError(400 ,false, $validator->errors()->first() , 400);
+            return  $this->setError(200 ,false, $validator->errors()->first() , 200);
 
         }
     }
