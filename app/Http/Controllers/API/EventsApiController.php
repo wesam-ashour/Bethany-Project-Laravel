@@ -29,7 +29,7 @@ class EventsApiController extends Controller
     {
         $id = $request->id ;
 
-        $events = EventAPI::query()->where('status',1)->get();
+        $events = EventAPI::query()->where('status',1)->orderBy('date', 'asc')->orderBy('time', 'asc')->get();
         if ($id){
             $events = EventAPI::query()->where('status',1)->where('id',$id)->get();
         }
