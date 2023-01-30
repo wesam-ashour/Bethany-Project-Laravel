@@ -28,7 +28,7 @@ class EventsApiController extends Controller
     public function index(Request $request)
     {
         $id = $request->id ;
-        $events = EventAPI::query()->where('status',1)->orderBy('date', 'asc')->orderBy('time', 'asc')->get();
+        $events = EventAPI::query()->where('status',1)->orderBy('date', 'DESC')->orderBy('time', 'DESC')->get();
         if ($id){
             $events = EventAPI::query()->where('status',1)->where('id',$id)->get()->first();
         }
