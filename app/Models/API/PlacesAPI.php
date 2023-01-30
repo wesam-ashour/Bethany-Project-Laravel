@@ -15,7 +15,7 @@ class PlacesAPI extends Model
     public $translatable = ['title','description','location'];
     protected $guarded = [];
     protected $hidden = [
-        'type','added_by','updated_at','deleted_at'
+        'added_by','updated_at','deleted_at'
     ];
     protected function title(): Attribute
     {

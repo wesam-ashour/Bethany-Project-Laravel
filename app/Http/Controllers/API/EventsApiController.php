@@ -67,20 +67,20 @@ class EventsApiController extends Controller
                         return $this->setError(200, true, trans('event.The mobile number is already in use'), 200);
                     }
                     try {
-                        $user = new UserAPI();
-                        $user->full_name = $request->full_name;
-                        $user->email = $request->email;
-                        $user->mobile = $request->mobile;
-                        $user->address = $request->address;
-                        $user->created_at = Carbon::now();
-                        $user->updated_at = Carbon::now();
-                        $user->save();
-                        Mail::to($request->email)->send(new EmailVerified(DB::getPdo()->lastInsertId()));
-                        $eventUser->user_id = DB::getPdo()->lastInsertId();
-                        $eventUser->event_id = $request->event_id;
-                        $eventUser->created_at = Carbon::now();
-                        $eventUser->save();
-                        return $this->api_response(200, true, trans('event.The event has been successfully registered'), '', 200);
+                    $user = new UserAPI();
+                    $user->full_name = $request->full_name;
+                    $user->email = $request->email;
+                    $user->mobile = $request->mobile;
+                    $user->address = $request->address;
+                    $user->created_at = Carbon::now();
+                    $user->updated_at = Carbon::now();
+                    $user->save();
+                    Mail::to($request->email)->send(new EmailVerified(DB::getPdo()->lastInsertId()));
+                    $eventUser->user_id = DB::getPdo()->lastInsertId();
+                    $eventUser->event_id = $request->event_id;
+                    $eventUser->created_at = Carbon::now();
+                    $eventUser->save();
+                    return $this->api_response(200, true, trans('event.The event has been successfully registered'), '', 200);
                     } catch (Exception $e) {
                         return $this->setError(200, false, trans('event.An error occurred during registration, please try again'), 200);
                     }

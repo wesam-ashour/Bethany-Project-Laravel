@@ -21,6 +21,7 @@ return new class extends Migration
             $table->time('time');
             $table->string('lat');
             $table->string('long');
+            $table->double('distance');
             $table->longText('address');
             $table->foreignId('added_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->tinyInteger('updated_by')->nullable();

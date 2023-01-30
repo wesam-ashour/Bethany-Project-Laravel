@@ -32,7 +32,7 @@ Route::prefix('places')
     ->name('places')
     ->controller(PlacesApiController::class)
     ->group(function () {
-        Route::get('/', 'index');
+        Route::post('/', 'index');
         Route::post('/scanned_qr', 'scanned_qr');
 
     });

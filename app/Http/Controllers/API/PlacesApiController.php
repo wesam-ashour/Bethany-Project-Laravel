@@ -29,6 +29,30 @@ class PlacesApiController extends Controller
 
         $p_id = $request->p_id ;
         $places = PlacesAPI::query()->get();
+
+        $lat = $request->lat;
+        $lon = $request->long;
+        if ($lat && $lon){
+                $points = $request->input('points');
+                $data = [];
+
+                $earthRadius = 6371;
+                $latFrom = deg2rad($lat);
+                $lonFrom = deg2rad($lon);
+
+                foreach ($places as $point) {
+                    $latTo = deg2rad($point['lat']);
+                    $lonTo = deg2rad($point['long']);
+                    $latDelta = $latTo - $latFrom;
+                    $lonDelta = $lonTo - $lonFrom;
+                    $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+                            cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+                    $distance = $angle * $earthRadius;
+                    $point['distance'] = (int)($distance*1000 / 10) * 10 + 9;
+                    $data[] = $point;
+
+                }
+        }
         if ($p_id) {
             $places = PlacesAPI::query()->where('type', 1)->where('id',$p_id)->get();
         }
@@ -40,7 +64,7 @@ class PlacesApiController extends Controller
 
     public function scanned_qr(Request $request){
 
-        $validator = Validator::make($request->all(),[
+       $validator = Validator::make($request->all(),[
             'qr_code' => 'required',
         ], [
             'qr_code.required' => trans("place.qr_code field is required"),
