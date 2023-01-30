@@ -9,7 +9,64 @@ $(function () {
         get_forms();
         /*Table Actions*/
         table_function();
+        $(document).on('click', '#delete', function () {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            confirm_delete(id,name);
+        });
     });
+
+    function confirm_delete(id,name) {
+        const o = "sads";
+        Swal.fire({
+            text: language === "en" ? "Are you sure you want to delete this item?" : "هل أنت متأكد أنك تريد حذف هذا البند؟",
+            icon: "warning",
+            showCancelButton: !0,
+            buttonsStyling: !1,
+            confirmButtonText: language === "en" ? "Yes, delete!" : "نعم ، احذف!",
+            cancelButtonText: language === "en" ? "No, cancel" : "لا ، إلغاء",
+            customClass: {
+                confirmButton: "btn fw-bold btn-danger",
+                cancelButton: "btn fw-bold btn-active-light-primary"
+            }
+        });
+        var confirm_delete = document.getElementsByClassName("swal2-confirm");
+        confirm_delete[0].addEventListener('click', function () {
+            delete_user(id,name);
+        });
+    }
+
+    function delete_user(id,name) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "DELETE",
+            url: base_path + language +  "/DeleteUserRegister/" + id,
+            data: {"event_id":name},
+            success: function (response) {
+                if (response['success']) {
+                    Swal.fire({
+                        text: language === "en" ? "You have deleted the item!." : "لقد قمت بحذف العنصر !.",
+                        icon: "success",
+                        buttonsStyling: !1,
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
+                        customClass: {confirmButton: "btn fw-bold btn-primary"}
+                    });
+                    $('#kt_ecommerce_forms_table').DataTable().ajax.reload();
+                } else if (response['error']) {
+                    Swal.fire({
+                        text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
+                        icon: "error",
+                        buttonsStyling: !1,
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
+                        customClass: {confirmButton: "btn fw-bold btn-primary"}
+                    });
+                }
+            }
+        });
+    }
+
 
     function table_function() {
         form_status();
@@ -163,6 +220,10 @@ $(function () {
                             {
                                 data: 'created_at',
                                 name: 'created_at'
+                            },
+                            {
+                                data: 'action',
+                                name: 'action'
                             },
 
                         ]

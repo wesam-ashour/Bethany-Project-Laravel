@@ -335,6 +335,7 @@ class EventController extends Controller
     public function register(Request $request, $id)
     {
         $event = Event::find($id);
+
         if ($request->ajax()) {
             $event = Event::find($request->id)->id;
             $data = DB::table('event_user')->where('event_id', '=', $event)->get();
@@ -352,10 +353,36 @@ class EventController extends Controller
                     return ($user == 'true') ? '<div class="badge badge-light-success">' . trans("user.true") . '</div>' : '<div class="badge badge-light-danger">' . trans("user.false") . '</div>';
 
                 })
+                ->addColumn('action', function ($data) use ($id) {
+                    $action = '<div class="text-center">
+                            <div class="btn-group dropstart text-center">
+                                  <button type="button" class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="svg-icon svg-icon-5 m-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                      height="24" viewBox="0 0 24 24" fill="none">
+									<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                      fill="black"/>
+									</svg>
+									</span>' . trans("event.Actions") . '
+                                  </button>
+                                  <div class="dropdown-menu">';
+
+
+//                    if (\auth()->user()->can('event-delete')) {
+                        $action = $action . '<div id="delete" data-id="' . $data->user_id . '" data-name=" ' .$id . '" class="menu-item px-3" data-kt-docs-table-filter="delete_row">
+                                        <a data-kt-docs-table-filter="delete_row"
+                                           class="menu-link px-3">' . trans("event.Delete") . '</a>
+                                    </div>';
+//                    }
+
+                    $action = $action . '</div></div></div>';
+                    return $action;
+
+                })
                 ->escapeColumns([])
                 ->make(true);
         }
-        return view('forms.events.register', compact('event'));
+        return view('forms.events.register', compact('event','id'));
     }
 
     public function sendMessage(Request $request)
@@ -388,6 +415,49 @@ class EventController extends Controller
             }
         }
 
+    }
+
+    public function registerUsers(Request $request){
+        if ($request->ajax()) {
+//            dd($request->all());
+            $validator = Validator::make($request->all(), [
+                'id' => 'required|numeric',
+                'users' => 'required|array',
+            ], [
+                'id.required' => trans("event.required"),
+                'id.numeric' => trans("event.numeric"),
+                'users.required' => trans("event.required"),
+                'users.array' => trans("event.array"),
+            ]);
+
+            if ($validator->passes()) {
+                foreach ($request->users as $user){
+                    $result = DB::table('event_user')->insert([
+                        'user_id' => $user,
+                        'event_id' => $request->id,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
+                return response()->json(['success' => $result]);
+            }else{
+                return response()->json(['error' => $validator->errors()->toArray()]);
+            }
+        }
+    }
+
+    public function getUnRegisterUsers(Request $request){
+        $registeredUsers = DB::table('event_user')->where('event_id', $request->id)->pluck('user_id')->toArray();
+        $allUsers = User::whereNotIn('id', $registeredUsers)->get();
+        return response()->json($allUsers);
+    }
+
+    public function DeleteUserRegister(Request $request,$id){
+        if ($request->ajax()) {
+            $data = DB::table('event_user')->where('event_id', $request->event_id)->where('user_id', $id)->delete();
+            return response()->json(['success' => "success"]);
+        }
+        return response()->json(['error' => "error"]);
     }
 
 

@@ -1,14 +1,33 @@
 $(function () {
     const
         app_url = $('#app_url').val(),
-        name = $('#name').val(),
-        mobile = $('#mobile').val(),
-        email = $("#email").val(),
-        user_name = $("#user_name").val(),
-        address = $("#address").val(),
-        password = $("#password").val(),
-        language = $('#language').val(),
-        roles = $("#roles").val();
+        title = $('#title').val(),
+        location = $('#location').val(),
+        description = $("#description").val(),
+        lat = $("#lat").val(),
+        long = $("#long").val(),
+        uniqid = $("#uniqid").val(),
+        language = $("#language").val();
+
+    $(document).ready(function() {
+        $('#save').click(function() {
+            let id = $(this).data('id');
+            $.ajax({
+                url: base_path + language  + "/" + "event/getUnRegisterUsers",
+                type: 'GET',
+                data: {"id":id},
+                success: function(response) {
+                    var allUsers = response;
+                    var options = '';
+                    allUsers.forEach(function(user) {
+                        options += '<option value="' + user.id + '">' + user.full_name +' -- '+ user.email + '</option>';
+                    });
+                    $('#users').html(options);
+                }
+            });
+        });
+    });
+
 
     $(document).ready(function () {
 
@@ -26,6 +45,11 @@ $(function () {
                 init: function () {
                     (() => {
                         var o = FormValidation.formValidation(e, {
+                            fields: {
+                                title: {
+                                    validators: {}
+                                }
+                            },
                             plugins: {
                                 trigger: new FormValidation.plugins.Trigger,
                                 bootstrap: new FormValidation.plugins.Bootstrap5({
@@ -49,7 +73,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        "url": base_path + language + "/admins",
+                                        "url": base_path + language + "/" + "event/registerUsers",
                                         data: formData,
                                         processData: false,  // tell jQuery not to process the data
                                         contentType: false,
@@ -64,6 +88,9 @@ $(function () {
                                                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                         customClass: {confirmButton: "btn btn-primary"}
                                                     }).then((function (t) {
+                                                        $('#users').val(null).trigger('change');
+                                                        $("#users").trigger("change");
+                                                        e.reset();
                                                         t.isConfirmed && n.hide()
                                                     }))
                                                 }), 2e3));
@@ -102,7 +129,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$( ".errors" ).empty(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(), $(".errors").empty(), $('#image_id').remove(), $(".containerss").append("<div id='image_div'></div>"), $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -120,7 +147,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$( ".errors" ).empty(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(), $(".errors").empty(), $('#image_id').remove(), $(".containerss").append("<div id='image_div'></div>") , $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,

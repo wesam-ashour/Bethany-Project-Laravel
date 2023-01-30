@@ -57,6 +57,10 @@ Route::group(['middleware' => ['auth','localeSessionRedirect', 'localizationRedi
     Route::post('showQr/', [PlaceController::class, 'showQr'])->name('showQr');
     Route::get('pdf/{id}', [PlaceController::class, 'generatePDF']);
     Route::get('event/register/{id}', [EventController::class, 'register']);
+    Route::post('event/registerUsers', [EventController::class, 'registerUsers']);
+    Route::get('event/getUnRegisterUsers', [EventController::class, 'getUnRegisterUsers']);
+    Route::delete('DeleteUserRegister/{id}', [EventController::class, 'DeleteUserRegister']);
+
     Route::post('event/send/message/', [EventController::class, 'sendMessage'])->name('sendMessage');
 
 });

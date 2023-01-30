@@ -160,10 +160,13 @@ $(function () {
                                 data: 'email_verified',
                                 name: 'email_verified'
                             },
-
                             {
                                 data: 'address',
                                 name: 'address'
+                            },
+                            {
+                                data: 'action',
+                                name: 'action'
                             },
                         ]
                     })).on("draw", (function () {
