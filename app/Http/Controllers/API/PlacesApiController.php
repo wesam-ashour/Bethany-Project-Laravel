@@ -26,9 +26,12 @@ class PlacesApiController extends Controller
     //
     public function index(Request $request)
     {
+
         $p_id = $request->p_id ;
         $places = PlacesAPI::query()->get();
-
+        if ($p_id) {
+            $places = PlacesAPI::query()->where('id','=',$p_id)->get();
+        }
         $lat = $request->lat;
         $lon = $request->long;
         if ($lat && $lon){
@@ -52,15 +55,11 @@ class PlacesApiController extends Controller
 
             }
         }
-        if ($p_id) {
-            $places = PlacesAPI::query()->find($p_id);
-            if ($places)
-                return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.Places list') , $places , 200);
-            else
-                return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.place not found') , '' , 200);
 
-        }
-        return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.Places list') , $places , 200);
+        if ($places)
+            return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.Places list') , $places , 200);
+        else
+            return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.place not found') , '' , 200);
 
     }
 
