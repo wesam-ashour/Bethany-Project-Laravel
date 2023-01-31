@@ -26,39 +26,41 @@ class PlacesApiController extends Controller
     //
     public function index(Request $request)
     {
-
         $p_id = $request->p_id ;
         $places = PlacesAPI::query()->get();
 
         $lat = $request->lat;
         $lon = $request->long;
         if ($lat && $lon){
-                $points = $request->input('points');
-                $data = [];
+            $points = $request->input('points');
+            $data = [];
 
-                $earthRadius = 6371;
-                $latFrom = deg2rad($lat);
-                $lonFrom = deg2rad($lon);
+            $earthRadius = 6371;
+            $latFrom = deg2rad($lat);
+            $lonFrom = deg2rad($lon);
 
-                foreach ($places as $point) {
-                    $latTo = deg2rad($point['lat']);
-                    $lonTo = deg2rad($point['long']);
-                    $latDelta = $latTo - $latFrom;
-                    $lonDelta = $lonTo - $lonFrom;
-                    $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
-                            cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
-                    $distance = $angle * $earthRadius;
-                    $point['distance'] = (int)($distance*1000 / 10) * 10 + 9;
-                    $data[] = $point;
+            foreach ($places as $point) {
+                $latTo = deg2rad($point['lat']);
+                $lonTo = deg2rad($point['long']);
+                $latDelta = $latTo - $latFrom;
+                $lonDelta = $lonTo - $lonFrom;
+                $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+                        cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+                $distance = $angle * $earthRadius;
+                $point['distance'] = ($distance*1000);
+                $data[] = $point;
 
-                }
+            }
         }
         if ($p_id) {
-            $places = PlacesAPI::query()->where('type', 1)->where('id',$p_id)->get();
+            $places = PlacesAPI::query()->find($p_id);
+            if ($places)
+                return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.Places list') , $places , 200);
+            else
+                return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.place not found') , '' , 200);
+
         }
         return  $this->api_response(JsonResponse::HTTP_ACCEPTED,true,trans('place.Places list') , $places , 200);
-
-
 
     }
 
