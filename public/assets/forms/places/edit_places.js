@@ -49,6 +49,7 @@ $(function () {
                             }).then((function (t) {
                                 $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                 $('#image_id_u').remove();
+                                $("#uniqid_edit").val(" ");
                                 $( ".containers" ).append( "<div id='image_div_u'></div>" );
                                 $( ".errors" ).empty();
                                 t.value && n.hide()
@@ -63,7 +64,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id_u').remove(),$( ".containers" ).append( "<div id='image_div_u'></div>" ),$("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$( ".errors" ).empty(),$('#image_id_u').remove(),$("#uniqid_edit").val(" "),$( ".containers" ).append( "<div id='image_div_u'></div>" ),$("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -95,6 +96,7 @@ $(function () {
                                             if ($.isEmptyObject(response.error)) {
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {
                                                     $('#image_id_u').remove();
+                                                    $("#uniqid_edit").val(" ");
                                                     $( ".containers" ).append( "<div id='image_div_u'></div>" );
                                                     i.removeAttribute("data-kt-indicator"), i.disabled = !1,
                                                         Swal.fire({

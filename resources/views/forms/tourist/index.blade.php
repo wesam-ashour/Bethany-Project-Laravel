@@ -312,14 +312,16 @@
                                                             <div>
                                                                 <button type="button" class="btn btn-primary gen classroomLikes">{{ __('place.Generate') }}
                                                                 </button>
+                                                                <br>
+                                                                <br>
+                                                                <div class="containerss">
 
+                                                                </div>
                                                             </div>
                                                             <strong id="uniqid_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                             <br><br>
-                                                            <div class="containerss">
 
-                                                            </div>
 
                                                             <!--end::Input-->
                                                         </div>
@@ -631,14 +633,16 @@
                                                             <div>
                                                                 <button type="button" class="btn btn-primary gen classroomLike">{{ __('place.Generate') }}
                                                                 </button>
+                                                                <br>
+                                                                <br>
+                                                                <div class="containers">
 
+                                                                </div>
                                                             </div>
                                                             <strong id="uniqid_edit_update_error" class="errors text-danger"
                                                                     role="alert"></strong>
                                                             <br><br>
-                                                            <div class="containers">
 
-                                                            </div>
 
                                                             <!--end::Input-->
                                                         </div>
@@ -855,8 +859,14 @@
                     success: function (respons) {
                         $('#image_id').remove();
                         $( ".containerss" ).append( "<div id='image_div'></div>" );
+                        var res = "";
+                        if ( $('#language').val() === 'en') {
+                            res = "QR code generated successfully";
+                        }else{
+                            res = "تم انشاء رمز qr بنجاح";
+                        }
                         var result = respons;
-                        var img = $('<img id="image_id">');
+                        var img = $('<p style="color: forestgreen;font-weight: bold" id="image_id">' + res  + '</p>');
                         jQuery('#uniqid').val(result.id);
                         img.attr('src', result.qr);
                         img.appendTo('#image_div');
@@ -876,8 +886,14 @@
                     success: function (respons) {
                         $('#image_id_u').remove();
                         $( ".containers" ).append( "<div id='image_div_u'></div>" );
+                        var res = "";
+                        if ( $('#language').val() === 'en') {
+                            res = "QR code generated successfully";
+                        }else{
+                            res = "تم انشاء رمز qr بنجاح";
+                        }
                         var result = respons;
-                        var img = $('<img id="image_id_u">');
+                        var img = $('<p style="color: forestgreen;font-weight: bold" id="image_id_u">' + res  + '</p>');
                         jQuery('#uniqid_edit').val(result.id);
                         img.attr('src', result.qr);
                         img.appendTo('#image_div_u');
